@@ -1,9 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEditor;
-using UnityEngine;
+﻿using UnityEngine;
 
-[RequireComponent (typeof (Camera))]
+[RequireComponent(typeof(Camera))]
 public class CameraSizeFitter : MonoBehaviour
 {
     #region fields
@@ -32,7 +29,8 @@ public class CameraSizeFitter : MonoBehaviour
     #region init
     private void Awake()
     {
-        if (isPortrait) {
+        if (isPortrait)
+        {
             defaultAspectRatio = defaultHeight / defaultWidth;
             screenAspectRatio = (float)Screen.height / Screen.width;
         }

@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -38,7 +37,7 @@ public class LevelFileCreator : MonoBehaviour
         return treeModules;
     }
 
-    private TreeModuleModel GetSampleTreeModule(int moduleIdx)
+    private TreeModuleModel GetSampleTreeModule(int moduleId)
     {
         int treeModuleLastIndex = FilenameDictionary.DEFAULT_TREE_MODULES_NAMES.Length;
         int randomTreeModuleIndex = Random.Range(
@@ -48,7 +47,7 @@ public class LevelFileCreator : MonoBehaviour
         return new TreeModuleModel
         {
             spriteName = FilenameDictionary.DEFAULT_TREE_MODULES_NAMES[randomTreeModuleIndex],
-            moduleIdx = moduleIdx,
+            moduleID = moduleId,
             branch = new BranchModel
             {
                 spriteName = FilenameDictionary.DEFAULT_BROKEN_BRANCH_NAMES[0],

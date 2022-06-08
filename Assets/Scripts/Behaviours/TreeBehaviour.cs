@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class TreeBehaviour : MonoBehaviour
@@ -11,19 +9,22 @@ public class TreeBehaviour : MonoBehaviour
     {
         speed = newSpeed;
     }
-    void FixedUpdate()
+
+    private void FixedUpdate()
     {
         Move();
         ManageTrees();
     }
-    void Move()
+
+    private void Move()
     {
         if (shouldMove)
         {
             transform.Translate(Vector2.up * Time.fixedDeltaTime * speed);
         }
     }
-    void ManageTrees()
+
+    private void ManageTrees()
     {
         if (transform.position.y >= TreeModulesManager.NEW_TREE_MODULE_INIT_POSITION.y
             && !createdNewTree)

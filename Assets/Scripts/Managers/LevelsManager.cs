@@ -1,7 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.IO;
 using UnityEngine;
 
 public class LevelsManager : MonoBehaviour
@@ -22,14 +18,14 @@ public class LevelsManager : MonoBehaviour
         TreeModulesManager.currentLevelModules = currentLevel.treeModules;
     }
     #endregion
-    
+
 
     private void Start()
     {
     }
     public static LevelModel LoadLevel(int levelIdx)
     {
-        string levelName =  LEVEL_NAME + levelIdx;
+        string levelName = LEVEL_NAME + levelIdx;
         return SaveLoadFile.LoadFromJson<LevelModel>(PathsDictionary.LEVELS, levelName);
     }
 };

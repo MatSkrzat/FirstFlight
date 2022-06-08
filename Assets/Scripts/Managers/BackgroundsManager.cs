@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -19,7 +18,7 @@ public class BackgroundsManager : MonoBehaviour
     public static GameObject backgroundPrefab;
     public static readonly Vector2 INITIALIZE_POSITION = new Vector2(0, -20);
     public static readonly Vector2 DESTRUCTION_POSITION = new Vector2(0, 20);
-    public static readonly Vector2 NEW_BACKGROUND_INIT_POSITION  = new Vector2(0, 4);
+    public static readonly Vector2 NEW_BACKGROUND_INIT_POSITION = new Vector2(0, 4);
 
     public void Start()
     {
@@ -29,8 +28,8 @@ public class BackgroundsManager : MonoBehaviour
     }
     public static void ManageBackgrounds()
     {
-            InitializeNewBackground();
-            DestroyOldBackgrounds();
+        InitializeNewBackground();
+        DestroyOldBackgrounds();
     }
     private static void InitializeNewBackground()
     {

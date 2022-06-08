@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [Serializable]
@@ -22,8 +20,9 @@ public class SpriteComponent
     {
         return Sprite.Create(Texture.ToTexture(), Rect.ToRect(), Pivot.ToVector2(), PixelsPerUnit);
     }
-    public void FromSprite(Sprite sprite, string texturePath = null) {
-        if(texturePath != null)
+    public void FromSprite(Sprite sprite, string texturePath = null)
+    {
+        if (texturePath != null)
         {
             Texture = new TextureComponent(sprite.texture, texturePath);
         }
@@ -34,7 +33,7 @@ public class SpriteComponent
         PixelsPerUnit = sprite.pixelsPerUnit;
         Pivot = new VectorComponent(
             new Vector2(
-                sprite.pivot.x / sprite.rect.width, 
+                sprite.pivot.x / sprite.rect.width,
                 sprite.pivot.y / sprite.rect.height
                 )
             );

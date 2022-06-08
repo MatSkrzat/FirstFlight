@@ -1,7 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
 public static class PathsDictionary
 {
     public static string BACKGROUND_DEFAULT { get; } = "Textures/Backgrounds/Default/";

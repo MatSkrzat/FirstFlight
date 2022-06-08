@@ -1,7 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
 public static class FilenameDictionary
 {
     #region backgrounds
@@ -13,7 +9,7 @@ public static class FilenameDictionary
     public static string LEVELS_TEMPLATE { get; } = "levelsTemplate";
     #endregion
     #region tree_modules
-    public static string[] DEFAULT_TREE_MODULES_NAMES { get; } = new string[] { "tree1", "tree2" , "tree3" , "tree4" , "tree5" };
+    public static string[] DEFAULT_TREE_MODULES_NAMES { get; } = new string[] { "tree1", "tree2", "tree3", "tree4", "tree5" };
     public static string TREE_PREFAB { get; } = "TreeModule";
     #endregion
     #region branches

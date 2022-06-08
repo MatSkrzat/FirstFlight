@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class BackgroundBehaviour : MonoBehaviour
@@ -11,21 +9,24 @@ public class BackgroundBehaviour : MonoBehaviour
     {
         speed = newSpeed;
     }
-    void FixedUpdate()
+
+    private void FixedUpdate()
     {
         Move();
         ManageBackgrounds();
     }
-    void Move()
+
+    private void Move()
     {
-        if(shouldMove)
+        if (shouldMove)
         {
             transform.Translate(Vector2.up * Time.fixedDeltaTime * speed);
         }
     }
-    void ManageBackgrounds()
+
+    private void ManageBackgrounds()
     {
-        if(transform.position.y >= BackgroundsManager.NEW_BACKGROUND_INIT_POSITION.y 
+        if (transform.position.y >= BackgroundsManager.NEW_BACKGROUND_INIT_POSITION.y
             && !createdNewBackground)
         {
             BackgroundsManager.ManageBackgrounds();

@@ -1,15 +1,12 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 
 public static class SaveLoadFile
 {
-
     public static void SaveAsJSON<T>(T data, string path, string fileName)
     {
-        if(!Directory.Exists(path))
+        if (!Directory.Exists(path))
         {
             Directory.CreateDirectory(path);
             Debug.Log("Path doesn't exist: " + path + " Creating one");

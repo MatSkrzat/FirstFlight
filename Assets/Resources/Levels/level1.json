@@ -1,1 +1,57 @@
-{"treeModules":[{"spriteName":"tree1","moduleIdx":0,"flipX":false,"branch":{"spriteName":"broken_branch1","side":76}},{"spriteName":"tree2","moduleIdx":1,"flipX":false,"branch":{"spriteName":"broken_branch1","side":76}},{"spriteName":"tree3","moduleIdx":2,"flipX":false,"branch":{"spriteName":"broken_branch1","side":76}},{"spriteName":"tree2","moduleIdx":3,"flipX":false,"branch":{"spriteName":"broken_branch1","side":76}},{"spriteName":"tree2","moduleIdx":4,"flipX":false,"branch":{"spriteName":"broken_branch1","side":76}},{"spriteName":"tree5","moduleIdx":5,"flipX":false,"branch":{"spriteName":"broken_branch1","side":76}},{"spriteName":"tree4","moduleIdx":6,"flipX":false,"branch":{"spriteName":"broken_branch1","side":76}},{"spriteName":"tree4","moduleIdx":7,"flipX":false,"branch":{"spriteName":"broken_branch1","side":76}}],"backgroundsPath":"Textures/Backgrounds/Default/","treeModulesPath":"Textures/TreeModules/Default/Roots/","branchesPath":"Textures/TreeModules/Default/Branches/","startSpeed":5.0,"endSpeed":10.0}
+{
+  "treeModules": [
+    {
+      "spriteName": "tree2",
+      "moduleID": 0,
+      "flipX": false,
+      "branch": { "spriteName": "broken_branch1", "side": 76 }
+    },
+    {
+      "spriteName": "tree5",
+      "moduleID": 1,
+      "flipX": false,
+      "branch": { "spriteName": "broken_branch1", "side": 76 }
+    },
+    {
+      "spriteName": "tree4",
+      "moduleID": 2,
+      "flipX": false,
+      "branch": { "spriteName": "broken_branch1", "side": 76 }
+    },
+    {
+      "spriteName": "tree4",
+      "moduleID": 3,
+      "flipX": false,
+      "branch": { "spriteName": "broken_branch1", "side": 76 }
+    },
+    {
+      "spriteName": "tree2",
+      "moduleID": 4,
+      "flipX": false,
+      "branch": { "spriteName": "broken_branch1", "side": 76 }
+    },
+    {
+      "spriteName": "tree4",
+      "moduleID": 5,
+      "flipX": false,
+      "branch": { "spriteName": "broken_branch1", "side": 76 }
+    },
+    {
+      "spriteName": "tree4",
+      "moduleID": 6,
+      "flipX": false,
+      "branch": { "spriteName": "broken_branch1", "side": 76 }
+    },
+    {
+      "spriteName": "tree4",
+      "moduleID": 7,
+      "flipX": false,
+      "branch": { "spriteName": "broken_branch1", "side": 76 }
+    }
+  ],
+  "backgroundsPath": "Textures/Backgrounds/Default/",
+  "treeModulesPath": "Textures/TreeModules/Default/Roots/",
+  "branchesPath": "Textures/TreeModules/Default/Branches/",
+  "startSpeed": 5.0,
+  "endSpeed": 10.0
+}

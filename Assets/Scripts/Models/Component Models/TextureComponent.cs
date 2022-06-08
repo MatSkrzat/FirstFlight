@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [Serializable]
@@ -11,7 +9,7 @@ public class TextureComponent
 
     public TextureComponent(Texture2D texture2D, string texturePath = null)
     {
-        if(texturePath != null)
+        if (texturePath != null)
         {
             FromTexture(texture2D, texturePath);
         }

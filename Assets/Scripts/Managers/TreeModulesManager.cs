@@ -21,11 +21,14 @@ public class TreeModulesManager : MonoBehaviour
     public static readonly Vector2 DESTRUCTION_POSITION = new Vector2(0, 10);
     public static readonly Vector2 NEW_TREE_MODULE_INIT_POSITION = new Vector2(0, -7);
 
+    private static int currentModuleID = 0;
+
     public void Start()
     {
         treeModulePrefab = Resources.Load<GameObject>(
             PathsDictionary.CreateFullPath(PathsDictionary.PREFABS, FilenameDictionary.TREE_PREFAB));
         InitializeNewTreeModule();
+        currentModuleID = LevelsManager.currentLevel.treeModules.First().moduleID;
     }
     public static void ManageTreeModules()
     {
@@ -37,8 +40,12 @@ public class TreeModulesManager : MonoBehaviour
         var newTreeModule = Instantiate(treeModulePrefab, INITIALIZE_POSITION, Quaternion.identity);
         var treeModuleSpriteRenderer = newTreeModule.GetComponent<SpriteRenderer>();
 
-        treeModuleSpriteRenderer.sprite = LoadSprite(LevelsManager.currentLevel.treeModulesPath);
-        treeModuleSpriteRenderer.flipX = Random.value > 0.5F;
+        treeModuleSpriteRenderer.sprite = LoadSprite(
+            LevelsManager.currentLevel.treeModulesPath,
+            LevelsManager.currentLevel.treeModules[currentModuleID].spriteName,
+            ref currentModuleID
+        );
+        treeModuleSpriteRenderer.flipX = LevelsManager.currentLevel.treeModules[currentModuleID].flipX;
 
         var treeBehaviour = newTreeModule.GetComponent<TreeBehaviour>();
         treeBehaviour.shouldMove = true;
@@ -47,14 +54,11 @@ public class TreeModulesManager : MonoBehaviour
         treeModulesPrefabsPool.Add(newTreeModule);
     }
 
-    private static Sprite LoadSprite(string treesPath)
+    private static Sprite LoadSprite(string treesModulesPath, string spriteName, ref int moduleID)
     {
-        var path = treesPath +
-              FilenameDictionary.DEFAULT_TREE_MODULES_NAMES[
-                  Random.Range(0, FilenameDictionary.DEFAULT_TREE_MODULES_NAMES.Length)
-              ];
+        var path = treesModulesPath + spriteName;
         var sprite = Resources.Load<Sprite>(path);
-        Debug.Log(path);
+        moduleID++;
         return sprite;
     }
 

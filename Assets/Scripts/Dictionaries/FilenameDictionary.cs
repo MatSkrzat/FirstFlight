@@ -5,7 +5,7 @@ public static class FilenameDictionary
     public static string BACKGROUND_PREFAB { get; } = "Background";
     #endregion
     #region levels
-    public static string LEVEL1 { get; } = "level1";
+    public static string LEVEL0 { get; } = "level0";
     public static string LEVELS_TEMPLATE { get; } = "levelsTemplate";
     #endregion
     #region tree_modules

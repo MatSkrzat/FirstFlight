@@ -11,7 +11,7 @@ public static class SaveLoadFile
             Directory.CreateDirectory(path);
             Debug.Log("Path doesn't exist: " + path + " Creating one");
         }
-        File.WriteAllText(String.Format("Assets/Resources/{0}/{1}.json", path, fileName), JsonUtility.ToJson(data));
+        File.WriteAllText(string.Format("Assets/Resources/{0}/{1}.json", path, fileName), JsonUtility.ToJson(data));
     }
 
     public static void SaveAsBinary<T>(T data, string path, string fileName)
@@ -21,7 +21,7 @@ public static class SaveLoadFile
 
     public static T LoadFromJson<T>(string path, string fileName)
     {
-        string filePath = String.Format("Assets/Resources/{0}/{1}.json", path, fileName);
+        string filePath = string.Format("Assets/Resources/{0}/{1}.json", path, fileName);
         if (File.Exists(filePath))
         {
             return JsonUtility.FromJson<T>(File.ReadAllText(filePath));

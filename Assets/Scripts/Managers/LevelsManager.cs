@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class LevelsManager : MonoBehaviour
 {
+    public const int INITIAL_LEVEL = 0;
     public const string LEVEL_NAME = "level";
     public static LevelModel currentLevel = new LevelModel();
 
@@ -14,7 +15,7 @@ public class LevelsManager : MonoBehaviour
             instance = this;
         }
         //TODO: Create a better way to load all resources and levels
-        currentLevel = LoadLevel(1);
+        currentLevel = LoadLevel(INITIAL_LEVEL);
         TreeModulesManager.currentLevelModules = currentLevel.treeModules;
     }
     #endregion
@@ -23,9 +24,9 @@ public class LevelsManager : MonoBehaviour
     private void Start()
     {
     }
-    public static LevelModel LoadLevel(int levelIdx)
+    public static LevelModel LoadLevel(int levelID)
     {
-        string levelName = LEVEL_NAME + levelIdx;
+        string levelName = LEVEL_NAME + levelID;
         return SaveLoadFile.LoadFromJson<LevelModel>(PathsDictionary.LEVELS, levelName);
     }
 };

@@ -10,6 +10,7 @@ public class LevelFileCreator : MonoBehaviour
         {
             LevelModel level = new LevelModel()
             {
+                ID = 0,
                 treeModules = GetSampleTreeModules(),
                 backgroundsPath = PathsDictionary.BACKGROUND_DEFAULT,
                 treeModulesPath = PathsDictionary.TREE_MODULES,
@@ -18,7 +19,7 @@ public class LevelFileCreator : MonoBehaviour
                 startSpeed = 5f
             };
             SaveLoadFile.SaveAsJSON(level, PathsDictionary.LEVELS, FilenameDictionary.LEVELS_TEMPLATE);
-            SaveLoadFile.SaveAsJSON(level, PathsDictionary.LEVELS, FilenameDictionary.LEVEL1);
+            SaveLoadFile.SaveAsJSON(level, PathsDictionary.LEVELS, FilenameDictionary.LEVEL0);
             Debug.Log("** Level template created!");
         }
     }

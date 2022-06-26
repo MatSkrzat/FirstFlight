@@ -2,6 +2,12 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
+public enum TreeModuleChildren
+{
+    branch,
+    brokenBranch
+}
+
 public class TreeModulesManager : MonoBehaviour
 {
     #region STATIC
@@ -30,11 +36,13 @@ public class TreeModulesManager : MonoBehaviour
         InitializeNewTreeModule();
         currentModuleID = LevelsManager.currentLevel.treeModules.First().moduleID;
     }
+
     public static void ManageTreeModules()
     {
         InitializeNewTreeModule();
         DestroyOldTreeModules();
     }
+
     private static void InitializeNewTreeModule()
     {
         var newTreeModule = Instantiate(treeModulePrefab, INITIALIZE_POSITION, Quaternion.identity);
@@ -42,8 +50,7 @@ public class TreeModulesManager : MonoBehaviour
 
         treeModuleSpriteRenderer.sprite = LoadSprite(
             LevelsManager.currentLevel.treeModulesPath,
-            LevelsManager.currentLevel.treeModules[currentModuleID].spriteName,
-            ref currentModuleID
+            LevelsManager.currentLevel.treeModules[currentModuleID].spriteName
         );
         treeModuleSpriteRenderer.flipX = LevelsManager.currentLevel.treeModules[currentModuleID].flipX;
 
@@ -51,14 +58,43 @@ public class TreeModulesManager : MonoBehaviour
         treeBehaviour.shouldMove = true;
         treeBehaviour.ChangeSpeed(LevelsManager.currentLevel.endSpeed);
 
+        SetupBranchForTreeModule(newTreeModule);
+
+        currentModuleID++;
+
         treeModulesPrefabsPool.Add(newTreeModule);
     }
 
-    private static Sprite LoadSprite(string treesModulesPath, string spriteName, ref int moduleID)
+    private static void SetupBranchForTreeModule(GameObject treeModule)
     {
-        var path = treesModulesPath + spriteName;
-        var sprite = Resources.Load<Sprite>(path);
-        moduleID++;
+        var branchGameObject = treeModule.transform.GetChild((int)TreeModuleChildren.branch).gameObject;
+        if (branchGameObject == null) return;
+        var branchSpriteRenderer = branchGameObject.GetComponent<SpriteRenderer>();
+        if (branchSpriteRenderer == null) return;
+
+        branchGameObject.SetActive(true);
+
+        //loading branch sprite
+        branchSpriteRenderer.sprite = LoadSprite(
+            LevelsManager.currentLevel.branchesPath,
+            LevelsManager.currentLevel.treeModules[currentModuleID].branch.spriteName
+        );
+
+        //flipping sprite if side is RIGHT
+        if (LevelsManager.currentLevel.treeModules[currentModuleID].branch.side != BranchHelper.LEFT)
+        {
+            branchSpriteRenderer.flipX = true;
+            branchGameObject.transform.position = new Vector2(
+                branchGameObject.transform.position.x * -1,
+                branchGameObject.transform.position.y
+            );
+        }
+    }
+
+    private static Sprite LoadSprite(string path, string spriteName)
+    {
+        var spritePath = path + spriteName;
+        var sprite = Resources.Load<Sprite>(spritePath);
         return sprite;
     }
 
@@ -66,6 +102,7 @@ public class TreeModulesManager : MonoBehaviour
     {
         var oldTreeModules = treeModulesPrefabsPool.Where(item => item.transform.position.y > DESTRUCTION_POSITION.y);
         oldTreeModules.ToList().ForEach(item => Destroy(item));
+        //assign new list without old tree modules
         treeModulesPrefabsPool = treeModulesPrefabsPool.Except(oldTreeModules).ToList();
     }
 }

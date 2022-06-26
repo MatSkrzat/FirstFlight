@@ -100,6 +100,7 @@ public class TreeModulesManager : MonoBehaviour
 
     public static void DestroyOldTreeModules()
     {
+        //TODO: don't check all array every frame, need to optimize this
         var oldTreeModules = treeModulesPrefabsPool.Where(item => item.transform.position.y > DESTRUCTION_POSITION.y);
         oldTreeModules.ToList().ForEach(item => Destroy(item));
         //assign new list without old tree modules

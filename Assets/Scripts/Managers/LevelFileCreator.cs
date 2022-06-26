@@ -18,7 +18,6 @@ public class LevelFileCreator : MonoBehaviour
                 endSpeed = 10f,
                 startSpeed = 5f
             };
-            SaveLoadFile.SaveAsJSON(level, PathsDictionary.LEVELS, FilenameDictionary.LEVELS_TEMPLATE);
             SaveLoadFile.SaveAsJSON(level, PathsDictionary.LEVELS, FilenameDictionary.LEVEL0);
             Debug.Log("** Level template created!");
         }

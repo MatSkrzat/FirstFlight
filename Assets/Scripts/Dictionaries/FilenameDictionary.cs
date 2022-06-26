@@ -18,5 +18,17 @@ public static class FilenameDictionary
     public static string[] DEFAULT_BROKEN_BRANCH_NAMES { get; } = new string[] { "broken_branch1", "broken_branch2" };
     public static string BROKEN_BRANCH_PREFAB { get; } = "BrokenBranch";
     #endregion
-
+    #region player
+    public static string BODY { get; } = "body";
+    public static string BODY_CLOSED_BEAK { get; } = "body_closed_beak";
+    public static string WING { get; } = "wing";
+    public static string BROKEN_WING { get; } = "broken_wing";
+    public static string EYE { get; } = "eye";
+    public static string BLACK_EYE { get; } = "black_eye";
+    public static string CLOSED_EYE { get; } = "closed_eye";
+    public static string CLOSED_BLACK_EYE { get; } = "closed_black_eye";
+    public static string BRUISE { get; } = "bruise";
+    public static string MINIATURE { get; } = "miniature";
+    public static string FEATHER { get; } = "feather";
+    #endregion
 }

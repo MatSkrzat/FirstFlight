@@ -23,7 +23,7 @@ public class BackgroundsManager : MonoBehaviour
     public void Start()
     {
         backgroundPrefab = Resources.Load<GameObject>(
-            PathsDictionary.CreateFullPath(PathsDictionary.PREFABS, FilenameDictionary.BACKGROUND_PREFAB));
+            PathsDictionary.GetFullPath(PathsDictionary.PREFABS, FilenameDictionary.BACKGROUND_PREFAB));
         InitializeNewBackground();
     }
     public static void ManageBackgrounds()

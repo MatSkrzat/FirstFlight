@@ -27,8 +27,8 @@ public class LevelFileCreator : MonoBehaviour
     private List<TreeModuleModel> GetSampleTreeModules()
     {
         var treeModules = new List<TreeModuleModel>();
-        var numberOfTreeModulesToCreate = 100;
-        for (int i = 0; i < numberOfTreeModulesToCreate; i++)
+        const int NUMBER_OF_TREE_MODULES_TO_CREATE = 200;
+        for (int i = 0; i < NUMBER_OF_TREE_MODULES_TO_CREATE; i++)
         {
             treeModules.Add(GetSampleTreeModule(i));
         }

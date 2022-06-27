@@ -8,10 +8,11 @@ public class PlayerBehaviour : MonoBehaviour
     private static readonly float MIN_X_POSITION = -2;
     private static readonly float GRAVITY_SCALE_IDLE = 0;
     private static readonly float GRAVITY_SCALE_JUMP = 55;
-    private static readonly Vector2 INITIAL_POSITION = new Vector2(-2f, 0f);
+    private static readonly Vector2 INITIAL_POSITION = new Vector2(2f, 0f);
+    private static readonly Vector2 JUMP_FORCE = new Vector2(-100f, 50f);
+    private static char positionSide = Helper.SIDE_RIGHT;
 
-    private static Vector2 jumpDirection = new Vector2(100f, 50f);
-    public void Awake()
+    public void Start()
     {
         playerRigidbody = gameObject.GetComponent<Rigidbody2D>();
         playerRigidbody.bodyType = RigidbodyType2D.Static;
@@ -22,30 +23,63 @@ public class PlayerBehaviour : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
-            Jump();
+            JumpToSide(GetOppositeSide(positionSide));
         }
         if (gameObject.transform.position.x > MAX_X_POSITION)
         {
-            Debug.Log("if" + gameObject.transform.position.x + "|" + MAX_X_POSITION);
-            playerRigidbody.bodyType = RigidbodyType2D.Static;
-            playerRigidbody.gravityScale = GRAVITY_SCALE_IDLE;
-            gameObject.transform.position = new Vector2(INITIAL_POSITION.x * -1, INITIAL_POSITION.y);
+            StopAtSide(Helper.SIDE_LEFT);
         }
         else if (gameObject.transform.position.x < MIN_X_POSITION)
         {
-            Debug.Log("elseif" + gameObject.transform.position.x + "|" + MIN_X_POSITION);
-            playerRigidbody.bodyType = RigidbodyType2D.Static;
-            playerRigidbody.gravityScale = GRAVITY_SCALE_IDLE;
-            gameObject.transform.position = INITIAL_POSITION;
+            StopAtSide(Helper.SIDE_RIGHT);
         }
     }
 
-    public void Jump()
+    private char GetOppositeSide(char side) => side == Helper.SIDE_LEFT ? Helper.SIDE_RIGHT : Helper.SIDE_LEFT;
+
+    public void SetBodyDirection(char side)
+    {
+        if (side == Helper.SIDE_LEFT)
+        {
+            gameObject.transform.rotation = new Quaternion(0, -180, 0, 0);
+        }
+        else
+        {
+            gameObject.transform.rotation = new Quaternion(0, 0, 0, 0);
+        }
+    }
+
+    public void StopAtSide(char side)
+    {
+        playerRigidbody.bodyType = RigidbodyType2D.Static;
+        playerRigidbody.gravityScale = GRAVITY_SCALE_IDLE;
+
+        if (side == Helper.SIDE_LEFT)
+        {
+            gameObject.transform.position = INITIAL_POSITION;
+            positionSide = Helper.SIDE_LEFT;
+
+        }
+        else if (side == Helper.SIDE_RIGHT)
+        {
+            gameObject.transform.position = new Vector2(INITIAL_POSITION.x * -1, INITIAL_POSITION.y);
+            positionSide = Helper.SIDE_RIGHT;
+        }
+    }
+
+    public void JumpToSide(char side)
     {
         playerRigidbody.bodyType = RigidbodyType2D.Dynamic;
         playerRigidbody.gravityScale = GRAVITY_SCALE_JUMP;
-        playerRigidbody.AddForce(jumpDirection);
-        jumpDirection = new Vector2(jumpDirection.x * -1, jumpDirection.y);
-        Debug.Log(jumpDirection.x + "," + jumpDirection.y);
+        if (side == Helper.SIDE_RIGHT)
+        {
+            playerRigidbody.AddForce(JUMP_FORCE);
+            SetBodyDirection(Helper.SIDE_LEFT);
+        }
+        else
+        {
+            playerRigidbody.AddForce(new Vector2(JUMP_FORCE.x * -1, JUMP_FORCE.y));
+            SetBodyDirection(Helper.SIDE_RIGHT);
+        }
     }
 }

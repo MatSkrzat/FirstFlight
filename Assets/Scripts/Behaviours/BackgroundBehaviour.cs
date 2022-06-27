@@ -5,7 +5,7 @@ public class BackgroundBehaviour : MonoBehaviour
     private float speed;
     private bool createdNewBackground = false;
     public bool shouldMove = false;
-    public void ChangeSpeed(float newSpeed)
+    public void SetSpeed(float newSpeed)
     {
         speed = newSpeed;
     }

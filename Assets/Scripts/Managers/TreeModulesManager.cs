@@ -81,7 +81,7 @@ public class TreeModulesManager : MonoBehaviour
         );
 
         //flipping sprite if side is RIGHT
-        if (LevelsManager.currentLevel.treeModules[currentModuleID].branch.side != BranchHelper.LEFT)
+        if (LevelsManager.currentLevel.treeModules[currentModuleID].branch.side != Helper.SIDE_LEFT)
         {
             branchSpriteRenderer.flipX = true;
             branchGameObject.transform.position = new Vector2(

@@ -44,7 +44,7 @@ public class LevelFileCreator : MonoBehaviour
             0,
             FilenameDictionary.DEFAULT_BRANCH_NAMES.Length
         );
-        char randomBranchSide = Random.Range(0, 2) == 0 ? BranchHelper.LEFT : BranchHelper.RIGHT;
+        char randomBranchSide = Random.Range(0, 2) == 0 ? Helper.SIDE_LEFT : Helper.SIDE_RIGHT;
         return new TreeModuleModel
         {
             spriteName = FilenameDictionary.DEFAULT_TREE_MODULES_NAMES[randomTreeModuleIndex],

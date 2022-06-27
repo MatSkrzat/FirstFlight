@@ -41,7 +41,7 @@ public class BackgroundsManager : MonoBehaviour
 
         var backgroundBehaviour = newBackground.GetComponent<BackgroundBehaviour>();
         backgroundBehaviour.shouldMove = true;
-        backgroundBehaviour.ChangeSpeed(LevelsManager.currentLevel.endSpeed * 0.5F);
+        backgroundBehaviour.SetSpeed(LevelsManager.currentLevel.endSpeed * 0.5F);
 
         backgroundPrefabsPool.Add(newBackground);
     }

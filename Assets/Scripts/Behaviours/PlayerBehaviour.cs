@@ -4,8 +4,8 @@ public class PlayerBehaviour : MonoBehaviour
 {
     private Rigidbody2D playerRigidbody;
 
-    private static readonly float MAX_X_POSITION = 2;
-    private static readonly float MIN_X_POSITION = -2;
+    private static readonly float RIGHT_X_POSITION = 2;
+    private static readonly float LEFT_X_POSITION = -2;
     private static readonly float GRAVITY_SCALE_IDLE = 0;
     private static readonly float GRAVITY_SCALE_JUMP = 55;
     private static readonly Vector2 INITIAL_POSITION = new Vector2(2f, 0f);
@@ -25,13 +25,13 @@ public class PlayerBehaviour : MonoBehaviour
         {
             JumpToSide(GetOppositeSide(positionSide));
         }
-        if (gameObject.transform.position.x > MAX_X_POSITION)
-        {
-            StopAtSide(Helper.SIDE_LEFT);
-        }
-        else if (gameObject.transform.position.x < MIN_X_POSITION)
+        if (gameObject.transform.position.x > RIGHT_X_POSITION)
         {
             StopAtSide(Helper.SIDE_RIGHT);
+        }
+        else if (gameObject.transform.position.x < LEFT_X_POSITION)
+        {
+            StopAtSide(Helper.SIDE_LEFT);
         }
     }
 
@@ -56,13 +56,13 @@ public class PlayerBehaviour : MonoBehaviour
 
         if (side == Helper.SIDE_LEFT)
         {
-            gameObject.transform.position = INITIAL_POSITION;
+            gameObject.transform.position = new Vector2(INITIAL_POSITION.x * -1, INITIAL_POSITION.y);
             positionSide = Helper.SIDE_LEFT;
 
         }
         else if (side == Helper.SIDE_RIGHT)
         {
-            gameObject.transform.position = new Vector2(INITIAL_POSITION.x * -1, INITIAL_POSITION.y);
+            gameObject.transform.position = INITIAL_POSITION;
             positionSide = Helper.SIDE_RIGHT;
         }
     }
@@ -73,13 +73,13 @@ public class PlayerBehaviour : MonoBehaviour
         playerRigidbody.gravityScale = GRAVITY_SCALE_JUMP;
         if (side == Helper.SIDE_RIGHT)
         {
-            playerRigidbody.AddForce(JUMP_FORCE);
-            SetBodyDirection(Helper.SIDE_LEFT);
+            playerRigidbody.AddForce(new Vector2(JUMP_FORCE.x * -1, JUMP_FORCE.y));
+            SetBodyDirection(Helper.SIDE_RIGHT);
         }
         else
         {
-            playerRigidbody.AddForce(new Vector2(JUMP_FORCE.x * -1, JUMP_FORCE.y));
-            SetBodyDirection(Helper.SIDE_RIGHT);
+            playerRigidbody.AddForce(JUMP_FORCE);
+            SetBodyDirection(Helper.SIDE_LEFT);
         }
     }
 }

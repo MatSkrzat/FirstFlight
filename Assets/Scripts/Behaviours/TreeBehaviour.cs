@@ -5,6 +5,13 @@ public class TreeBehaviour : MonoBehaviour
     private float speed;
     private bool createdNewTree = false;
     public bool shouldMove = false;
+    private Rigidbody2D rigidbody2d;
+
+    private void Start()
+    {
+        rigidbody2d = GetComponent<Rigidbody2D>();
+    }
+
     public void ChangeSpeed(float newSpeed)
     {
         speed = newSpeed;
@@ -20,7 +27,7 @@ public class TreeBehaviour : MonoBehaviour
     {
         if (shouldMove)
         {
-            transform.Translate(Vector2.up * Time.fixedDeltaTime * speed);
+            rigidbody2d.position += (Vector2.up * Time.fixedDeltaTime * speed);
         }
     }
 

@@ -23,9 +23,9 @@ public class TreeModulesManager : MonoBehaviour
     public static List<GameObject> treeModulesPrefabsPool = new List<GameObject>();
     public static List<TreeModuleModel> currentLevelModules = new List<TreeModuleModel>();
     public static GameObject treeModulePrefab;
-    public static readonly Vector2 INITIALIZE_POSITION = new Vector2(0, -10);
-    public static readonly Vector2 DESTRUCTION_POSITION = new Vector2(0, 10);
-    public static readonly Vector2 NEW_TREE_MODULE_INIT_POSITION = new Vector2(0, -7);
+    public static readonly Vector2 INITIALIZE_POSITION = new Vector2(0F, -10F);
+    public static readonly Vector2 DESTRUCTION_POSITION = new Vector2(0F, 10F);
+    public static readonly Vector2 NEW_TREE_MODULE_INIT_POSITION = new Vector2(0, -7.2F);
 
     private static int currentModuleID = 0;
 

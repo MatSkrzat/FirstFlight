@@ -9,7 +9,7 @@ public class PlayerBehaviour : MonoBehaviour
     private static readonly float GRAVITY_SCALE_IDLE = 0;
     private static readonly float GRAVITY_SCALE_JUMP = 55;
     private static readonly Vector2 INITIAL_POSITION = new Vector2(2f, 0f);
-    private static readonly Vector2 JUMP_FORCE = new Vector2(-100f, 50f);
+    private static readonly Vector2 JUMP_FORCE = new Vector2(-80f, 40f);
     private static char positionSide = Helper.SIDE_RIGHT;
 
     public void Start()

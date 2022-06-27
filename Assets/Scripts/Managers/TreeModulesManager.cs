@@ -83,11 +83,7 @@ public class TreeModulesManager : MonoBehaviour
         //flipping sprite if side is RIGHT
         if (LevelsManager.currentLevel.treeModules[currentModuleID].branch.side != Helper.SIDE_LEFT)
         {
-            branchSpriteRenderer.flipX = true;
-            branchGameObject.transform.position = new Vector2(
-                branchGameObject.transform.position.x * -1,
-                branchGameObject.transform.position.y
-            );
+            ChangeObjectSide(branchGameObject);
         }
     }
 
@@ -105,5 +101,25 @@ public class TreeModulesManager : MonoBehaviour
         oldTreeModules.ToList().ForEach(item => Destroy(item));
         //assign new list without old tree modules
         treeModulesPrefabsPool = treeModulesPrefabsPool.Except(oldTreeModules).ToList();
+    }
+
+    public static void BreakModuleBranch(GameObject branch)
+    {
+        if (branch == null) return;
+        branch.SetActive(false);
+        var parent = branch.transform.parent.gameObject;
+        var brokenBranch = parent.transform.GetChild((int)TreeModuleChildren.brokenBranch).gameObject;
+        if (branch.transform.position.x > 0)
+            ChangeObjectSide(brokenBranch);
+        brokenBranch.gameObject.SetActive(true);
+    }
+
+    private static void ChangeObjectSide(GameObject gameObject)
+    {
+        gameObject.GetComponent<SpriteRenderer>().flipX = true;
+        gameObject.transform.position = new Vector2(
+            gameObject.transform.position.x * -1,
+            gameObject.transform.position.y
+        );
     }
 }

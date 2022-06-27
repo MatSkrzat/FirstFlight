@@ -82,4 +82,12 @@ public class PlayerBehaviour : MonoBehaviour
             SetBodyDirection(Helper.SIDE_LEFT);
         }
     }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.tag == TagsDictionary.BRANCH)
+        {
+            TreeModulesManager.BreakModuleBranch(collision.gameObject);
+        }
+    }
 }

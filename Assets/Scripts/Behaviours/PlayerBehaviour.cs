@@ -9,6 +9,7 @@ public class PlayerBehaviour : MonoBehaviour
     private static readonly float GRAVITY_SCALE_IDLE = 0;
     private static readonly float GRAVITY_SCALE_JUMP = 55;
     private static readonly Vector2 INITIAL_POSITION = new Vector2(2f, 0f);
+    private static readonly float PLAYER_Z_ROTATION = -25F;
     private static readonly Vector2 JUMP_FORCE = new Vector2(-80f, 40f);
     private static char positionSide = Helper.SIDE_RIGHT;
 
@@ -41,11 +42,11 @@ public class PlayerBehaviour : MonoBehaviour
     {
         if (side == Helper.SIDE_LEFT)
         {
-            gameObject.transform.rotation = new Quaternion(0, -180, 0, 0);
+            gameObject.transform.rotation = Quaternion.Euler(0F, -180F, PLAYER_Z_ROTATION);
         }
         else
         {
-            gameObject.transform.rotation = new Quaternion(0, 0, 0, 0);
+            gameObject.transform.rotation = Quaternion.Euler(0F, 0F, PLAYER_Z_ROTATION);
         }
     }
 

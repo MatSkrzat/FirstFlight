@@ -84,11 +84,17 @@ public class PlayerBehaviour : MonoBehaviour
         }
     }
 
+    private void HandlePlayerHit()
+    {
+        PlayerManager.SubstractLives(1);
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.tag == TagsDictionary.BRANCH)
         {
             TreeModulesManager.BreakModuleBranch(collision.gameObject);
+            HandlePlayerHit();
         }
     }
 }

@@ -4,13 +4,13 @@ public class PlayerBehaviour : MonoBehaviour
 {
     private Rigidbody2D playerRigidbody;
 
-    private static readonly float RIGHT_X_POSITION = 2;
-    private static readonly float LEFT_X_POSITION = -2;
-    private static readonly float GRAVITY_SCALE_IDLE = 0;
-    private static readonly float GRAVITY_SCALE_JUMP = 55;
-    private static readonly Vector2 INITIAL_POSITION = new Vector2(2f, 0f);
+    private static readonly float RIGHT_X_POSITION = 2F;
+    private static readonly float LEFT_X_POSITION = -2F;
+    private static readonly float GRAVITY_SCALE_IDLE = 0F;
+    private static readonly float GRAVITY_SCALE_JUMP = 100F;
+    private static readonly Vector2 INITIAL_POSITION = new Vector2(2F, 0F);
     private static readonly float PLAYER_Z_ROTATION = -25F;
-    private static readonly Vector2 JUMP_FORCE = new Vector2(-80f, 40f);
+    private static readonly Vector2 JUMP_FORCE = new Vector2(-85F, 55F);
     private static char positionSide = Helper.SIDE_RIGHT;
 
     public void Start()

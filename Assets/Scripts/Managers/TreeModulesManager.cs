@@ -33,8 +33,8 @@ public class TreeModulesManager : MonoBehaviour
     {
         treeModulePrefab = Resources.Load<GameObject>(
             PathsDictionary.GetFullPath(PathsDictionary.PREFABS, FilenameDictionary.TREE_PREFAB));
-        InitializeNewTreeModule();
         currentModuleID = LevelsManager.currentLevel.treeModules.First().moduleID;
+        InitializeNewTreeModule();
     }
 
     public static void ManageTreeModules()

@@ -121,6 +121,11 @@ public class TreeModulesManager : MonoBehaviour
             gameObject.transform.position.x * -1,
             gameObject.transform.position.y
         );
+        var collider = gameObject.GetComponent<BoxCollider2D>();
+        if (collider != null)
+        {
+            collider.offset = new Vector2(-collider.offset.x, collider.offset.y);
+        }
     }
 
     public static void SetValuesToDefault()

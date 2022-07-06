@@ -47,6 +47,8 @@ public class GameManager : MonoBehaviour
     {
         TreeModulesManager.SetValuesToDefault();
         PlayerManager.SetValuesToDefault();
+        BackgroundsManager.SetValuesToDefault();
+        LevelsManager.SetValuesToDefault();
         SetValuesToDefault();
         SceneManager.LoadScene(0);
     }

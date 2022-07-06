@@ -25,4 +25,9 @@ public class LevelsManager : MonoBehaviour
 
         return SaveLoadFile.LoadFromJson<LevelModel>(PathsDictionary.LEVELS, levelName);
     }
-};
+
+    public static void SetValuesToDefault()
+    {
+        currentLevel = new LevelModel();
+    }
+}

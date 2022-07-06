@@ -59,4 +59,10 @@ public class BackgroundsManager : MonoBehaviour
         oldBackgrounds.ToList().ForEach(item => Destroy(item));
         backgroundPrefabsPool = backgroundPrefabsPool.Except(oldBackgrounds).ToList();
     }
+
+    public static void SetValuesToDefault()
+    {
+        backgroundPrefabsPool = new List<GameObject>();
+        backgroundPrefab = null;
+    }
 }

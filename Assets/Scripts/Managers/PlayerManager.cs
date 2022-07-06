@@ -29,5 +29,9 @@ public class PlayerManager : MonoBehaviour
         NumberOfLives = INITIAL_NUMBER_OF_LIVES;
     }
 
-
+    public static void SetValuesToDefault()
+    {
+        NumberOfLives = INITIAL_NUMBER_OF_LIVES;
+        IsDead = false;
+    }
 }

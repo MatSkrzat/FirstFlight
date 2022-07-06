@@ -13,9 +13,9 @@ public class GameManager : MonoBehaviour
         }
     }
     #endregion
-    public bool GamePaused { get; private set; } = true;
-    public bool GameStarted { get; private set; } = false;
-    public bool GameOver { get; private set; } = false;
+    public static bool GamePaused { get; private set; } = true;
+    public static bool GameStarted { get; private set; } = false;
+    public static bool GameOver { get; private set; } = false;
     private void Update()
     {
         if (PlayerManager.IsDead)
@@ -35,8 +35,19 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1;
     }
 
+    public static void SetValuesToDefault()
+    {
+        GamePaused = true;
+        GameStarted = false;
+        GameOver = false;
+        Time.timeScale = 1;
+    }
+
     public void ResetGame()
     {
+        TreeModulesManager.SetValuesToDefault();
+        PlayerManager.SetValuesToDefault();
+        SetValuesToDefault();
         SceneManager.LoadScene(0);
     }
 }

@@ -122,4 +122,11 @@ public class TreeModulesManager : MonoBehaviour
             gameObject.transform.position.y
         );
     }
+
+    public static void SetValuesToDefault()
+    {
+        treeModulesPrefabsPool = new List<GameObject>();
+        currentLevelModules = new List<TreeModuleModel>();
+        treeModulePrefab = null;
+    }
 }

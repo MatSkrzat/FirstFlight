@@ -15,7 +15,6 @@ public class GameManager : MonoBehaviour
     #endregion
     public static bool GamePaused { get; private set; } = true;
     public static bool GameStarted { get; private set; } = false;
-    public static bool GameOver { get; private set; } = false;
     public static UIManager UI { get; private set; }
     public static Camera MainCamera { get; private set; }
 
@@ -23,14 +22,6 @@ public class GameManager : MonoBehaviour
     {
         UI = gameObject.GetComponent<UIManager>();
         MainCamera = Camera.main;
-    }
-
-    private void Update()
-    {
-        if (PlayerManager.IsDead)
-        {
-            GameOver = true;
-        }
     }
     public void StopGame()
     {
@@ -47,7 +38,6 @@ public class GameManager : MonoBehaviour
     {
         GamePaused = true;
         GameStarted = false;
-        GameOver = false;
         Time.timeScale = 1;
     }
 

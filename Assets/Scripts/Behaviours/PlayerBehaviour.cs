@@ -65,6 +65,8 @@ public class PlayerBehaviour : MonoBehaviour
 
     public void JumpToSide(char side)
     {
+        if (PlayerManager.IsDead) return;
+
         PlayerManager.IsJumping = true;
         playerRigidbody.bodyType = RigidbodyType2D.Dynamic;
         playerRigidbody.gravityScale = PlayerHelper.GRAVITY_SCALE_JUMP;

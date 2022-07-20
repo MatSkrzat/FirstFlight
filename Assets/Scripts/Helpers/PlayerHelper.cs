@@ -13,4 +13,5 @@ public static class PlayerHelper
     public static readonly Vector2 DEATH_FORCE = new Vector2(-10F, 10F);
     public static readonly float DEATH_TORQUE = 2000F;
     public static readonly int INITIAL_NUMBER_OF_LIVES = 3;
+    public static readonly Vector2 PLAYER_DEATH_HIDE_POSITION = new Vector2(0F, -20F);
 }

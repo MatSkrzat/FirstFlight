@@ -16,6 +16,15 @@ public class GameManager : MonoBehaviour
     public static bool GamePaused { get; private set; } = true;
     public static bool GameStarted { get; private set; } = false;
     public static bool GameOver { get; private set; } = false;
+    public static UIManager UI { get; private set; }
+    public static Camera MainCamera { get; private set; }
+
+    private void Start()
+    {
+        UI = gameObject.GetComponent<UIManager>();
+        MainCamera = Camera.main;
+    }
+
     private void Update()
     {
         if (PlayerManager.IsDead)

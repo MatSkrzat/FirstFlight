@@ -1,16 +1,9 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class UIManager : MonoBehaviour
 {
-    #region STATIC
-    public static UIManager instance;
-    public void Awake()
-    {
-        if (instance == null)
-        {
-            instance = this;
-        }
-    }
-    #endregion
+    public GameObject JumpSecurityPanel;
 
+    public bool IsSecurityPanelClicked() => EventSystem.current.currentSelectedGameObject == JumpSecurityPanel;
 }

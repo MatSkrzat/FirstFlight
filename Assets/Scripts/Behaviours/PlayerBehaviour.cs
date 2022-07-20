@@ -14,18 +14,25 @@ public class PlayerBehaviour : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Mouse0))
+        if (Input.GetMouseButtonDown(0) && GameManager.UI.IsSecurityPanelClicked())
         {
             JumpToSide(GetOppositeSide(PlayerManager.PositionSide));
             PlayerManager.FlyingDirection = GetOppositeSide(PlayerManager.PositionSide);
         }
+
         if (gameObject.transform.position.x > PlayerHelper.RIGHT_X_POSITION)
         {
-            StopAtSide(Helper.SIDE_RIGHT);
+            if (PlayerManager.IsDead)
+                HidePlayerAfterDeath();
+            else
+                StopAtSide(Helper.SIDE_RIGHT);
         }
         else if (gameObject.transform.position.x < PlayerHelper.LEFT_X_POSITION)
         {
-            StopAtSide(Helper.SIDE_LEFT);
+            if (PlayerManager.IsDead)
+                HidePlayerAfterDeath();
+            else
+                StopAtSide(Helper.SIDE_LEFT);
         }
     }
 
@@ -46,6 +53,7 @@ public class PlayerBehaviour : MonoBehaviour
     public void StopAtSide(char side)
     {
         if (PlayerManager.IsDead) return;
+
         PlayerManager.IsJumping = false;
         playerRigidbody.bodyType = RigidbodyType2D.Static;
         playerRigidbody.gravityScale = PlayerHelper.GRAVITY_SCALE_IDLE;
@@ -61,6 +69,12 @@ public class PlayerBehaviour : MonoBehaviour
             gameObject.transform.position = PlayerHelper.INITIAL_POSITION;
             PlayerManager.PositionSide = Helper.SIDE_RIGHT;
         }
+    }
+
+    private void HidePlayerAfterDeath()
+    {
+        playerRigidbody.bodyType = RigidbodyType2D.Static;
+        gameObject.transform.position = PlayerHelper.PLAYER_DEATH_HIDE_POSITION;
     }
 
     public void JumpToSide(char side)

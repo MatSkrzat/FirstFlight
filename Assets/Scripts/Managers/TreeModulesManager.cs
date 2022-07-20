@@ -118,7 +118,7 @@ public class TreeModulesManager : MonoBehaviour
     {
         gameObject.GetComponent<SpriteRenderer>().flipX = true;
         gameObject.transform.position = new Vector2(
-            gameObject.transform.position.x * -1,
+            -gameObject.transform.position.x,
             gameObject.transform.position.y
         );
         var collider = gameObject.GetComponent<BoxCollider2D>();

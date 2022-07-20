@@ -21,7 +21,6 @@ public class GameManager : MonoBehaviour
         if (PlayerManager.IsDead)
         {
             GameOver = true;
-            StopGame();
         }
     }
     public void StopGame()

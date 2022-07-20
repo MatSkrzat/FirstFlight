@@ -12,9 +12,9 @@ public class PlayerManager : MonoBehaviour
         }
     }
     #endregion
-    private const int INITIAL_NUMBER_OF_LIVES = 3;
-    public static int NumberOfLives { get; private set; } = INITIAL_NUMBER_OF_LIVES;
+    public static int NumberOfLives { get; private set; } = PlayerHelper.INITIAL_NUMBER_OF_LIVES;
     public static bool IsDead { get; private set; } = false;
+    public static char PositionSide { get; set; } = Helper.SIDE_RIGHT;
 
     public static void SubstractLives(int livesToSubstract)
     {
@@ -22,16 +22,18 @@ public class PlayerManager : MonoBehaviour
         if (NumberOfLives <= 0)
         {
             IsDead = true;
+            PlayerAnimations.PlayDeathAnimation();
         }
     }
     public static void ResetLives()
     {
-        NumberOfLives = INITIAL_NUMBER_OF_LIVES;
+        NumberOfLives = PlayerHelper.INITIAL_NUMBER_OF_LIVES;
     }
 
     public static void SetValuesToDefault()
     {
-        NumberOfLives = INITIAL_NUMBER_OF_LIVES;
+        NumberOfLives = PlayerHelper.INITIAL_NUMBER_OF_LIVES;
         IsDead = false;
+        PositionSide = Helper.SIDE_RIGHT;
     }
 }

@@ -4,33 +4,26 @@ public class PlayerBehaviour : MonoBehaviour
 {
     private Rigidbody2D playerRigidbody;
 
-    private static readonly float RIGHT_X_POSITION = 2F;
-    private static readonly float LEFT_X_POSITION = -2F;
-    private static readonly float GRAVITY_SCALE_IDLE = 0F;
-    private static readonly float GRAVITY_SCALE_JUMP = 100F;
-    private static readonly Vector2 INITIAL_POSITION = new Vector2(2F, 0F);
-    private static readonly float PLAYER_Z_ROTATION = -25F;
-    private static readonly Vector2 JUMP_FORCE = new Vector2(-85F, 55F);
-    private static char positionSide = Helper.SIDE_RIGHT;
 
     public void Start()
     {
         playerRigidbody = gameObject.GetComponent<Rigidbody2D>();
         playerRigidbody.bodyType = RigidbodyType2D.Static;
-        playerRigidbody.gravityScale = GRAVITY_SCALE_IDLE;
+        playerRigidbody.gravityScale = PlayerHelper.GRAVITY_SCALE_IDLE;
     }
 
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
-            JumpToSide(GetOppositeSide(positionSide));
+            JumpToSide(GetOppositeSide(PlayerManager.PositionSide));
+
         }
-        if (gameObject.transform.position.x > RIGHT_X_POSITION)
+        if (gameObject.transform.position.x > PlayerHelper.RIGHT_X_POSITION)
         {
             StopAtSide(Helper.SIDE_RIGHT);
         }
-        else if (gameObject.transform.position.x < LEFT_X_POSITION)
+        else if (gameObject.transform.position.x < PlayerHelper.LEFT_X_POSITION)
         {
             StopAtSide(Helper.SIDE_LEFT);
         }
@@ -42,44 +35,46 @@ public class PlayerBehaviour : MonoBehaviour
     {
         if (side == Helper.SIDE_LEFT)
         {
-            gameObject.transform.rotation = Quaternion.Euler(0F, -180F, PLAYER_Z_ROTATION);
+            gameObject.transform.rotation = Quaternion.Euler(0F, -180F, PlayerHelper.PLAYER_Z_ROTATION);
         }
         else
         {
-            gameObject.transform.rotation = Quaternion.Euler(0F, 0F, PLAYER_Z_ROTATION);
+            gameObject.transform.rotation = Quaternion.Euler(0F, 0F, PlayerHelper.PLAYER_Z_ROTATION);
         }
     }
 
     public void StopAtSide(char side)
     {
+        if (PlayerManager.IsDead) return;
+
         playerRigidbody.bodyType = RigidbodyType2D.Static;
-        playerRigidbody.gravityScale = GRAVITY_SCALE_IDLE;
+        playerRigidbody.gravityScale = PlayerHelper.GRAVITY_SCALE_IDLE;
 
         if (side == Helper.SIDE_LEFT)
         {
-            gameObject.transform.position = new Vector2(INITIAL_POSITION.x * -1, INITIAL_POSITION.y);
-            positionSide = Helper.SIDE_LEFT;
+            gameObject.transform.position = new Vector2(-PlayerHelper.INITIAL_POSITION.x, PlayerHelper.INITIAL_POSITION.y);
+            PlayerManager.PositionSide = Helper.SIDE_LEFT;
 
         }
         else if (side == Helper.SIDE_RIGHT)
         {
-            gameObject.transform.position = INITIAL_POSITION;
-            positionSide = Helper.SIDE_RIGHT;
+            gameObject.transform.position = PlayerHelper.INITIAL_POSITION;
+            PlayerManager.PositionSide = Helper.SIDE_RIGHT;
         }
     }
 
     public void JumpToSide(char side)
     {
         playerRigidbody.bodyType = RigidbodyType2D.Dynamic;
-        playerRigidbody.gravityScale = GRAVITY_SCALE_JUMP;
+        playerRigidbody.gravityScale = PlayerHelper.GRAVITY_SCALE_JUMP;
         if (side == Helper.SIDE_RIGHT)
         {
-            playerRigidbody.AddForce(new Vector2(JUMP_FORCE.x * -1, JUMP_FORCE.y));
+            playerRigidbody.AddForce(new Vector2(-PlayerHelper.JUMP_FORCE.x, PlayerHelper.JUMP_FORCE.y));
             SetBodyDirection(Helper.SIDE_RIGHT);
         }
         else
         {
-            playerRigidbody.AddForce(JUMP_FORCE);
+            playerRigidbody.AddForce(PlayerHelper.JUMP_FORCE);
             SetBodyDirection(Helper.SIDE_LEFT);
         }
     }

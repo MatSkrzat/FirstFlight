@@ -12,10 +12,13 @@ public class PlayerAnimations : MonoBehaviour
     }
     public static void PlayDeathAnimation()
     {
+        if (PlayerManager.IsDead) return;
+
         playerRigidbody2D.bodyType = RigidbodyType2D.Dynamic;
         playerRigidbody2D.gravityScale = PlayerHelper.GRAVITY_SCALE_FALL;
+        playerRigidbody2D.velocity = Vector2.zero;
 
-        if (PlayerManager.PositionSide == Helper.SIDE_RIGHT)
+        if (PlayerManager.FlyingDirection == Helper.SIDE_RIGHT)
         {
             playerRigidbody2D.AddForce(PlayerHelper.DEATH_FORCE);
             playerRigidbody2D.AddTorque(PlayerHelper.DEATH_TORQUE);

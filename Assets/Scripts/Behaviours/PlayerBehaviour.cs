@@ -17,7 +17,7 @@ public class PlayerBehaviour : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
             JumpToSide(GetOppositeSide(PlayerManager.PositionSide));
-
+            PlayerManager.FlyingDirection = GetOppositeSide(PlayerManager.PositionSide);
         }
         if (gameObject.transform.position.x > PlayerHelper.RIGHT_X_POSITION)
         {
@@ -46,7 +46,7 @@ public class PlayerBehaviour : MonoBehaviour
     public void StopAtSide(char side)
     {
         if (PlayerManager.IsDead) return;
-
+        PlayerManager.IsJumping = false;
         playerRigidbody.bodyType = RigidbodyType2D.Static;
         playerRigidbody.gravityScale = PlayerHelper.GRAVITY_SCALE_IDLE;
 
@@ -65,6 +65,7 @@ public class PlayerBehaviour : MonoBehaviour
 
     public void JumpToSide(char side)
     {
+        PlayerManager.IsJumping = true;
         playerRigidbody.bodyType = RigidbodyType2D.Dynamic;
         playerRigidbody.gravityScale = PlayerHelper.GRAVITY_SCALE_JUMP;
         if (side == Helper.SIDE_RIGHT)

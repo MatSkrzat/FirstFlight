@@ -15,14 +15,16 @@ public class PlayerManager : MonoBehaviour
     public static int NumberOfLives { get; private set; } = PlayerHelper.INITIAL_NUMBER_OF_LIVES;
     public static bool IsDead { get; private set; } = false;
     public static char PositionSide { get; set; } = Helper.SIDE_RIGHT;
+    public static char FlyingDirection { get; set; } = Helper.SIDE_RIGHT;
+    public static bool IsJumping { get; set; } = false;
 
     public static void SubstractLives(int livesToSubstract)
     {
         NumberOfLives -= livesToSubstract;
         if (NumberOfLives <= 0)
         {
-            IsDead = true;
             PlayerAnimations.PlayDeathAnimation();
+            IsDead = true;
         }
     }
     public static void ResetLives()
@@ -35,5 +37,7 @@ public class PlayerManager : MonoBehaviour
         NumberOfLives = PlayerHelper.INITIAL_NUMBER_OF_LIVES;
         IsDead = false;
         PositionSide = Helper.SIDE_RIGHT;
+        FlyingDirection = Helper.SIDE_RIGHT;
+        IsJumping = false;
     }
 }

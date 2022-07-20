@@ -20,6 +20,8 @@ public class PlayerManager : MonoBehaviour
 
     public static void SubstractLives(int livesToSubstract)
     {
+        if (IsDead) return;
+
         NumberOfLives -= livesToSubstract;
         if (NumberOfLives <= 0)
         {

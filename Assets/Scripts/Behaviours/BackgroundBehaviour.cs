@@ -27,7 +27,7 @@ public class BackgroundBehaviour : MonoBehaviour
     {
         if (shouldMove)
         {
-            rigidbody2d.position += (Vector2.up * Time.fixedDeltaTime * speed);
+            rigidbody2d.position += speed * Time.fixedDeltaTime * Vector2.up;
         }
     }
 

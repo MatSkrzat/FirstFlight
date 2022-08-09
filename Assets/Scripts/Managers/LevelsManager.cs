@@ -4,7 +4,7 @@ public class LevelsManager : MonoBehaviour
 {
     public const int INITIAL_LEVEL = 0;
     public const string LEVEL_NAME = "level";
-    public static LevelModel currentLevel = new LevelModel();
+    public static LevelModel currentLevel = new();
 
     #region STATIC
     public static LevelsManager instance;

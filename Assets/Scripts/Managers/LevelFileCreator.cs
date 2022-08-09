@@ -8,7 +8,7 @@ public class LevelFileCreator : MonoBehaviour
     {
         if (createLevel)
         {
-            LevelModel level = new LevelModel()
+            LevelModel level = new()
             {
                 ID = 0,
                 treeModules = GetSampleTreeModules(),

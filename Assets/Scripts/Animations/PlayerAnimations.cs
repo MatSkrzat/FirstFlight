@@ -3,12 +3,10 @@ using UnityEngine;
 public class PlayerAnimations : MonoBehaviour
 {
     private static Rigidbody2D playerRigidbody2D;
-    private static GameObject playerGameObject;
 
     private void Start()
     {
         playerRigidbody2D = GetComponent<Rigidbody2D>();
-        playerGameObject = gameObject;
     }
     public static void PlayDeathAnimation()
     {

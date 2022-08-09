@@ -103,7 +103,7 @@ public class PlayerBehaviour : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag == TagsDictionary.BRANCH)
+        if (collision.CompareTag(TagsDictionary.BRANCH))
         {
             TreeModulesManager.BreakModuleBranch(collision.gameObject);
             HandlePlayerHit();

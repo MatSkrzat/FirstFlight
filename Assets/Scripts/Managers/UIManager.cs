@@ -5,5 +5,6 @@ public class UIManager : MonoBehaviour
 {
     public GameObject JumpSecurityPanel;
 
-    public bool IsSecurityPanelClicked() => EventSystem.current.currentSelectedGameObject == JumpSecurityPanel;
+    public bool IsSecurityPanelClicked() => 
+        EventSystem.current.currentSelectedGameObject == JumpSecurityPanel;
 }

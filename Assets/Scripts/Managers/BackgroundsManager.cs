@@ -14,11 +14,11 @@ public class BackgroundsManager : MonoBehaviour
         }
     }
     #endregion
-    public static List<GameObject> backgroundPrefabsPool = new List<GameObject>();
+    public static List<GameObject> backgroundPrefabsPool = new();
     public static GameObject backgroundPrefab;
-    public static readonly Vector2 INITIALIZE_POSITION = new Vector2(0, -20);
-    public static readonly Vector2 DESTRUCTION_POSITION = new Vector2(0, 20);
-    public static readonly Vector2 NEW_BACKGROUND_INIT_POSITION = new Vector2(0, 4);
+    public static readonly Vector2 INITIALIZE_POSITION = new(0, -20);
+    public static readonly Vector2 DESTRUCTION_POSITION = new(0, 20);
+    public static readonly Vector2 NEW_BACKGROUND_INIT_POSITION = new(0, 4);
 
     public void Start()
     {

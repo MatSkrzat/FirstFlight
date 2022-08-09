@@ -20,12 +20,12 @@ public class TreeModulesManager : MonoBehaviour
         }
     }
     #endregion
-    public static List<GameObject> treeModulesPrefabsPool = new List<GameObject>();
-    public static List<TreeModuleModel> currentLevelModules = new List<TreeModuleModel>();
+    public static List<GameObject> treeModulesPrefabsPool = new();
+    public static List<TreeModuleModel> currentLevelModules = new();
     public static GameObject treeModulePrefab;
-    public static readonly Vector2 INITIALIZE_POSITION = new Vector2(0F, -10F);
-    public static readonly Vector2 DESTRUCTION_POSITION = new Vector2(0F, 10F);
-    public static readonly Vector2 NEW_TREE_MODULE_INIT_POSITION = new Vector2(0, -7.2F);
+    public static readonly Vector2 INITIALIZE_POSITION = new(0F, -10F);
+    public static readonly Vector2 DESTRUCTION_POSITION = new(0F, 10F);
+    public static readonly Vector2 NEW_TREE_MODULE_INIT_POSITION = new(0, -7.2F);
 
     private static int currentModuleID = 0;
 

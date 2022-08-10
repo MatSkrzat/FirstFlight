@@ -3,8 +3,8 @@ using UnityEngine;
 public class LevelsManager : MonoBehaviour
 {
     public const int INITIAL_LEVEL = 0;
-    public const string LEVEL_NAME = "level";
     public static LevelModel currentLevel = new();
+    public static LevelModel nextLevel = new();
 
     #region STATIC
     public static LevelsManager instance;
@@ -21,13 +21,29 @@ public class LevelsManager : MonoBehaviour
     #endregion
     public static LevelModel LoadLevel(int levelID)
     {
-        string levelName = LEVEL_NAME + levelID;
+        string levelName = FilenameDictionary.LEVEL + levelID;
 
         return SaveLoadFile.LoadFromJson<LevelModel>(PathsDictionary.LEVELS, levelName);
     }
 
+    public static LevelModel LoadNextLevel()
+    {
+        Debug.Log("**Loading new level " + (currentLevel.ID + 1));
+        nextLevel = LoadLevel(currentLevel.ID + 1);
+        return nextLevel;
+    }
+
+    public static void SwitchToNextLevel()
+    {
+        Debug.Log("**Switching levels to next level with ID: " + nextLevel.ID);
+        currentLevel = nextLevel;
+        nextLevel = new();
+        Debug.Log("**Levels switched new level ID: " + currentLevel.ID);
+    }
+
     public static void SetValuesToDefault()
     {
-        currentLevel = new LevelModel();
+        currentLevel = new();
+        nextLevel = new();
     }
 }

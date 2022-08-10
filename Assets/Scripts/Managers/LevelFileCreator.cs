@@ -6,11 +6,12 @@ public class LevelFileCreator : MonoBehaviour
     public bool createLevel = true;
     public void Start()
     {
+        const int LEVEL_ID = 1;
         if (createLevel)
         {
             LevelModel level = new()
             {
-                ID = 0,
+                ID = LEVEL_ID,
                 treeModules = GetSampleTreeModules(),
                 backgroundsPath = PathsDictionary.BACKGROUND_DEFAULT,
                 treeModulesPath = PathsDictionary.TREE_MODULES,
@@ -18,7 +19,8 @@ public class LevelFileCreator : MonoBehaviour
                 endSpeed = 10f,
                 startSpeed = 5f
             };
-            SaveLoadFile.SaveAsJSON(level, PathsDictionary.LEVELS, FilenameDictionary.LEVEL0);
+            var levelName = FilenameDictionary.LEVEL + LEVEL_ID;
+            SaveLoadFile.SaveAsJSON(level, PathsDictionary.LEVELS, levelName);
             Debug.Log("** Level template created!");
         }
     }
@@ -26,7 +28,7 @@ public class LevelFileCreator : MonoBehaviour
     private List<TreeModuleModel> GetSampleTreeModules()
     {
         var treeModules = new List<TreeModuleModel>();
-        const int NUMBER_OF_TREE_MODULES_TO_CREATE = 200;
+        const int NUMBER_OF_TREE_MODULES_TO_CREATE = 50;
         for (int i = 0; i < NUMBER_OF_TREE_MODULES_TO_CREATE; i++)
         {
             treeModules.Add(GetSampleTreeModule(i));

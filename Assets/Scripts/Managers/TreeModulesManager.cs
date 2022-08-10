@@ -59,8 +59,18 @@ public class TreeModulesManager : MonoBehaviour
         treeBehaviour.ChangeSpeed(LevelsManager.currentLevel.endSpeed);
 
         SetupBranchForTreeModule(newTreeModule);
-
         currentModuleID++;
+
+        if (LevelsManager.currentLevel.treeModules.Count - currentModuleID == 10)
+        {
+            LevelsManager.LoadNextLevel();
+        }
+
+        if(currentModuleID >= LevelsManager.currentLevel.treeModules.Count)
+        {
+            LevelsManager.SwitchToNextLevel();
+            currentModuleID = LevelsManager.currentLevel.treeModules.First().moduleID;
+        }
 
         treeModulesPrefabsPool.Add(newTreeModule);
     }

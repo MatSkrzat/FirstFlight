@@ -14,12 +14,16 @@ public class PlayerBehaviour : MonoBehaviour
 
     private void Update()
     {
+        //SET PLAYER POSITION VALUE
+        PlayerManager.PositionSide = playerRigidbody.position.x >= 0 ? Helper.SIDE_RIGHT : Helper.SIDE_LEFT;
+
+        //JUMP ON BUTTON CLICK
         if (Input.GetMouseButtonDown(0) && GameManager.UI.IsSecurityPanelClicked())
         {
             JumpToSide(GetOppositeSide(PlayerManager.PositionSide));
-            PlayerManager.FlyingDirection = GetOppositeSide(PlayerManager.PositionSide);
         }
 
+        //STOP PLAYER AFTER JUMP
         if (gameObject.transform.position.x > PlayerHelper.RIGHT_X_POSITION)
         {
             if (PlayerManager.IsDead)
@@ -61,13 +65,11 @@ public class PlayerBehaviour : MonoBehaviour
         if (side == Helper.SIDE_LEFT)
         {
             gameObject.transform.position = new Vector2(-PlayerHelper.INITIAL_POSITION.x, PlayerHelper.INITIAL_POSITION.y);
-            PlayerManager.PositionSide = Helper.SIDE_LEFT;
 
         }
         else if (side == Helper.SIDE_RIGHT)
         {
             gameObject.transform.position = PlayerHelper.INITIAL_POSITION;
-            PlayerManager.PositionSide = Helper.SIDE_RIGHT;
         }
     }
 
@@ -79,7 +81,7 @@ public class PlayerBehaviour : MonoBehaviour
 
     public void JumpToSide(char side)
     {
-        if (PlayerManager.IsDead) return;
+        if (PlayerManager.IsDead || PlayerManager.IsJumping) return;
 
         PlayerManager.IsJumping = true;
         playerRigidbody.bodyType = RigidbodyType2D.Dynamic;

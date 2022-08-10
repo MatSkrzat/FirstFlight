@@ -16,11 +16,14 @@ public class PlayerAnimations : MonoBehaviour
         playerRigidbody2D.gravityScale = PlayerHelper.GRAVITY_SCALE_FALL;
         playerRigidbody2D.velocity = Vector2.zero;
 
-        if (PlayerManager.FlyingDirection == Helper.SIDE_RIGHT)
+        //RIGHT
+        if (playerRigidbody2D.position.x >= 0)
         {
             playerRigidbody2D.AddForce(PlayerHelper.DEATH_FORCE);
             playerRigidbody2D.AddTorque(PlayerHelper.DEATH_TORQUE);
         }
+
+        //LEFT
         else
         {
             playerRigidbody2D.AddForce(new Vector2(-PlayerHelper.DEATH_FORCE.x, PlayerHelper.DEATH_FORCE.y));

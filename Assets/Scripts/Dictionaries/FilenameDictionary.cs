@@ -6,7 +6,6 @@ public static class FilenameDictionary
     #endregion
     #region levels
     public static string LEVEL { get; } = "level";
-    public static string LEVELS_TEMPLATE { get; } = "levelsTemplate";
     #endregion
     #region tree_modules
     public static string[] DEFAULT_TREE_MODULES_NAMES { get; } = new string[] { "tree1", "tree2", "tree3", "tree4", "tree5" };
@@ -28,5 +27,8 @@ public static class FilenameDictionary
     public static string CLOSED_EYE { get; } = "closed_eye";
     public static string MINIATURE { get; } = "miniature";
     public static string FEATHER { get; } = "feather";
+    #endregion
+    #region game_states
+    public static string GAME_STATE { get; } = "gameState";
     #endregion
 }

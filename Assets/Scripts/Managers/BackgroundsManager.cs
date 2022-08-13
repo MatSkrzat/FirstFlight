@@ -16,24 +16,26 @@ public class BackgroundsManager : MonoBehaviour
     #endregion
     public static List<GameObject> backgroundPrefabsPool = new();
     public static GameObject backgroundPrefab;
-    public static readonly Vector2 INITIALIZE_POSITION = new(0, -20);
-    public static readonly Vector2 DESTRUCTION_POSITION = new(0, 20);
-    public static readonly Vector2 NEW_BACKGROUND_INIT_POSITION = new(0, 4);
 
     public void Start()
     {
         backgroundPrefab = Resources.Load<GameObject>(
             PathsDictionary.GetFullPath(PathsDictionary.PREFABS, FilenameDictionary.BACKGROUND_PREFAB));
-        InitializeNewBackground();
+        InitializeNewBackground(true);
     }
+
     public static void ManageBackgrounds()
     {
         InitializeNewBackground();
         DestroyOldBackgrounds();
     }
-    private static void InitializeNewBackground()
+
+
+
+    private static void InitializeNewBackground(bool isFirst = false)
     {
-        var newBackground = Instantiate(backgroundPrefab, INITIALIZE_POSITION, Quaternion.identity);
+        var startPosition = isFirst ? Helper.BACKGROUND_FIRST_INIT_POSITION : Helper.BACKGROUND_INITIALIZE_POSITION;
+        var newBackground = Instantiate(backgroundPrefab, startPosition, Quaternion.identity);
         var backgroundSpriteRenderer = newBackground.GetComponent<SpriteRenderer>();
 
         backgroundSpriteRenderer.sprite = LoadSprite(LevelsManager.currentLevel.backgroundsPath);
@@ -55,7 +57,7 @@ public class BackgroundsManager : MonoBehaviour
 
     public static void DestroyOldBackgrounds()
     {
-        var oldBackgrounds = backgroundPrefabsPool.Where(item => item.transform.position.y > DESTRUCTION_POSITION.y);
+        var oldBackgrounds = backgroundPrefabsPool.Where(item => item.transform.position.y > Helper.BACKGROUND_DESTRUCTION_POSITION.y);
         oldBackgrounds.ToList().ForEach(item => Destroy(item));
         backgroundPrefabsPool = backgroundPrefabsPool.Except(oldBackgrounds).ToList();
     }

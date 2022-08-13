@@ -33,7 +33,7 @@ public class BackgroundBehaviour : MonoBehaviour
 
     private void ManageBackgrounds()
     {
-        if (transform.position.y >= BackgroundsManager.NEW_BACKGROUND_INIT_POSITION.y
+        if (transform.position.y >= Helper.BACKGROUND_NEW_INIT_POSITION.y
             && !createdNewBackground)
         {
             BackgroundsManager.ManageBackgrounds();

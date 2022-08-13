@@ -9,7 +9,7 @@ public class LevelFileCreator : MonoBehaviour
         const int LEVEL_ID = 1;
         if (createLevel)
         {
-            LevelModel level = new()
+            LevelModel level = new LevelModel()
             {
                 ID = LEVEL_ID,
                 treeModules = GetSampleTreeModules(),

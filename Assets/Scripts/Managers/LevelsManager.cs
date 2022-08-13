@@ -3,8 +3,8 @@ using UnityEngine;
 public class LevelsManager : MonoBehaviour
 {
     public const int INITIAL_LEVEL = 0;
-    public static LevelModel currentLevel = new();
-    public static LevelModel nextLevel = new();
+    public static LevelModel currentLevel = new LevelModel();
+    public static LevelModel nextLevel = new LevelModel();
 
     #region STATIC
     public static LevelsManager instance;
@@ -37,13 +37,13 @@ public class LevelsManager : MonoBehaviour
     {
         Debug.Log("**Switching levels to next level with ID: " + nextLevel.ID);
         currentLevel = nextLevel;
-        nextLevel = new();
+        nextLevel = new LevelModel();
         Debug.Log("**Levels switched new level ID: " + currentLevel.ID);
     }
 
     public static void SetValuesToDefault()
     {
-        currentLevel = new();
-        nextLevel = new();
+        currentLevel = new LevelModel();
+        nextLevel = new LevelModel();
     }
 }

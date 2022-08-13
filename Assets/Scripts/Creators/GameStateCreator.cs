@@ -16,7 +16,7 @@ public class GameStateCreator : MonoBehaviour
 
     private GameStateModel CreateSampleGameState()
     {
-        return new()
+        return new GameStateModel()
         {
             finishedLevels = new int[] { 0 },
             unlockedCharacters = new string[] { "Tom" },

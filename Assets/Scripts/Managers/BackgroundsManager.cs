@@ -14,7 +14,7 @@ public class BackgroundsManager : MonoBehaviour
         }
     }
     #endregion
-    public static List<GameObject> backgroundPrefabsPool = new();
+    public static List<GameObject> backgroundPrefabsPool = new List<GameObject>();
     public static GameObject backgroundPrefab;
 
     public void Start()

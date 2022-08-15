@@ -12,17 +12,13 @@ public class BackgroundsManager : MonoBehaviour
         {
             instance = this;
         }
-    }
-    #endregion
-    public static List<GameObject> backgroundPrefabsPool = new List<GameObject>();
-    public static GameObject backgroundPrefab;
-
-    public void Start()
-    {
         backgroundPrefab = Resources.Load<GameObject>(
             PathsDictionary.GetFullPath(PathsDictionary.PREFABS, FilenameDictionary.BACKGROUND_PREFAB));
         InitializeNewBackground(true);
     }
+    #endregion
+    public static List<GameObject> backgroundPrefabsPool = new List<GameObject>();
+    public static GameObject backgroundPrefab;
 
     public static void ManageBackgrounds()
     {

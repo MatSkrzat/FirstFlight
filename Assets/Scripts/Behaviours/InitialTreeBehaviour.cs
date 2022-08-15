@@ -3,6 +3,8 @@ using UnityEngine;
 public class InitialTreeBehaviour : MonoBehaviour
 {
     Rigidbody2D rigidbody2d;
+    private readonly float DESTROY_POSITION_Y = 15F;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -21,7 +23,7 @@ public class InitialTreeBehaviour : MonoBehaviour
 
     private void DestroyIfOutOfCamera() 
     { 
-        if(rigidbody2d.position.y > 10f)
+        if(rigidbody2d.position.y > DESTROY_POSITION_Y)
         {
             Destroy(gameObject);
         }

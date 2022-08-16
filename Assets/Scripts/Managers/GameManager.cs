@@ -13,8 +13,8 @@ public class GameManager : MonoBehaviour
         }
     }
     #endregion
-    public static bool GamePaused { get; private set; } = true;
-    public static bool GameStarted { get; private set; } = false;
+    public static bool IsGamePaused { get; private set; } = true;
+    public static bool IsGameStarted { get; private set; } = false;
     public static UIManager UI { get; private set; }
     public static Camera MainCamera { get; private set; }
 
@@ -25,25 +25,31 @@ public class GameManager : MonoBehaviour
     }
     public void StopGame()
     {
-        GamePaused = true;
+        IsGamePaused = true;
         Time.timeScale = 0;
     }
     public void ResumeGame()
     {
-        GamePaused = false;
+        IsGamePaused = false;
         Time.timeScale = 1;
     }
 
-    public static void SetValuesToDefault()
+    public static void StartGame()
     {
-        GamePaused = true;
-        GameStarted = false;
+        IsGameStarted = true;
+        TreeManager.StartMovingTree();
+    }
+
+    public static void SetValuesToDefault() 
+    {
+        IsGameStarted = false;
+        IsGamePaused = true;        
         Time.timeScale = 1;
     }
 
     public void ResetGame()
     {
-        TreeModulesManager.SetValuesToDefault();
+        TreeManager.SetValuesToDefault();
         PlayerManager.SetValuesToDefault();
         BackgroundsManager.SetValuesToDefault();
         LevelsManager.SetValuesToDefault();

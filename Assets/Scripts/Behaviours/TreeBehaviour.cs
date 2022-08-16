@@ -12,6 +12,11 @@ public class TreeBehaviour : MonoBehaviour
         rigidbody2d = GetComponent<Rigidbody2D>();
     }
 
+    public void StartMoving()
+    {
+        shouldMove = true;
+    }
+
     public void ChangeSpeed(float newSpeed)
     {
         speed = newSpeed;
@@ -33,10 +38,10 @@ public class TreeBehaviour : MonoBehaviour
 
     private void ManageTrees()
     {
-        if (transform.position.y >= TreeModulesManager.NEW_TREE_MODULE_INIT_POSITION.y
+        if (transform.position.y >= TreeManager.NEW_TREE_MODULE_INIT_POSITION.y
             && !createdNewTree)
         {
-            TreeModulesManager.ManageTreeModules();
+            TreeManager.ManageTreeModules();
             createdNewTree = true;
         }
     }

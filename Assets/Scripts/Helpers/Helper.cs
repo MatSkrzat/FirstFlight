@@ -8,4 +8,5 @@ public static class Helper
     public static readonly Vector2 BACKGROUND_DESTRUCTION_POSITION = new Vector2(0, 20);
     public static readonly Vector2 BACKGROUND_NEW_INIT_POSITION = new Vector2(0, 4);
     public static readonly Vector2 BACKGROUND_FIRST_INIT_POSITION = new Vector2(0, -5);
+    public static readonly string GO_NAME_INITIAL_TREE = "InitialTree";
 }

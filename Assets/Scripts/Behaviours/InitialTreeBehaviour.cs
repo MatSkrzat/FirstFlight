@@ -4,6 +4,7 @@ public class InitialTreeBehaviour : MonoBehaviour
 {
     Rigidbody2D rigidbody2d;
     private readonly float DESTROY_POSITION_Y = 15F;
+    private bool shouldMove = false;
 
     // Start is called before the first frame update
     void Start()
@@ -16,9 +17,15 @@ public class InitialTreeBehaviour : MonoBehaviour
         DestroyIfOutOfCamera();
     }
 
+    public void StartMoving()
+    {
+        shouldMove = true;
+    }
+
     private void Move(float speed)
     {
-        rigidbody2d.position += speed * Time.fixedDeltaTime * Vector2.up;
+        if(shouldMove)
+            rigidbody2d.position += speed * Time.fixedDeltaTime * Vector2.up;
     }
 
     private void DestroyIfOutOfCamera() 

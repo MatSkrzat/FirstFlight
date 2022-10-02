@@ -1,13 +1,30 @@
+using Assets.Scripts.Animations;
 using UnityEngine;
 
 public class PlayerAnimations : MonoBehaviour
 {
+    const string JUMP_ANIM = "jump";
+    const string HIT_ANIM = "hit";
+
     private static Rigidbody2D playerRigidbody2D;
+    private static AnimationController animationController;
 
     private void Start()
     {
         playerRigidbody2D = GetComponent<Rigidbody2D>();
+        animationController = new AnimationController(GetComponent<Animator>());
     }
+
+    public static void PlayJumpAnimation()
+    {
+        animationController.Play(JUMP_ANIM);
+    }
+    
+    public static void PlayHitAnimation()
+    {
+        animationController.Play(HIT_ANIM);
+    }
+
     public static void PlayDeathAnimation()
     {
         if (PlayerManager.IsDead) return;

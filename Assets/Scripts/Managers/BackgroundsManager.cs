@@ -19,6 +19,7 @@ public class BackgroundsManager : MonoBehaviour
     #endregion
     public static List<GameObject> backgroundPrefabsPool = new List<GameObject>();
     public static GameObject backgroundPrefab;
+    public static readonly float BACKGROUND_SPEED_MULTIPLIER = 0.2F;
 
     public static void ManageBackgrounds()
     {
@@ -39,7 +40,7 @@ public class BackgroundsManager : MonoBehaviour
 
         var backgroundBehaviour = newBackground.GetComponent<BackgroundBehaviour>();
         backgroundBehaviour.shouldMove = true;
-        backgroundBehaviour.SetSpeed(LevelsManager.currentLevel.endSpeed * 0.5F);
+        backgroundBehaviour.SetSpeed(LevelsManager.currentLevel.endSpeed * BACKGROUND_SPEED_MULTIPLIER);
 
         backgroundPrefabsPool.Add(newBackground);
     }

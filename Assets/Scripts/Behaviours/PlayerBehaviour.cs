@@ -107,7 +107,7 @@ public class PlayerBehaviour : MonoBehaviour
     {
         if (collision.CompareTag(TagsDictionary.BRANCH))
         {
-            TreeModulesManager.BreakModuleBranch(collision.gameObject);
+            TreeManager.BreakModuleBranch(collision.gameObject);
             HandlePlayerHit();
         }
     }

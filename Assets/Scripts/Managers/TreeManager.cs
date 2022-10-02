@@ -8,10 +8,10 @@ public enum TreeModuleChildren
     brokenBranch
 }
 
-public class TreeModulesManager : MonoBehaviour
+public class TreeManager : MonoBehaviour
 {
     #region STATIC
-    public static TreeModulesManager instance;
+    public static TreeManager instance;
     public void Awake()
     {
         if (instance == null)
@@ -23,6 +23,7 @@ public class TreeModulesManager : MonoBehaviour
     public static List<GameObject> treeModulesPrefabsPool = new List<GameObject>();
     public static List<TreeModuleModel> currentLevelModules = new List<TreeModuleModel>();
     public static GameObject treeModulePrefab;
+    public static GameObject initialTree;
     public static readonly Vector2 INITIALIZE_POSITION = new Vector2(0F, -8.3F);
     public static readonly Vector2 DESTRUCTION_POSITION = new Vector2(0F, 10F);
     public static readonly Vector2 NEW_TREE_MODULE_INIT_POSITION = new Vector2(0, INITIALIZE_POSITION.y + 2.8F);
@@ -34,7 +35,23 @@ public class TreeModulesManager : MonoBehaviour
         treeModulePrefab = Resources.Load<GameObject>(
             PathsDictionary.GetFullPath(PathsDictionary.PREFABS, FilenameDictionary.TREE_PREFAB));
         currentModuleID = LevelsManager.currentLevel.treeModules.First().moduleID;
+        initialTree = GameObject.Find(Helper.GO_NAME_INITIAL_TREE);
         InitializeNewTreeModule();
+    }
+
+    public static void StartMovingTree()
+    {
+        if (GameManager.IsGameStarted)
+        {
+            var initialTreeBehaviour = initialTree.GetComponent<InitialTreeBehaviour>();
+            var treeBehaviours = treeModulesPrefabsPool.Select(x => x.GetComponent<TreeBehaviour>()).ToList();
+            if (initialTreeBehaviour != null && treeBehaviours.Count > 0)
+            {
+                initialTreeBehaviour.StartMoving();
+                treeBehaviours.ForEach(x => x.StartMoving());
+            }
+        }
+
     }
 
     public static void ManageTreeModules()
@@ -55,7 +72,10 @@ public class TreeModulesManager : MonoBehaviour
         treeModuleSpriteRenderer.flipX = LevelsManager.currentLevel.treeModules[currentModuleID].flipX;
 
         var treeBehaviour = newTreeModule.GetComponent<TreeBehaviour>();
-        treeBehaviour.shouldMove = true;
+        if (GameManager.IsGameStarted)
+        {
+            treeBehaviour.StartMoving();
+        }
         treeBehaviour.ChangeSpeed(LevelsManager.currentLevel.endSpeed);
 
         SetupBranchForTreeModule(newTreeModule);

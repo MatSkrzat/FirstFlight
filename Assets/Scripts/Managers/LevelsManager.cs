@@ -16,7 +16,7 @@ public class LevelsManager : MonoBehaviour
         }
         //TODO: Create a better way to load all resources and levels
         currentLevel = LoadLevel(INITIAL_LEVEL);
-        TreeModulesManager.currentLevelModules = currentLevel.treeModules;
+        TreeManager.currentLevelModules = currentLevel.treeModules;
     }
     #endregion
     public static LevelModel LoadLevel(int levelID)

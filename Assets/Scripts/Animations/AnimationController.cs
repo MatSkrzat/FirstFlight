@@ -23,7 +23,6 @@ namespace Assets.Scripts.Animations
         public void Play(string newState)
         {
             if (currentState == newState) return;
-            Debug.Log("PLAYING ANIMATION: " + newState);
             animator.Play(newState);
         }
     }

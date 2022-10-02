@@ -8,11 +8,13 @@ public class PlayerAnimations : MonoBehaviour
 
     private static Rigidbody2D playerRigidbody2D;
     private static AnimationController animationController;
+    private static ParticleSystem particle;
 
     private void Start()
     {
         playerRigidbody2D = GetComponent<Rigidbody2D>();
         animationController = new AnimationController(GetComponent<Animator>());
+        particle = GetComponent<ParticleSystem>();
     }
 
     public static void PlayJumpAnimation()
@@ -23,6 +25,8 @@ public class PlayerAnimations : MonoBehaviour
     public static void PlayHitAnimation()
     {
         animationController.Play(HIT_ANIM);
+        if(particle != null)
+            particle.Play();
     }
 
     public static void PlayDeathAnimation()

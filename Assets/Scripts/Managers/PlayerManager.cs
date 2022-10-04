@@ -22,15 +22,12 @@ public class PlayerManager : MonoBehaviour
         if (IsDead) return;
 
         NumberOfLives -= livesToSubstract;
+        GameManager.UI.UpdateDisplayedHealth(NumberOfLives);
         if (NumberOfLives <= 0)
         {
             PlayerAnimations.PlayDeathAnimation();
             IsDead = true;
         }
-    }
-    public static void ResetLives()
-    {
-        NumberOfLives = PlayerHelper.INITIAL_NUMBER_OF_LIVES;
     }
 
     public static void SetValuesToDefault()

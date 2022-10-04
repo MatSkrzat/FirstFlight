@@ -31,4 +31,8 @@ public static class FilenameDictionary
     #region game_states
     public static string GAME_STATE { get; } = "gameState";
     #endregion
+    #region ui
+    public static string UI_HEART_RED { get; } = "heart_red";
+    public static string UI_HEART_GRAY { get; } = "heart_gray";
+    #endregion
 }

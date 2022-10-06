@@ -4,4 +4,8 @@ using UnityEngine;
 
 public class CoinBehaviour : MonoBehaviour
 {
+    public void RemoveCoin()
+    {
+        gameObject.SetActive(false);
+    }
 }

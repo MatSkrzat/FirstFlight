@@ -79,7 +79,7 @@ public class TreeManager : MonoBehaviour
         }
         treeBehaviour.ChangeSpeed(LevelsManager.currentLevel.endSpeed);
 
-        SetupBonusesForTreeModule(newTreeModule, LevelsManager.currentLevel.treeModules[currentModuleID].hasBonus);
+        SetupBonusesForTreeModule(newTreeModule, LevelsManager.currentLevel.treeModules, currentModuleID);
 
         SetupBranchForTreeModule(newTreeModule);
         currentModuleID++;
@@ -98,11 +98,21 @@ public class TreeManager : MonoBehaviour
         treeModulesPrefabsPool.Add(newTreeModule);
     }
 
-    private static void SetupBonusesForTreeModule(GameObject treeModule, bool hasBonuses)
+    private static void SetupBonusesForTreeModule(GameObject treeModule, List<TreeModuleModel> treeModules, int currentModuleID)
     {
-        if (!hasBonuses)
+        //-2 is to make it safe and not go out of index
+        if (treeModules.Count - 2 < currentModuleID) return;
+
+        var currentTreeModule = treeModules[currentModuleID];
+        var nextTreeModule = treeModules[currentModuleID + 1];
+
+        if (currentTreeModule.hasBonus)
         {
-            treeModule.transform.GetChild((int)TreeModuleChildren.coin).gameObject.SetActive(Random.Range(0, 5) == 0);
+
+        }
+        else if (currentTreeModule.branch.side != nextTreeModule.branch.side)
+        {
+            treeModule.transform.GetChild((int)TreeModuleChildren.coin).gameObject.SetActive(Random.Range(0, 2) == 0);
         }
     }
 

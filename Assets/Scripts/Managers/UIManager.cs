@@ -74,7 +74,7 @@ public class UIManager : MonoBehaviour
 
     public void UpdateCoinsAmount(int coinsAmount)
     {
-        //if(coinsAmountText.GetComponent<TextMeshPro>() != null)
-        //    coinsAmountText.GetComponent<TextMeshPro>().text = coinsAmount.ToString();
+        if (coinsAmountText.GetComponent<TextMeshProUGUI>() != null)
+            coinsAmountText.GetComponent<TextMeshProUGUI>().text = coinsAmount.ToString();
     }
 }

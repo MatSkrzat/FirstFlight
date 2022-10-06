@@ -86,7 +86,7 @@ public class PlayerBehaviour : MonoBehaviour
         PlayerManager.IsJumping = true;
         playerRigidbody.bodyType = RigidbodyType2D.Dynamic;
         playerRigidbody.gravityScale = PlayerHelper.GRAVITY_SCALE_JUMP;
-        PlayerAnimations.PlayJumpAnimation();
+        PlayerAnimations.PlayJump();
         if (side == Helper.SIDE_RIGHT)
         {
             playerRigidbody.AddForce(new Vector2(-PlayerHelper.JUMP_FORCE.x, PlayerHelper.JUMP_FORCE.y));
@@ -102,7 +102,7 @@ public class PlayerBehaviour : MonoBehaviour
     private void HandlePlayerHit()
     {
         PlayerManager.SubstractLives(1);
-        PlayerAnimations.PlayHitAnimation();
+        PlayerAnimations.PlayHit();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

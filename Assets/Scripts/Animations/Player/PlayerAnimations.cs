@@ -17,19 +17,19 @@ public class PlayerAnimations : MonoBehaviour
         particle = GetComponent<ParticleSystem>();
     }
 
-    public static void PlayJumpAnimation()
+    public static void PlayJump()
     {
         animationController.Play(JUMP_ANIM);
     }
     
-    public static void PlayHitAnimation()
+    public static void PlayHit()
     {
         animationController.Play(HIT_ANIM);
         if(particle != null)
             particle.Play();
     }
 
-    public static void PlayDeathAnimation()
+    public static void PlayDeath()
     {
         if (PlayerManager.IsDead) return;
 

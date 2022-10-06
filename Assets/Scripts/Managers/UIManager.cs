@@ -10,18 +10,39 @@ public class UIManager : MonoBehaviour
     public GameObject mainMenuPanel;
     public GameObject healthStatusPanel;
 
-    private List<GameObject> heartsGameObjects = new List<GameObject>();
-    private readonly List<string> HEARTS_NAMES = new List<string>() { "heart_0", "heart_1", "heart_2" };
+    private List<GameObject> heartGameObjects = new List<GameObject>();
     private Sprite grayHeartSprite;
+    private GameObject heartPrefab;
+    private const float HEART_GAMEOBJECT_SEPARATION = 120F;
 
     private void Start()
     {
-        grayHeartSprite = Resources.Load<Sprite>(PathsDictionary.UI_HEARTS + FilenameDictionary.UI_HEART_GRAY);
+        LoadHearts();
+    }
 
-        foreach (Transform child in healthStatusPanel.transform)
+    private void LoadHearts()
+    {
+        grayHeartSprite = Resources.Load<Sprite>(
+            PathsDictionary.GetFullPath(PathsDictionary.UI_HEARTS, FilenameDictionary.UI_HEART_GRAY));
+        heartPrefab = Resources.Load<GameObject>(
+            PathsDictionary.GetFullPath(PathsDictionary.PREFABS, FilenameDictionary.UI_HEART_PREFAB));
+
+        for(int i = 0; i < PlayerManager.NumberOfLives; i++)
         {
-            if(HEARTS_NAMES.Contains(child.gameObject.name))
-                heartsGameObjects.Add(child.gameObject);
+            var heartGameObject = Instantiate(heartPrefab);
+            heartGameObject.transform.SetParent(healthStatusPanel.transform);
+
+            if (heartGameObjects.Count > 0)
+                heartGameObject.transform.localPosition = new Vector3(heartGameObjects.Last().transform.localPosition.x + HEART_GAMEOBJECT_SEPARATION,
+                    heartGameObject.transform.position.y,
+                    heartGameObject.transform.position.z);
+            else
+                heartGameObject.transform.localPosition = new Vector3(heartGameObject.transform.position.x,
+                    heartGameObject.transform.position.y,
+                    heartGameObject.transform.position.z);
+
+            heartGameObjects.Add(heartGameObject);
+
         }
     }
 
@@ -36,9 +57,14 @@ public class UIManager : MonoBehaviour
 
     public void UpdateDisplayedHealth(int numberOfLives)
     {
-        for (int i = heartsGameObjects.Count; i > numberOfLives; i--)
+        for (int i = heartGameObjects.Count; i > numberOfLives; i--)
         {
-            heartsGameObjects[i - 1].GetComponent<Image>().overrideSprite = grayHeartSprite;
+            var heartGameObjectSprite = heartGameObjects[i - 1].GetComponent<Image>();
+
+            if (heartGameObjectSprite.overrideSprite == grayHeartSprite) continue;
+
+            heartGameObjectSprite.gameObject.GetComponent<HeartAnimations>().PlayChange();
+            heartGameObjectSprite.overrideSprite = grayHeartSprite;
         }
     }
 }

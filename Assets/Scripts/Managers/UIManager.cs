@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -9,6 +10,8 @@ public class UIManager : MonoBehaviour
     public GameObject jumpSecurityPanel;
     public GameObject mainMenuPanel;
     public GameObject healthStatusPanel;
+    public GameObject scorePanel;
+    public GameObject coinsAmountText;
 
     private List<GameObject> heartGameObjects = new List<GameObject>();
     private Sprite grayHeartSprite;
@@ -67,5 +70,11 @@ public class UIManager : MonoBehaviour
                 heartGameObjectSprite.overrideSprite = grayHeartSprite;
             }
         }
+    }
+
+    public void UpdateCoinsAmount(int coinsAmount)
+    {
+        //if(coinsAmountText.GetComponent<TextMeshPro>() != null)
+        //    coinsAmountText.GetComponent<TextMeshPro>().text = coinsAmount.ToString();
     }
 }

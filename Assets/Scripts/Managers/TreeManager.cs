@@ -5,7 +5,8 @@ using UnityEngine;
 public enum TreeModuleChildren
 {
     branch,
-    brokenBranch
+    brokenBranch,
+    coin
 }
 
 public class TreeManager : MonoBehaviour
@@ -78,6 +79,8 @@ public class TreeManager : MonoBehaviour
         }
         treeBehaviour.ChangeSpeed(LevelsManager.currentLevel.endSpeed);
 
+        SetupBonusesForTreeModule(newTreeModule, LevelsManager.currentLevel.treeModules[currentModuleID].hasBonus);
+
         SetupBranchForTreeModule(newTreeModule);
         currentModuleID++;
 
@@ -93,6 +96,14 @@ public class TreeManager : MonoBehaviour
         }
 
         treeModulesPrefabsPool.Add(newTreeModule);
+    }
+
+    private static void SetupBonusesForTreeModule(GameObject treeModule, bool hasBonuses)
+    {
+        if (!hasBonuses)
+        {
+            treeModule.transform.GetChild((int)TreeModuleChildren.coin).gameObject.SetActive(Random.Range(0, 5) == 0);
+        }
     }
 
     private static void SetupBranchForTreeModule(GameObject treeModule)

@@ -51,6 +51,7 @@ public class LevelFileCreator : MonoBehaviour
         {
             spriteName = FilenameDictionary.DEFAULT_TREE_MODULES_NAMES[randomTreeModuleIndex],
             moduleID = moduleId,
+            hasBonus = Random.Range(0, 10) == 0,
             branch = new BranchModel
             {
                 spriteName = FilenameDictionary.DEFAULT_BRANCH_NAMES[randomTreeBranchIndex],

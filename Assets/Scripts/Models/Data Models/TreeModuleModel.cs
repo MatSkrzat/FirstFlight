@@ -7,4 +7,5 @@ public class TreeModuleModel
     public int moduleID;
     public bool flipX;
     public BranchModel branch;
+    public bool hasBonus;
 }

@@ -61,10 +61,11 @@ public class UIManager : MonoBehaviour
         {
             var heartGameObjectSprite = heartGameObjects[i - 1].GetComponent<Image>();
 
-            if (heartGameObjectSprite.overrideSprite == grayHeartSprite) continue;
-
-            heartGameObjectSprite.gameObject.GetComponent<HeartAnimations>().PlayChange();
-            heartGameObjectSprite.overrideSprite = grayHeartSprite;
+            if (heartGameObjectSprite.overrideSprite != grayHeartSprite)
+            {
+                heartGameObjectSprite.gameObject.GetComponent<HeartAnimations>().PlayChange();
+                heartGameObjectSprite.overrideSprite = grayHeartSprite;
+            }
         }
     }
 }

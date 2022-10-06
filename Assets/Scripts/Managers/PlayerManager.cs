@@ -25,7 +25,7 @@ public class PlayerManager : MonoBehaviour
         GameManager.UI.UpdateDisplayedHealth(NumberOfLives);
         if (NumberOfLives <= 0)
         {
-            PlayerAnimations.PlayDeathAnimation();
+            PlayerAnimations.PlayDeath();
             IsDead = true;
         }
     }

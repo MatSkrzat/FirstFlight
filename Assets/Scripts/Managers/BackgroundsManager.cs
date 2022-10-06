@@ -27,8 +27,6 @@ public class BackgroundsManager : MonoBehaviour
         DestroyOldBackgrounds();
     }
 
-
-
     private static void InitializeNewBackground(bool isFirst = false)
     {
         var startPosition = isFirst ? Helper.BACKGROUND_FIRST_INIT_POSITION : Helper.BACKGROUND_INITIALIZE_POSITION;

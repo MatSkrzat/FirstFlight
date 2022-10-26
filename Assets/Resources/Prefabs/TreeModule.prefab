@@ -325,14 +325,14 @@ GameObject:
   - component: {fileID: 5889160240098451697}
   - component: {fileID: 1890549357927078238}
   - component: {fileID: 5189099140582763215}
-  - component: {fileID: 9028125185196721544}
+  - component: {fileID: 9055662863902540938}
   m_Layer: 0
   m_Name: coin
   m_TagString: Coin
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1919739022531352926
 Transform:
   m_ObjectHideFlags: 0
@@ -438,7 +438,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d4652f0b7889954499dbad6a7efe470, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!95 &9028125185196721544
+--- !u!95 &9055662863902540938
 Animator:
   serializedVersion: 3
   m_ObjectHideFlags: 0
@@ -448,7 +448,7 @@ Animator:
   m_GameObject: {fileID: 6754560469553989303}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: e5c5e9c91456d4c4faa9e4e061fe31f0, type: 2}
+  m_Controller: {fileID: 9100000, guid: 409222daa0bd52c4ca789ab050c2f52a, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

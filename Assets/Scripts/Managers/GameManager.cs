@@ -33,6 +33,11 @@ public class GameManager : MonoBehaviour
         IsGamePaused = false;
         Time.timeScale = 1;
     }
+    public static void EndGame()
+    {
+        GameStateManager.UpdateOwnedCoins(CoinsManager.ownedCoins);
+        GameStateManager.SaveCurrentGameState();
+    }
 
     public static void StartGame()
     {

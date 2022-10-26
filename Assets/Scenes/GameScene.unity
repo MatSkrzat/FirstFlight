@@ -5910,6 +5910,7 @@ GameObject:
   - component: {fileID: 858175235}
   - component: {fileID: 858175230}
   - component: {fileID: 858175232}
+  - component: {fileID: 858175236}
   m_Layer: 0
   m_Name: Managers
   m_TagString: Untagged
@@ -6020,6 +6021,18 @@ MonoBehaviour:
   healthStatusPanel: {fileID: 496075706}
   scorePanel: {fileID: 90962843}
   coinsAmountText: {fileID: 951418915}
+--- !u!114 &858175236
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 858175227}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb7bc060a1940e44e8a6753620a14de5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &903553582
 GameObject:
   m_ObjectHideFlags: 0

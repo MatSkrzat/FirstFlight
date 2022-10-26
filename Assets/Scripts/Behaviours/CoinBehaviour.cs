@@ -6,6 +6,6 @@ public class CoinBehaviour : MonoBehaviour
 {
     public void RemoveCoin()
     {
-        gameObject.SetActive(false);
+        GetComponent<Collider2D>().enabled = false;
     }
 }

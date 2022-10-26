@@ -27,6 +27,7 @@ public class PlayerManager : MonoBehaviour
         {
             PlayerAnimations.PlayDeath();
             IsDead = true;
+            GameManager.EndGame();
         }
     }
 

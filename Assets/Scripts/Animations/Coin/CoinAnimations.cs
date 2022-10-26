@@ -8,7 +8,6 @@ public class CoinAnimations : MonoBehaviour
 
     public void PlayCatch()
     {
-        Debug.Log("play catch");
         GetComponent<Animator>().Play(CATCH_ANIM);
     }
 }

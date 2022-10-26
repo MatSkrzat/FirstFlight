@@ -21,6 +21,12 @@ public class UIManager : MonoBehaviour
     private void Start()
     {
         LoadHearts();
+        LoadCoins();
+    }
+
+    private void LoadCoins()
+    {
+        UpdateCoinsAmount(GameStateManager.CurrentGameState.ownedCoins);
     }
 
     private void LoadHearts()

@@ -112,10 +112,11 @@ public class PlayerBehaviour : MonoBehaviour
             TreeManager.BreakModuleBranch(collision.gameObject);
             HandlePlayerHit();
         }
-        if (collision.CompareTag(TagsDictionary.COIN))
+        if (collision.CompareTag(TagsDictionary.COIN) && !PlayerManager.IsDead)
         {
             CoinsManager.AddCoins();
             collision.gameObject.GetComponent<CoinBehaviour>().RemoveCoin();
+            collision.gameObject.GetComponent<CoinAnimations>().PlayCatch();
         }
     }
 }

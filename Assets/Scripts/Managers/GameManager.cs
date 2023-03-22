@@ -43,6 +43,7 @@ public class GameManager : MonoBehaviour
     {
         IsGameStarted = true;
         TreeManager.StartMovingTree();
+        CoinsManager.SetCoins(GameStateManager.CurrentGameState.ownedCoins);
     }
 
     public static void SetValuesToDefault() 

@@ -4,9 +4,9 @@ using UnityEngine;
 public class LevelFileCreator : MonoBehaviour
 {
     public bool createLevel = true;
+    const int LEVEL_ID = 1;
     public void Start()
     {
-        const int LEVEL_ID = 1;
         if (createLevel)
         {
             LevelModel level = new LevelModel()

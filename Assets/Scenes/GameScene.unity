@@ -459,7 +459,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
 --- !u!95 &317989305
 Animator:
-  serializedVersion: 3
+  serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -472,10 +472,11 @@ Animator:
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  m_KeepAnimatorStateOnDisable: 0
 --- !u!199 &317989306
 ParticleSystemRenderer:
   serializedVersion: 6
@@ -6199,8 +6200,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 50, y: 40}
-  m_SizeDelta: {x: 267.7, y: 80}
+  m_AnchoredPosition: {x: -52.151, y: 40}
+  m_SizeDelta: {x: 263.4, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &951418917
 MonoBehaviour:
@@ -6222,9 +6223,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '0
-
-'
+  m_text: 000000
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: e482c2cab45c93c4dbc56487ab988e4c, type: 2}
   m_sharedMaterial: {fileID: 3300148936408837113, guid: e482c2cab45c93c4dbc56487ab988e4c, type: 2}
@@ -6287,7 +6286,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0.585083, y: 0, z: 1.5982666, w: -0.00012207031}
+  m_margin: {x: -14.546753, y: 0, z: 1.5982666, w: -0.00012207031}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -6772,7 +6771,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -133.85, y: 40}
+  m_AnchoredPosition: {x: 135, y: 40}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1799729233

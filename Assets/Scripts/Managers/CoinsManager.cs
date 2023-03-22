@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 public class CoinsManager : MonoBehaviour
@@ -20,6 +21,12 @@ public class CoinsManager : MonoBehaviour
     public static void AddCoins(int amount = 1)
     {
         ownedCoins += amount;
+        GameManager.UI.UpdateCoinsAmount(ownedCoins);
+    }
+
+    public static void SetCoins(int amount)
+    {
+        ownedCoins = amount;
         GameManager.UI.UpdateCoinsAmount(ownedCoins);
     }
 }

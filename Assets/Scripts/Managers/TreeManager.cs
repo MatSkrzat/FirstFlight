@@ -73,6 +73,7 @@ public class TreeManager : MonoBehaviour
         treeModuleSpriteRenderer.flipX = LevelsManager.currentLevel.treeModules[currentModuleID].flipX;
 
         var treeBehaviour = newTreeModule.GetComponent<TreeBehaviour>();
+        treeBehaviour.moduleId = currentModuleID;
         if (GameManager.IsGameStarted)
         {
             treeBehaviour.StartMoving();
@@ -159,10 +160,14 @@ public class TreeManager : MonoBehaviour
         if (branch == null) return;
         branch.SetActive(false);
         var parent = branch.transform.parent.gameObject;
+        var parentBehaviour = parent.GetComponent<TreeBehaviour>();
         var brokenBranch = parent.transform.GetChild((int)TreeModuleChildren.brokenBranch).gameObject;
         if (branch.transform.position.x > 0)
             ChangeObjectSide(brokenBranch);
-        brokenBranch.gameObject.SetActive(true);
+        brokenBranch.GetComponent<SpriteRenderer>().sprite = LoadSprite(
+            LevelsManager.currentLevel.branchesPath, 
+            LevelsManager.currentLevel.treeModules[parentBehaviour.moduleId].branch.brokenBranchSpriteName);
+        brokenBranch.SetActive(true);
     }
 
     private static void ChangeObjectSide(GameObject gameObject)

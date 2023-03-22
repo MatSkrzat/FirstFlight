@@ -54,7 +54,8 @@ public class LevelFileCreator : MonoBehaviour
             hasBonus = Random.Range(0, 10) == 0,
             branch = new BranchModel
             {
-                spriteName = FilenameDictionary.DEFAULT_BRANCH_NAMES[randomTreeBranchIndex],
+                spriteName = FilenameDictionary.DEFAULT_BRANCH_NAMES[randomTreeBranchIndex].BranchName,
+                brokenBranchSpriteName = FilenameDictionary.DEFAULT_BRANCH_NAMES[randomTreeBranchIndex].BrokenBranchName,
                 side = randomBranchSide
             }
         };

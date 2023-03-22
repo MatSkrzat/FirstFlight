@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class TreeBehaviour : MonoBehaviour
 {
+    public int moduleId = 0;
     private float speed;
     private bool createdNewTree = false;
     public bool shouldMove = false;

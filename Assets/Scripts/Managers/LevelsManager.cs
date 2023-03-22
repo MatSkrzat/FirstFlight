@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class LevelsManager : MonoBehaviour
 {
-    public const int INITIAL_LEVEL = 0;
+    public const int INITIAL_LEVEL = 1;
     public static LevelModel currentLevel = new LevelModel();
     public static LevelModel nextLevel = new LevelModel();
 

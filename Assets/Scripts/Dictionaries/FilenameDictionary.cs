@@ -12,9 +12,13 @@ public static class FilenameDictionary
     public static string TREE_PREFAB { get; } = "TreeModule";
     #endregion
     #region branches
-    public static string[] DEFAULT_BRANCH_NAMES { get; } = new string[] { "branch1", "branch2", "branch3" };
+    public static BranchNameModel[] DEFAULT_BRANCH_NAMES { get; } = new BranchNameModel[] 
+        { 
+            new BranchNameModel { BranchName = "branch1", BrokenBranchName = "broken_branch2" },
+            new BranchNameModel { BranchName = "branch2", BrokenBranchName = "broken_branch1" },
+            new BranchNameModel { BranchName = "branch3", BrokenBranchName = "broken_branch2" }
+        };
     public static string BRANCH_PREFAB { get; } = "Branch";
-    public static string[] DEFAULT_BROKEN_BRANCH_NAMES { get; } = new string[] { "broken_branch1", "broken_branch2" };
     public static string BROKEN_BRANCH_PREFAB { get; } = "BrokenBranch";
     #endregion
     #region player

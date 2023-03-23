@@ -37,26 +37,36 @@ public class TreeManager : MonoBehaviour
             PathsDictionary.GetFullPath(PathsDictionary.PREFABS, FilenameDictionary.TREE_PREFAB));
         currentModuleID = LevelsManager.currentLevel.treeModules.First().moduleID;
         initialTree = GameObject.Find(Helper.GO_NAME_INITIAL_TREE);
-        InitializeNewTreeModule();
     }
 
     public static void StartMovingTree()
     {
         if (GameManager.IsGameStarted)
         {
+            InitializeNewTreeModule();
             var initialTreeBehaviour = initialTree.GetComponent<InitialTreeBehaviour>();
             var treeBehaviours = treeModulesPrefabsPool.Select(x => x.GetComponent<TreeBehaviour>()).ToList();
             if (initialTreeBehaviour != null && treeBehaviours.Count > 0)
             {
-                initialTreeBehaviour.StartMoving();
                 treeBehaviours.ForEach(x => x.StartMoving());
+                initialTreeBehaviour.StartMoving();
             }
         }
 
     }
 
+    public static void UpdateModulesSpeed()
+    {
+        var treeBehaviours = treeModulesPrefabsPool.Select(x => x.GetComponent<TreeBehaviour>()).ToList();
+        foreach (var item in treeBehaviours)
+        {
+            item.ChangeSpeed(LevelsManager.currentLevel.endSpeed);
+        }
+    }
+
     public static void ManageTreeModules()
     {
+        UpdateModulesSpeed();
         InitializeNewTreeModule();
         DestroyOldTreeModules();
     }

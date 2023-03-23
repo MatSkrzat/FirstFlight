@@ -4,32 +4,44 @@ using UnityEngine;
 public class LevelFileCreator : MonoBehaviour
 {
     public bool createLevel = true;
-    const int LEVEL_ID = 1;
+    public bool createLevels = true;
     public void Start()
     {
         if (createLevel)
         {
-            LevelModel level = new LevelModel()
-            {
-                ID = LEVEL_ID,
-                treeModules = GetSampleTreeModules(),
-                backgroundsPath = PathsDictionary.BACKGROUND_DEFAULT,
-                treeModulesPath = PathsDictionary.TREE_MODULES,
-                branchesPath = PathsDictionary.TREE_MODULES_BRANCHES,
-                endSpeed = 10f,
-                startSpeed = 5f
-            };
-            var levelName = FilenameDictionary.LEVEL + LEVEL_ID;
-            SaveLoadFile.SaveAsJSON(level, PathsDictionary.LEVELS, levelName);
-            Debug.Log("** Level template created!");
+            GenerateMultipleLevels(1);
+        }
+        if(createLevels && !createLevel)
+        {
+            GenerateMultipleLevels(180);
         }
     }
 
-    private List<TreeModuleModel> GetSampleTreeModules()
+    public void GenerateMultipleLevels(int levelsAmount)
+    {
+        for(int i = 0; i < levelsAmount; i++)
+        {
+            int levelId = i + 1;
+            LevelModel level = new LevelModel()
+            {
+                ID = levelId,
+                treeModules = GetSampleTreeModules(50 + i),
+                backgroundsPath = PathsDictionary.BACKGROUND_DEFAULT,
+                treeModulesPath = PathsDictionary.TREE_MODULES,
+                branchesPath = PathsDictionary.TREE_MODULES_BRANCHES,
+                endSpeed = (levelsAmount * 0.03f) + (i * 0.05f),
+                startSpeed = 0f
+            };
+            var levelName = FilenameDictionary.LEVEL + levelId;
+            SaveLoadFile.SaveAsJSON(level, PathsDictionary.LEVELS, levelName);
+            Debug.Log($"** Level {levelId} created!");
+        }
+    }
+
+    private List<TreeModuleModel> GetSampleTreeModules(int modulesToCreate)
     {
         var treeModules = new List<TreeModuleModel>();
-        const int NUMBER_OF_TREE_MODULES_TO_CREATE = 50;
-        for (int i = 0; i < NUMBER_OF_TREE_MODULES_TO_CREATE; i++)
+        for (int i = 0; i < modulesToCreate; i++)
         {
             treeModules.Add(GetSampleTreeModule(i));
         }

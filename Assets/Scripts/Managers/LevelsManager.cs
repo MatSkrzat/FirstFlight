@@ -19,11 +19,17 @@ public class LevelsManager : MonoBehaviour
         TreeManager.currentLevelModules = currentLevel.treeModules;
     }
     #endregion
+
     public static LevelModel LoadLevel(int levelID)
     {
         string levelName = FilenameDictionary.LEVEL + levelID;
 
         return SaveLoadFile.LoadFromJson<LevelModel>(PathsDictionary.LEVELS, levelName);
+    }
+
+    public static void LoadAndSetLevel(int levelID)
+    {
+        currentLevel = LoadLevel(levelID);
     }
 
     public static LevelModel LoadNextLevel()

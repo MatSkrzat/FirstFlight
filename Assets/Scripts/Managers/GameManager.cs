@@ -39,8 +39,9 @@ public class GameManager : MonoBehaviour
         GameStateManager.SaveCurrentGameState();
     }
 
-    public static void StartGame()
+    public static void StartGame(int level)
     {
+        LevelsManager.LoadAndSetLevel(level);
         IsGameStarted = true;
         TreeManager.StartMovingTree();
         CoinsManager.SetCoins(GameStateManager.CurrentGameState.ownedCoins);

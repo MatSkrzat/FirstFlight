@@ -5,6 +5,7 @@ public class LevelsManager : MonoBehaviour
     public const int INITIAL_LEVEL = 1;
     public static LevelModel currentLevel = new LevelModel();
     public static LevelModel nextLevel = new LevelModel();
+    public static bool isNextLevelReady = false;
 
     #region STATIC
     public static LevelsManager instance;
@@ -36,6 +37,7 @@ public class LevelsManager : MonoBehaviour
     {
         Debug.Log("**Loading new level " + (currentLevel.ID + 1));
         nextLevel = LoadLevel(currentLevel.ID + 1);
+        isNextLevelReady = true;
         return nextLevel;
     }
 
@@ -44,6 +46,7 @@ public class LevelsManager : MonoBehaviour
         Debug.Log("**Switching levels to next level with ID: " + nextLevel.ID);
         currentLevel = nextLevel;
         nextLevel = new LevelModel();
+        isNextLevelReady = false;
         Debug.Log("**Levels switched new level ID: " + currentLevel.ID);
     }
 

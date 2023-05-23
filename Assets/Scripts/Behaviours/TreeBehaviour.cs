@@ -8,6 +8,8 @@ public class TreeBehaviour : MonoBehaviour
     public bool shouldMove = false;
     private Rigidbody2D rigidbody2d;
 
+    public float Speed { get { return speed; } }
+
     private void Start()
     {
         rigidbody2d = GetComponent<Rigidbody2D>();

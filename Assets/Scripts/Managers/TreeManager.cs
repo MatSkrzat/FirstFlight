@@ -29,13 +29,10 @@ public class TreeManager : MonoBehaviour
     public static readonly Vector2 DESTRUCTION_POSITION = new Vector2(0F, 10F);
     public static readonly Vector2 NEW_TREE_MODULE_INIT_POSITION = new Vector2(0, INITIALIZE_POSITION.y + 2.8F);
 
-    private static int currentModuleID = 0;
-
     public void Start()
     {
         treeModulePrefab = Resources.Load<GameObject>(
             PathsDictionary.GetFullPath(PathsDictionary.PREFABS, FilenameDictionary.TREE_PREFAB));
-        currentModuleID = LevelsManager.currentLevel.treeModules.First().moduleID;
         initialTree = GameObject.Find(Helper.GO_NAME_INITIAL_TREE);
     }
 
@@ -43,7 +40,7 @@ public class TreeManager : MonoBehaviour
     {
         if (GameManager.IsGameStarted)
         {
-            InitializeNewTreeModule();
+            InitializeNewTreeModules(INITIALIZE_POSITION, LevelsManager.currentLevel);
             var initialTreeBehaviour = initialTree.GetComponent<InitialTreeBehaviour>();
             var treeBehaviours = treeModulesPrefabsPool.Select(x => x.GetComponent<TreeBehaviour>()).ToList();
             if (initialTreeBehaviour != null && treeBehaviours.Count > 0)
@@ -67,46 +64,49 @@ public class TreeManager : MonoBehaviour
     public static void ManageTreeModules()
     {
         UpdateModulesSpeed();
-        InitializeNewTreeModule();
         DestroyOldTreeModules();
+        LoadNextLevel();
     }
 
-    private static void InitializeNewTreeModule()
+    private static void InitializeNewTreeModules(Vector2 startPosition, LevelModel levelToLoad)
     {
-        var newTreeModule = Instantiate(treeModulePrefab, INITIALIZE_POSITION, Quaternion.identity);
-        var treeModuleSpriteRenderer = newTreeModule.GetComponent<SpriteRenderer>();
-
-        treeModuleSpriteRenderer.sprite = LoadSprite(
-            LevelsManager.currentLevel.treeModulesPath,
-            LevelsManager.currentLevel.treeModules[currentModuleID].spriteName
-        );
-        treeModuleSpriteRenderer.flipX = LevelsManager.currentLevel.treeModules[currentModuleID].flipX;
-
-        var treeBehaviour = newTreeModule.GetComponent<TreeBehaviour>();
-        treeBehaviour.moduleId = currentModuleID;
-        if (GameManager.IsGameStarted)
+        if (levelToLoad?.ID == default) return;
+        Vector2 positionToInstantiate = startPosition;
+        
+        for(int i = 0; i < levelToLoad.treeModules.Count; i++)
         {
-            treeBehaviour.StartMoving();
+            var newTreeModule = Instantiate(treeModulePrefab, positionToInstantiate, Quaternion.identity);
+            var treeModuleSpriteRenderer = newTreeModule.GetComponent<SpriteRenderer>();
+
+            treeModuleSpriteRenderer.sprite = LoadSprite(
+                levelToLoad.treeModulesPath,
+                levelToLoad.treeModules[i].spriteName
+            );
+            treeModuleSpriteRenderer.flipX = levelToLoad.treeModules[i].flipX;
+
+            var treeBehaviour = newTreeModule.GetComponent<TreeBehaviour>();
+            treeBehaviour.moduleId = i;
+            if (GameManager.IsGameStarted)
+            {
+                treeBehaviour.StartMoving();
+            }
+            treeBehaviour.ChangeSpeed(LevelsManager.currentLevel.endSpeed);
+
+            SetupBonusesForTreeModule(newTreeModule, LevelsManager.currentLevel.treeModules, i);
+
+            SetupBranchForTreeModule(newTreeModule, i);
+
+            treeModulesPrefabsPool.Add(newTreeModule);
+
+            var newTreeModuleYSize = newTreeModule.GetComponent<Collider2D>().bounds.size.y;
+            positionToInstantiate = new Vector2(
+                startPosition.x,
+                newTreeModule.transform.position.y
+                - newTreeModuleYSize
+                + (0.1F * Time.deltaTime * treeBehaviour.Speed));
         }
-        treeBehaviour.ChangeSpeed(LevelsManager.currentLevel.endSpeed);
 
-        SetupBonusesForTreeModule(newTreeModule, LevelsManager.currentLevel.treeModules, currentModuleID);
-
-        SetupBranchForTreeModule(newTreeModule);
-        currentModuleID++;
-
-        if (LevelsManager.currentLevel.treeModules.Count - currentModuleID == 10)
-        {
-            LevelsManager.LoadNextLevel();
-        }
-
-        if(currentModuleID >= LevelsManager.currentLevel.treeModules.Count)
-        {
-            LevelsManager.SwitchToNextLevel();
-            currentModuleID = LevelsManager.currentLevel.treeModules.First().moduleID;
-        }
-
-        treeModulesPrefabsPool.Add(newTreeModule);
+        
     }
 
     private static void SetupBonusesForTreeModule(GameObject treeModule, List<TreeModuleModel> treeModules, int currentModuleID)
@@ -127,7 +127,7 @@ public class TreeManager : MonoBehaviour
         }
     }
 
-    private static void SetupBranchForTreeModule(GameObject treeModule)
+    private static void SetupBranchForTreeModule(GameObject treeModule, int currentModuleID)
     {
         var branchGameObject = treeModule.transform.GetChild((int)TreeModuleChildren.branch).gameObject;
         if (branchGameObject == null) return;
@@ -163,6 +163,31 @@ public class TreeManager : MonoBehaviour
         oldTreeModules.ToList().ForEach(item => Destroy(item));
         //assign new list without old tree modules
         treeModulesPrefabsPool = treeModulesPrefabsPool.Except(oldTreeModules).ToList();
+
+
+    }
+
+    private static void LoadNextLevel()
+    {
+        bool shouldLoad = treeModulesPrefabsPool.Count < 15 && !LevelsManager.isNextLevelReady;
+        // Load next level
+        if (shouldLoad)
+        {
+            LevelsManager.LoadNextLevel();
+        }
+
+        bool shouldSwitch = treeModulesPrefabsPool.Count < 10;
+        // Switch to next level
+        if (shouldSwitch)
+        {
+            LevelsManager.SwitchToNextLevel();
+            var lastModule = treeModulesPrefabsPool.Last();
+            var lastModuleCollider = lastModule.GetComponent<Collider2D>();
+            InitializeNewTreeModules(
+                new Vector2(lastModule.transform.position.x,
+                    lastModule.transform.position.y - lastModuleCollider.bounds.size.y + 0.1F),
+                LevelsManager.currentLevel);
+        }
     }
 
     public static void BreakModuleBranch(GameObject branch)

@@ -1,12 +1,14 @@
 using System.Collections.Generic;
 using System.Linq;
+using TMPro;
 using UnityEngine;
 
 public enum TreeModuleChildren
 {
     branch,
     brokenBranch,
-    coin
+    coin,
+    canvas
 }
 
 public class TreeManager : MonoBehaviour
@@ -77,6 +79,14 @@ public class TreeManager : MonoBehaviour
         {
             var newTreeModule = Instantiate(treeModulePrefab, positionToInstantiate, Quaternion.identity);
             var treeModuleSpriteRenderer = newTreeModule.GetComponent<SpriteRenderer>();
+
+            if(i == 0)
+            {
+                var canvas = newTreeModule.transform.GetChild((int)TreeModuleChildren.canvas).gameObject;
+                canvas.SetActive(true);
+                canvas.transform.GetChild(0).gameObject.GetComponent<TextMeshProUGUI>().text = LevelsManager.currentLevel.ID.ToString();
+
+            }
 
             treeModuleSpriteRenderer.sprite = LoadSprite(
                 levelToLoad.treeModulesPath,
@@ -187,6 +197,7 @@ public class TreeManager : MonoBehaviour
                 new Vector2(lastModule.transform.position.x,
                     lastModule.transform.position.y - lastModuleCollider.bounds.size.y + 0.1F),
                 LevelsManager.currentLevel);
+            var firstPrefab = treeModulesPrefabsPool.First(x => x.GetComponent<TreeBehaviour>().moduleId == 0);
         }
     }
 

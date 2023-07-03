@@ -113,7 +113,7 @@ public class TreeManager : MonoBehaviour
                 startPosition.x,
                 newTreeModule.transform.position.y
                 - newTreeModuleYSize
-                + (0.1F * Time.deltaTime * treeBehaviour.Speed));
+                + (Time.deltaTime * treeBehaviour.Speed));
         }
 
         
@@ -193,9 +193,10 @@ public class TreeManager : MonoBehaviour
             LevelsManager.SwitchToNextLevel();
             var lastModule = treeModulesPrefabsPool.Last();
             var lastModuleCollider = lastModule.GetComponent<Collider2D>();
+            Debug.Log("SPEED" + (0.1F + Time.deltaTime * LevelsManager.currentLevel.endSpeed) + "/" + Time.deltaTime + "/" + LevelsManager.currentLevel.endSpeed);
             InitializeNewTreeModules(
                 new Vector2(lastModule.transform.position.x,
-                    lastModule.transform.position.y - lastModuleCollider.bounds.size.y + 0.1F),
+                    lastModule.transform.position.y - lastModuleCollider.bounds.size.y + (Time.deltaTime * LevelsManager.currentLevel.endSpeed)),
                 LevelsManager.currentLevel);
             var firstPrefab = treeModulesPrefabsPool.First(x => x.GetComponent<TreeBehaviour>().moduleId == 0);
         }

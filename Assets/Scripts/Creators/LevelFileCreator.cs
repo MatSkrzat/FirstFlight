@@ -5,7 +5,7 @@ public class LevelFileCreator : MonoBehaviour
 {
     public bool createLevel = true;
     public bool createLevels = true;
-    public void Start()
+    void Start()
     {
         if (createLevel)
         {
@@ -13,7 +13,7 @@ public class LevelFileCreator : MonoBehaviour
         }
         if(createLevels && !createLevel)
         {
-            GenerateMultipleLevels(180);
+            GenerateMultipleLevels(Helper.LEVELS_COUNT);
         }
     }
 
@@ -29,8 +29,8 @@ public class LevelFileCreator : MonoBehaviour
                 backgroundsPath = PathsDictionary.BACKGROUND_DEFAULT,
                 treeModulesPath = PathsDictionary.TREE_MODULES,
                 branchesPath = PathsDictionary.TREE_MODULES_BRANCHES,
-                endSpeed = (levelsAmount * 0.03f) + (i * 0.05f),
-                startSpeed = 0f
+                endSpeed = Helper.GAME_SPEED_START + (Helper.GAME_SPEED_END / Helper.LEVELS_COUNT * (i + 1)),
+                startSpeed = Helper.GAME_SPEED_START + (Helper.GAME_SPEED_END / Helper.LEVELS_COUNT * i)
             };
             var levelName = FilenameDictionary.LEVEL + levelId;
             SaveLoadFile.SaveAsJSON(level, PathsDictionary.LEVELS, levelName);

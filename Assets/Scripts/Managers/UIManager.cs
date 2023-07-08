@@ -16,7 +16,7 @@ public class UIManager : MonoBehaviour
     public Button[] levelsButtons;
 
     private const float HEART_GAMEOBJECT_SEPARATION = 120F;
-    private const int LAST_LEVEL = 180;
+    private readonly int LAST_LEVEL = Helper.LEVELS_COUNT;
     private const int FIRST_LEVEL = 1;
     private const int LEVELS_PER_SITE = 9;
 

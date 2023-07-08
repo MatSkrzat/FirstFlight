@@ -17,6 +17,12 @@ public class GameStateManager : MonoBehaviour
         CurrentGameState.lastLevel = level;
     }
 
+    public static void UpdateLastLevelAndSaveGameState(int level)
+    {
+        CurrentGameState.lastLevel = level;
+        SaveCurrentGameState();
+    }
+
     public static void UpdateFinishedLevels(int lastLevelId)
     {
         var finishedLevels = CurrentGameState.finishedLevels.ToList();

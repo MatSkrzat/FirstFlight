@@ -129,12 +129,20 @@ public class UIManager : MonoBehaviour
             FillLevelButtons(displayedLevels.First() - LEVELS_PER_SITE);
     }
 
-    private void FillLevelButtons(int firstLevel)
+    private void FillLevelButtons(int firstLevelToLoadOnPage)
     {
-        int level = firstLevel;
+        int level = firstLevelToLoadOnPage;
         for(int i = 0; i < levelsButtons.Length; i++)
         {
             levelsButtons[i].GetComponentInChildren<TextMeshProUGUI>().text = level.ToString();
+            if (level > GameStateManager.CurrentGameState.lastLevel)
+            {
+                levelsButtons[i].GetComponent<Button>().interactable = false;
+            }
+            else
+            {
+                levelsButtons[i].GetComponent<Button>().interactable = true;
+            }
             displayedLevels[i] = level;
             level++;
         }

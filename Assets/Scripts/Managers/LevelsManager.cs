@@ -48,6 +48,10 @@ public class LevelsManager : MonoBehaviour
         nextLevel = new LevelModel();
         isNextLevelReady = false;
         Debug.Log("**Levels switched new level ID: " + currentLevel.ID);
+        if(GameStateManager.CurrentGameState.lastLevel < currentLevel.ID)
+        {
+            GameStateManager.UpdateLastLevelAndSaveGameState(currentLevel.ID);
+        }
     }
 
     public static void SetValuesToDefault()

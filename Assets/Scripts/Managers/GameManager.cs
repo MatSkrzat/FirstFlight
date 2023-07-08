@@ -37,6 +37,7 @@ public class GameManager : MonoBehaviour
     {
         GameStateManager.UpdateOwnedCoins(CoinsManager.ownedCoins);
         GameStateManager.SaveCurrentGameState();
+        UI.LoadEndGamePanel();
     }
 
     public static void StartGame(int level)

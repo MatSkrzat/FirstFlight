@@ -5,6 +5,17 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
+public enum EndGamePanelChildren
+{
+    gameOverLabel,
+    scoreLabel,
+    scoreValueLabel,
+    coinIcon,
+    coinValueLabel,
+    reloadButton,
+    closeButton
+}
+
 public class UIManager : MonoBehaviour
 {
     public GameObject jumpSecurityPanel;
@@ -13,6 +24,7 @@ public class UIManager : MonoBehaviour
     public GameObject scorePanel;
     public GameObject coinsAmountText;
     public GameObject levelsPanel;
+    public GameObject endGamePanel;
     public Button[] levelsButtons;
 
     private const float HEART_GAMEOBJECT_SEPARATION = 120F;
@@ -76,6 +88,7 @@ public class UIManager : MonoBehaviour
         EventSystem.current.currentSelectedGameObject == jumpSecurityPanel;
     public void StartGame(int level)
     {
+        endGamePanel.SetActive(false);
         mainMenuPanel.SetActive(false);
         levelsPanel.SetActive(false);
         jumpSecurityPanel.SetActive(true);
@@ -111,6 +124,17 @@ public class UIManager : MonoBehaviour
         jumpSecurityPanel.SetActive(false);
         levelsPanel.SetActive(true);
         FillLevelButtons(FIRST_LEVEL);
+    }
+
+    public void LoadEndGamePanel()
+    {
+        scorePanel.SetActive(false);
+        mainMenuPanel.SetActive(false);
+        jumpSecurityPanel.SetActive(false);
+        healthStatusPanel.SetActive(false);
+        endGamePanel.transform.GetChild(0).GetChild((int)EndGamePanelChildren.scoreValueLabel).GetComponent<TextMeshProUGUI>().text = "0";
+        endGamePanel.transform.GetChild(0).GetChild((int)EndGamePanelChildren.coinValueLabel).GetComponent<TextMeshProUGUI>().text = GameStateManager.CurrentGameState.ownedCoins.ToString();
+        endGamePanel.SetActive(true);
     }
 
     public void LoadNextLevelsPage()

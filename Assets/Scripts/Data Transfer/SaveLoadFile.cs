@@ -5,9 +5,11 @@ using UnityEngine.Networking;
 
 public static class SaveLoadFile
 {
-    public static void SaveAsJSON<T>(T data, string path, string fileName)
+    public static void SaveAsJSON<T>(T data, string path, string fileName, bool isReadOnly = false)
     {
-        var basicPath = string.Format("{0}/{1}", Application.streamingAssetsPath, path);
+        var basicPath = isReadOnly
+            ? string.Format("{0}/{1}", Application.streamingAssetsPath, path)
+            : string.Format("{0}/{1}", Application.persistentDataPath, path);
         if (!Directory.Exists(basicPath))
         {
             Directory.CreateDirectory(basicPath);
@@ -21,13 +23,18 @@ public static class SaveLoadFile
         throw new NotImplementedException();
     }
 
-    public static T LoadFromJson<T>(string path, string fileName)
+    public static T LoadFromJson<T>(string path, string fileName, bool isReadOnly = false)
     {
-        string filePath = Path.Combine(
-            Application.streamingAssetsPath,
-            path,
-            string.Format("{0}.json", fileName)
-        );
+        string filePath = isReadOnly
+            ? Path.Combine(
+                Application.streamingAssetsPath,
+                path,
+                string.Format("{0}.json", fileName))
+            : Path.Combine(
+                Application.persistentDataPath,
+                path,
+                string.Format("{0}.json", fileName));
+        Debug.Log(filePath);
         //loading file for Android
         if (Application.platform == RuntimePlatform.Android)
         {

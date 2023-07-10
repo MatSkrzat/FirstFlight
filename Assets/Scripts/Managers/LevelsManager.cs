@@ -25,7 +25,7 @@ public class LevelsManager : MonoBehaviour
     {
         string levelName = FilenameDictionary.LEVEL + levelID;
 
-        return SaveLoadFile.LoadFromJson<LevelModel>(PathsDictionary.LEVELS, levelName);
+        return SaveLoadFile.LoadFromJson<LevelModel>(PathsDictionary.LEVELS, levelName, true);
     }
 
     public static void LoadAndSetLevel(int levelID)
@@ -48,7 +48,7 @@ public class LevelsManager : MonoBehaviour
         nextLevel = new LevelModel();
         isNextLevelReady = false;
         Debug.Log("**Levels switched new level ID: " + currentLevel.ID);
-        if(GameStateManager.CurrentGameState.lastLevel < currentLevel.ID)
+        if (GameStateManager.CurrentGameState.lastLevel < currentLevel.ID)
         {
             GameStateManager.UpdateLastLevelAndSaveGameState(currentLevel.ID);
         }

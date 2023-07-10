@@ -33,7 +33,7 @@ public class LevelFileCreator : MonoBehaviour
                 startSpeed = Helper.GAME_SPEED_START + (Helper.GAME_SPEED_END / Helper.LEVELS_COUNT * i)
             };
             var levelName = FilenameDictionary.LEVEL + levelId;
-            SaveLoadFile.SaveAsJSON(level, PathsDictionary.LEVELS, levelName);
+            SaveLoadFile.SaveAsJSON(level, PathsDictionary.LEVELS, levelName, true);
             Debug.Log($"** Level {levelId} created!");
         }
     }

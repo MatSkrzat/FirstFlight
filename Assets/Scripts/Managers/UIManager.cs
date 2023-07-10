@@ -25,6 +25,7 @@ public class UIManager : MonoBehaviour
     public GameObject coinsAmountText;
     public GameObject levelsPanel;
     public GameObject endGamePanel;
+    public GameObject debugText;
     public Button[] levelsButtons;
 
     private const float HEART_GAMEOBJECT_SEPARATION = 120F;
@@ -41,6 +42,22 @@ public class UIManager : MonoBehaviour
     {
         LoadHearts();
         LoadCoins();
+    }
+
+    void OnEnable()
+    {
+        Application.logMessageReceived += LogCallback;
+    }
+
+    //Called when there is an exception
+    void LogCallback(string condition, string stackTrace, LogType type)
+    {
+        UpdateDebugText(condition, type);
+    }
+
+    void OnDisable()
+    {
+        Application.logMessageReceived -= LogCallback;
     }
 
     private void AddListenersTolevelsButtons()
@@ -124,6 +141,15 @@ public class UIManager : MonoBehaviour
         jumpSecurityPanel.SetActive(false);
         levelsPanel.SetActive(true);
         FillLevelButtons(FIRST_LEVEL);
+    }
+
+    public void UpdateDebugText(string message, LogType type)
+    {
+        if (type == LogType.Exception)
+            debugText.GetComponent<Text>().color = Color.red;
+        else
+            debugText.GetComponent<Text>().color = Color.white;
+        debugText.GetComponent<Text>().text = message;
     }
 
     public void LoadEndGamePanel()

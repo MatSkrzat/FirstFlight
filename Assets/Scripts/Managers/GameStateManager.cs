@@ -44,7 +44,15 @@ public class GameStateManager : MonoBehaviour
 
     public static void LoadGameState()
     {
-        CurrentGameState = SaveLoadFile.LoadFromJson<GameStateModel>(PathsDictionary.GAME_STATE, FilenameDictionary.GAME_STATE);
+        try
+        {
+            CurrentGameState = SaveLoadFile.LoadFromJson<GameStateModel>(PathsDictionary.GAME_STATE, FilenameDictionary.GAME_STATE);
+        }
+        catch
+        {
+            GameStateCreator.CreateAndSaveSampleGameState();
+            LoadGameState();
+        }
     }
 
     public static void SaveCurrentGameState()

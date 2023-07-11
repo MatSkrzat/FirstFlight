@@ -16,6 +16,18 @@ public enum EndGamePanelChildren
     closeButton
 }
 
+public enum ShopPanelChildren
+{
+    buttonLeft,
+    buttonRight,
+    priceLabel,
+    nameLabel,
+    coinImage,
+    buySelectButton,
+    iconBackground,
+    icon
+}
+
 public class UIManager : MonoBehaviour
 {
     public GameObject jumpSecurityPanel;
@@ -26,17 +38,20 @@ public class UIManager : MonoBehaviour
     public GameObject levelsPanel;
     public GameObject endGamePanel;
     public GameObject debugText;
+    public GameObject shopPanel;
     public Button[] levelsButtons;
 
     private const float HEART_GAMEOBJECT_SEPARATION = 120F;
     private readonly int LAST_LEVEL = Helper.LEVELS_COUNT;
     private const int FIRST_LEVEL = 1;
     private const int LEVELS_PER_SITE = 9;
+    private const int DEFAULT_CHARACTER_ID = (int)CharacterIds.tom;
 
     private List<GameObject> heartGameObjects = new List<GameObject>();
     private Sprite grayHeartSprite;
     private GameObject heartPrefab;
     private int[] displayedLevels = new int[LEVELS_PER_SITE];
+    private int currentSelectedCharacterId;
 
     private int logCounter = 0;
 
@@ -169,6 +184,88 @@ public class UIManager : MonoBehaviour
         endGamePanel.transform.GetChild(0).GetChild((int)EndGamePanelChildren.scoreValueLabel).GetComponent<TextMeshProUGUI>().text = "0";
         endGamePanel.transform.GetChild(0).GetChild((int)EndGamePanelChildren.coinValueLabel).GetComponent<TextMeshProUGUI>().text = GameStateManager.CurrentGameState.ownedCoins.ToString();
         endGamePanel.SetActive(true);
+    }
+
+    public void LoadShopPanel()
+    {
+        scorePanel.SetActive(false);
+        mainMenuPanel.SetActive(false);
+        jumpSecurityPanel.SetActive(false);
+        healthStatusPanel.SetActive(false);
+        endGamePanel.SetActive(false);
+        currentSelectedCharacterId = GameStateManager.CurrentGameState.selectedCharacterId;
+        DisplayCharacter(currentSelectedCharacterId);
+        shopPanel.SetActive(true);
+    }
+
+    public void LoadNextCharacter()
+    {
+        if (currentSelectedCharacterId >= PlayerHelper.CHARACTERS.Last().ID)
+        {
+            currentSelectedCharacterId = PlayerHelper.CHARACTERS.First().ID;
+            DisplayCharacter(currentSelectedCharacterId);
+        }
+        else
+        {
+            currentSelectedCharacterId++;
+            DisplayCharacter(currentSelectedCharacterId);
+        }
+    }
+
+    public void LoadPreviousCharacter()
+    {
+        if (currentSelectedCharacterId <= PlayerHelper.CHARACTERS.First().ID)
+        {
+            currentSelectedCharacterId = PlayerHelper.CHARACTERS.Last().ID;
+            DisplayCharacter(currentSelectedCharacterId);
+        }
+        else
+        {
+            currentSelectedCharacterId--;
+            DisplayCharacter(currentSelectedCharacterId);
+        }
+    }
+
+    public void DisplayCharacter(int characterId)
+    {
+        var character = PlayerHelper.CHARACTERS.Find(x => x.ID == characterId);
+        var shopPanelBackground = shopPanel.transform.GetChild(0);
+        shopPanelBackground.GetChild((int)ShopPanelChildren.icon).GetComponent<Image>().sprite
+            = Resources.Load<Sprite>(PathsDictionary.GetPlayerPath(character.Name) + FilenameDictionary.CHARACTER_ICON);
+        shopPanelBackground.GetChild((int)ShopPanelChildren.priceLabel).GetComponent<TextMeshProUGUI>().text = character.Price.ToString();
+        shopPanelBackground.GetChild((int)ShopPanelChildren.nameLabel).GetComponent<TextMeshProUGUI>().text = character.Name;
+        UpdateBuySelectButton(characterId);
+
+    }
+
+    public void BuySelectCharacter()
+    {
+        var character = PlayerHelper.CHARACTERS.Find(x => x.ID == currentSelectedCharacterId);
+        if (character.IsOwned)
+        {
+            GameStateManager.SetSelectedCharacter(currentSelectedCharacterId);
+        }
+        else
+        {
+            ShopManager.UnlockCharacter(currentSelectedCharacterId);
+        }
+        UpdateBuySelectButton(currentSelectedCharacterId);
+    }
+
+    public void UpdateBuySelectButton(int characterId)
+    {
+        var character = PlayerHelper.CHARACTERS.Find(x => x.ID == characterId);
+        var shopPanelBackground = shopPanel.transform.GetChild(0);
+        if (character.IsOwned)
+            shopPanelBackground.GetChild((int)ShopPanelChildren.buySelectButton).GetComponent<Image>().sprite
+                = Resources.Load<Sprite>(PathsDictionary.GetFullPath(PathsDictionary.UI_BUTTONS, FilenameDictionary.CONFIRM_ICON));
+        else
+            shopPanelBackground.GetChild((int)ShopPanelChildren.buySelectButton).GetComponent<Image>().sprite
+                = Resources.Load<Sprite>(PathsDictionary.GetFullPath(PathsDictionary.UI_BUTTONS, FilenameDictionary.SHOP_ICON));
+        if (character.IsSelected)
+            shopPanelBackground.GetChild((int)ShopPanelChildren.buySelectButton).GetComponent<Button>().interactable = false;
+        else
+            shopPanelBackground.GetChild((int)ShopPanelChildren.buySelectButton).GetComponent<Button>().interactable = true;
     }
 
     public void LoadNextLevelsPage()

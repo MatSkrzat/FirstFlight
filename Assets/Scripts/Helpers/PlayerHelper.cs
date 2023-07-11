@@ -1,6 +1,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum CharacterIds
+{
+    tom,
+    zoe,
+    andrew,
+    arthur,
+    sylvie,
+    jack,
+    pinguin
+};
 public static class PlayerHelper
 {
     public static readonly float RIGHT_X_POSITION = 2F;
@@ -59,14 +69,5 @@ public static class PlayerHelper
             ID = (int)CharacterIds.pinguin,
             Price = 1000,
         },
-    };
-    public enum CharacterIds {
-        tom,
-        zoe,
-        andrew,
-        arthur,
-        sylvie,
-        jack,
-        pinguin
     };
 }

@@ -10,11 +10,30 @@ public class GameStateManager : MonoBehaviour
         if (instance == null)
             instance = this;
         LoadGameState();
+        SetUnlockedCharacters();
+        SetSelectedCharacter();
+        CoinsManager.SetCoins(CurrentGameState.ownedCoins);
     }
 
     public static void UpdateLastLevel(int level)
     {
         CurrentGameState.lastLevel = level;
+    }
+
+    public static void AddOwnedCharacter(int characterId)
+    {
+        var characters = CurrentGameState.unlockedCharacters.ToList();
+        characters.Add(characterId);
+        CurrentGameState.unlockedCharacters = characters.ToArray();
+        SaveCurrentGameState();
+        SetUnlockedCharacters();
+    }
+
+    public static void SetSelectedCharacter(int characterId)
+    {
+        CurrentGameState.selectedCharacterId = characterId;
+        SetSelectedCharacter();
+        SaveCurrentGameState();
     }
 
     public static void UpdateLastLevelAndSaveGameState(int level)
@@ -23,23 +42,15 @@ public class GameStateManager : MonoBehaviour
         SaveCurrentGameState();
     }
 
-    public static void UpdateFinishedLevels(int lastLevelId)
-    {
-        var finishedLevels = CurrentGameState.finishedLevels.ToList();
-        finishedLevels.Add(lastLevelId - 1);
-        CurrentGameState.finishedLevels = finishedLevels.ToArray();
-    }
-
-    public static void UnlockCharacter(string characterName)
-    {
-        var characters = CurrentGameState.unlockedCharacters.ToList();
-        characters.Add(characterName);
-        CurrentGameState.unlockedCharacters = characters.ToArray();
-    }
-
     public static void UpdateOwnedCoins(int amount)
     {
         CurrentGameState.ownedCoins = amount;
+    }
+
+    public static void UpdateAndSaveOwnedCoins(int amount)
+    {
+        UpdateOwnedCoins(amount);
+        SaveCurrentGameState();
     }
 
     public static void LoadGameState()
@@ -64,5 +75,22 @@ public class GameStateManager : MonoBehaviour
     public static void SaveGameState(GameStateModel gameState)
     {
         SaveLoadFile.SaveAsJSON(gameState, PathsDictionary.GAME_STATE, FilenameDictionary.GAME_STATE);
+    }
+
+    private static void SetUnlockedCharacters()
+    {
+        foreach (var unlockedCharacterId in CurrentGameState.unlockedCharacters)
+        {
+            PlayerHelper.CHARACTERS.Find(x => x.ID == unlockedCharacterId).IsOwned = true;
+        }
+    }
+
+    private static void SetSelectedCharacter()
+    {
+        foreach (var character in PlayerHelper.CHARACTERS)
+        {
+            character.IsSelected = false;
+        }
+        PlayerHelper.CHARACTERS.Find(x => x.ID == CurrentGameState.selectedCharacterId).IsSelected = true;
     }
 }

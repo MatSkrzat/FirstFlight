@@ -39,5 +39,8 @@ public static class FilenameDictionary
     public static string UI_HEART_RED { get; } = "heart_red";
     public static string UI_HEART_GRAY { get; } = "heart_gray";
     public static string UI_HEART_PREFAB { get; } = "heart";
+    public static string CHARACTER_ICON { get; } = "icon";
+    public static string CONFIRM_ICON { get; } = "confirm";
+    public static string SHOP_ICON { get; } = "shop";
     #endregion
 }

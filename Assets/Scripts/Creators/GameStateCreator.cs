@@ -27,7 +27,8 @@ public class GameStateCreator : MonoBehaviour
             finishedLevels = new int[] { 0 },
             unlockedCharacters = new int[] { 0 },
             lastLevel = 1,
-            ownedCoins = 0
+            ownedCoins = 0,
+            selectedCharacterId = (int)CharacterIds.tom
         };
     }
 

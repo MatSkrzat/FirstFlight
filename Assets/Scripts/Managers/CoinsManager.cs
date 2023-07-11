@@ -18,15 +18,24 @@ public class CoinsManager : MonoBehaviour
 
     public static int ownedCoins { get; private set; }
 
-    public static void AddCoins(int amount = 1)
+    public static void AddCoins(int amount = 0)
     {
         ownedCoins += amount;
+        GameManager.UI.UpdateCoinsAmount(ownedCoins);
+        GameStateManager.UpdateOwnedCoins(ownedCoins);
+    }
+
+    public static void SubstractCoins(int amount = 0)
+    {
+        ownedCoins -= amount;
+        GameStateManager.UpdateAndSaveOwnedCoins(ownedCoins);
         GameManager.UI.UpdateCoinsAmount(ownedCoins);
     }
 
     public static void SetCoins(int amount)
     {
         ownedCoins = amount;
-        GameManager.UI.UpdateCoinsAmount(ownedCoins);
+        if(GameManager.UI != null)
+            GameManager.UI.UpdateCoinsAmount(ownedCoins);
     }
 }

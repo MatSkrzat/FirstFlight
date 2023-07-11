@@ -34,16 +34,18 @@ public static class SaveLoadFile
                 Application.persistentDataPath,
                 path,
                 string.Format("{0}.json", fileName));
-        Debug.Log(filePath);
         //loading file for Android
-        if (Application.platform == RuntimePlatform.Android)
+        if (Application.platform == RuntimePlatform.Android && isReadOnly)
         {
+            Debug.Log("ANDROID path: " + filePath);
             var request = UnityWebRequest.Get(filePath);
             request.SendWebRequest();
             while (!request.isDone) { }
+            if (string.IsNullOrWhiteSpace(request.downloadHandler.text)) throw new FileNotFoundException();
             return JsonUtility.FromJson<T>(request.downloadHandler.text);
         }
         //loading file for other platforms
+        Debug.Log("DEVICE path: " + filePath);
         if (File.Exists(filePath))
             return JsonUtility.FromJson<T>(File.ReadAllText(filePath));
         throw new FileNotFoundException();

@@ -5,7 +5,7 @@ using System.Collections.Generic;
 public class GameStateModel
 {
     public int[] finishedLevels;
-    public string[] unlockedCharacters;
+    public int[] unlockedCharacters;
     public int lastLevel;
     public int ownedCoins;
 }

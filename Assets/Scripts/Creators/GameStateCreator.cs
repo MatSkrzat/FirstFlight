@@ -25,13 +25,13 @@ public class GameStateCreator : MonoBehaviour
         return new GameStateModel()
         {
             finishedLevels = new int[] { 0 },
-            unlockedCharacters = new string[] { "Tom" },
+            unlockedCharacters = new int[] { 0 },
             lastLevel = 1,
             ownedCoins = 0
         };
     }
 
-    public static bool  CreateAndSaveSampleGameState()
+    public static bool CreateAndSaveSampleGameState()
     {
         Debug.Log("** Creating sample game state");
         SaveLoadFile.SaveAsJSON(GetSampleGameState(), PathsDictionary.GAME_STATE, FilenameDictionary.GAME_STATE);

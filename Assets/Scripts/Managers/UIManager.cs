@@ -38,6 +38,8 @@ public class UIManager : MonoBehaviour
     private GameObject heartPrefab;
     private int[] displayedLevels = new int[LEVELS_PER_SITE];
 
+    private int logCounter = 0;
+
     private void Start()
     {
         LoadHearts();
@@ -52,7 +54,7 @@ public class UIManager : MonoBehaviour
     //Called when there is an exception
     void LogCallback(string condition, string stackTrace, LogType type)
     {
-        UpdateDebugText(condition, type);
+        UpdateDebugText(condition, stackTrace, type);
     }
 
     void OnDisable()
@@ -143,13 +145,19 @@ public class UIManager : MonoBehaviour
         FillLevelButtons(FIRST_LEVEL);
     }
 
-    public void UpdateDebugText(string message, LogType type)
+    public void UpdateDebugText(string message, string stackTrace, LogType type)
     {
         if (type == LogType.Exception)
+        {
             debugText.GetComponent<Text>().color = Color.red;
+        }
         else
+        {
             debugText.GetComponent<Text>().color = Color.white;
-        debugText.GetComponent<Text>().text = message;
+        }
+        debugText.GetComponent<Text>().text += $"\n{logCounter}: {message}";
+        logCounter++;
+
     }
 
     public void LoadEndGamePanel()

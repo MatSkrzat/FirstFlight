@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public static class PlayerHelper
@@ -14,4 +15,58 @@ public static class PlayerHelper
     public static readonly float DEATH_TORQUE = 2000F;
     public static readonly int INITIAL_NUMBER_OF_LIVES = 3;
     public static readonly Vector2 PLAYER_DEATH_HIDE_POSITION = new Vector2(0F, -20F);
+    public static List<CharacterModel> CHARACTERS = new List<CharacterModel>()
+    {
+        new CharacterModel()
+        {
+            Name = "Tom",
+            ID = (int)CharacterIds.tom,
+            Price = 0,
+        },
+        new CharacterModel()
+        {
+            Name = "Zoe",
+            ID = (int)CharacterIds.zoe,
+            Price = 250,
+        },
+        new CharacterModel()
+        {
+            Name = "Andrew",
+            ID = (int)CharacterIds.andrew,
+            Price = 250,
+        },
+        new CharacterModel()
+        {
+            Name = "Arthur",
+            ID = (int)CharacterIds.arthur,
+            Price = 500,
+        },
+        new CharacterModel()
+        {
+            Name = "Sylvie",
+            ID = (int)CharacterIds.sylvie,
+            Price = 500,
+        },
+        new CharacterModel()
+        {
+            Name = "Jack",
+            ID = (int)CharacterIds.jack,
+            Price = 1000,
+        },
+        new CharacterModel()
+        {
+            Name = "Mr. Pinguin",
+            ID = (int)CharacterIds.pinguin,
+            Price = 1000,
+        },
+    };
+    public enum CharacterIds {
+        tom,
+        zoe,
+        andrew,
+        arthur,
+        sylvie,
+        jack,
+        pinguin
+    };
 }

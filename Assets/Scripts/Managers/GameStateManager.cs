@@ -50,6 +50,7 @@ public class GameStateManager : MonoBehaviour
         }
         catch
         {
+            Debug.Log("Game state not found, creating one");
             GameStateCreator.CreateAndSaveSampleGameState();
             LoadGameState();
         }

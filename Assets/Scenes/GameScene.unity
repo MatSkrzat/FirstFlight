@@ -8488,6 +8488,8 @@ MonoBehaviour:
   endGamePanel: {fileID: 338924447}
   debugText: {fileID: 1001913346}
   shopPanel: {fileID: 1269454529}
+  player: {fileID: 317989298}
+  featherMaterial: {fileID: 2100000, guid: 300d2c50efd9c454e95b78a737ab4bb2, type: 2}
   levelsButtons:
   - {fileID: 193268869}
   - {fileID: 570196347}

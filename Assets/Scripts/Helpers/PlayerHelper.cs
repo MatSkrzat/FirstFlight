@@ -5,7 +5,7 @@ public enum CharacterIds
 {
     tom,
     zoe,
-    andrew,
+    philip,
     arthur,
     sylvie,
     jack,
@@ -41,8 +41,8 @@ public static class PlayerHelper
         },
         new CharacterModel()
         {
-            Name = "Andrew",
-            ID = (int)CharacterIds.andrew,
+            Name = "Philip",
+            ID = (int)CharacterIds.philip,
             Price = 250,
         },
         new CharacterModel()

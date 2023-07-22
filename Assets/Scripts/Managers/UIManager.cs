@@ -28,6 +28,12 @@ public enum ShopPanelChildren
     icon
 }
 
+public enum PlayerChildren
+{
+    eye,
+    wing
+}
+
 public class UIManager : MonoBehaviour
 {
     public GameObject jumpSecurityPanel;
@@ -39,6 +45,8 @@ public class UIManager : MonoBehaviour
     public GameObject endGamePanel;
     public GameObject debugText;
     public GameObject shopPanel;
+    public GameObject player;
+    public Material featherMaterial;
     public Button[] levelsButtons;
 
     private const float HEART_GAMEOBJECT_SEPARATION = 120F;
@@ -59,6 +67,7 @@ public class UIManager : MonoBehaviour
     {
         LoadHearts();
         LoadCoins();
+        SetCharacterTextures(GameStateManager.CurrentGameState.selectedCharacterId);
     }
 
     void OnEnable()
@@ -244,6 +253,7 @@ public class UIManager : MonoBehaviour
         if (character.IsOwned)
         {
             GameStateManager.SetSelectedCharacter(currentSelectedCharacterId);
+            SetCharacterTextures(GameStateManager.CurrentGameState.selectedCharacterId);
         }
         else
         {
@@ -282,6 +292,21 @@ public class UIManager : MonoBehaviour
             FillLevelButtons(LAST_LEVEL + FIRST_LEVEL - LEVELS_PER_SITE);
         else
             FillLevelButtons(displayedLevels.First() - LEVELS_PER_SITE);
+    }
+
+    public void SetCharacterTextures(int characterId)
+    {
+        string characterName = PlayerHelper.CHARACTERS.Find(x => x.ID == characterId).Name;
+        string characterPath = PathsDictionary.GetPlayerPath(characterName);
+        Debug.Log("CHANGING TEXTURE FOR: " + characterName);
+        Debug.Log(characterPath + FilenameDictionary.OPENED_EYE);
+        player.GetComponent<SpriteRenderer>().sprite
+            = Resources.Load<Sprite>(characterPath + FilenameDictionary.BODY);
+        player.transform.GetChild((int)PlayerChildren.eye).GetComponent<SpriteRenderer>().sprite
+            = Resources.Load<Sprite>(characterPath + FilenameDictionary.OPENED_EYE);
+        player.transform.GetChild((int)PlayerChildren.wing).GetComponent<SpriteRenderer>().sprite
+            = Resources.Load<Sprite>(characterPath + FilenameDictionary.WING);
+        featherMaterial.SetTexture("feather", Resources.Load<Texture>(characterPath + FilenameDictionary.FEATHER));
     }
 
     private void FillLevelButtons(int firstLevelToLoadOnPage)

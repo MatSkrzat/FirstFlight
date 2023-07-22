@@ -29,7 +29,7 @@ public static class FilenameDictionary
     public static string OPENED_EYE { get; } = "opened_eye";
     public static string BLACK_EYE { get; } = "black_eye";
     public static string CLOSED_EYE { get; } = "closed_eye";
-    public static string MINIATURE { get; } = "miniature";
+    public static string ICON { get; } = "icon";
     public static string FEATHER { get; } = "feather";
     #endregion
     #region game_states

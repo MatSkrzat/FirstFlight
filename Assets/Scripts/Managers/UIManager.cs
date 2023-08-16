@@ -242,7 +242,17 @@ public class UIManager : MonoBehaviour
         var shopPanelBackground = shopPanel.transform.GetChild(0);
         shopPanelBackground.GetChild((int)ShopPanelChildren.icon).GetComponent<Image>().sprite
             = Resources.Load<Sprite>(PathsDictionary.GetPlayerPath(character.Name) + FilenameDictionary.CHARACTER_ICON);
-        shopPanelBackground.GetChild((int)ShopPanelChildren.priceLabel).GetComponent<TextMeshProUGUI>().text = character.Price.ToString();
+        if (character.IsOwned)
+        {
+            shopPanelBackground.GetChild((int)ShopPanelChildren.coinImage).gameObject.SetActive(false);
+            shopPanelBackground.GetChild((int)ShopPanelChildren.priceLabel).gameObject.SetActive(false);
+        }
+        else
+        {
+            shopPanelBackground.GetChild((int)ShopPanelChildren.coinImage).gameObject.SetActive(true);
+            shopPanelBackground.GetChild((int)ShopPanelChildren.priceLabel).gameObject.SetActive(true);
+            shopPanelBackground.GetChild((int)ShopPanelChildren.priceLabel).GetComponent<TextMeshProUGUI>().text = character.Price.ToString();
+        }
         shopPanelBackground.GetChild((int)ShopPanelChildren.nameLabel).GetComponent<TextMeshProUGUI>().text = character.Name;
         UpdateBuySelectButton(characterId);
 
@@ -260,6 +270,7 @@ public class UIManager : MonoBehaviour
         {
             ShopManager.UnlockCharacter(currentSelectedCharacterId);
         }
+
         UpdateBuySelectButton(currentSelectedCharacterId);
     }
 

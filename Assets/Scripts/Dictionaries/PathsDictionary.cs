@@ -2,6 +2,7 @@ public static class PathsDictionary
 {
     #region PUBLIC
     public static string BACKGROUND_DEFAULT { get; } = "Textures/Backgrounds/Default/";
+    public static string FEATHER_MATERIALS { get; } = "Materials/FeatherMaterials/";
     public static string LEVELS { get; } = "Levels/";
     public static string PREFABS { get; } = "Prefabs/";
     public static string GAME_STATE { get; } = "GameState/";

@@ -30,8 +30,9 @@ public enum ShopPanelChildren
 
 public enum PlayerChildren
 {
-    eye,
-    wing
+    openedEye,
+    wing,
+    closedEye
 }
 
 public class UIManager : MonoBehaviour
@@ -299,14 +300,22 @@ public class UIManager : MonoBehaviour
         string characterName = PlayerHelper.CHARACTERS.Find(x => x.ID == characterId).Name;
         string characterPath = PathsDictionary.GetPlayerPath(characterName);
         Debug.Log("CHANGING TEXTURE FOR: " + characterName);
-        Debug.Log(characterPath + FilenameDictionary.OPENED_EYE);
+
+        // changing the sprites for player gameobject
         player.GetComponent<SpriteRenderer>().sprite
             = Resources.Load<Sprite>(characterPath + FilenameDictionary.BODY);
-        player.transform.GetChild((int)PlayerChildren.eye).GetComponent<SpriteRenderer>().sprite
+        player.transform.GetChild((int)PlayerChildren.openedEye).GetComponent<SpriteRenderer>().sprite
             = Resources.Load<Sprite>(characterPath + FilenameDictionary.OPENED_EYE);
         player.transform.GetChild((int)PlayerChildren.wing).GetComponent<SpriteRenderer>().sprite
             = Resources.Load<Sprite>(characterPath + FilenameDictionary.WING);
-        featherMaterial.SetTexture("feather", Resources.Load<Texture>(characterPath + FilenameDictionary.FEATHER));
+        player.transform.GetChild((int)PlayerChildren.closedEye).GetComponent<SpriteRenderer>().sprite
+            = Resources.Load<Sprite>(characterPath + FilenameDictionary.CLOSED_EYE);
+
+        // feather color setup by changing the particle material
+        var featherMaterial = Resources.Load<Material>(PathsDictionary.FEATHER_MATERIALS + characterName);
+        var particleRenderer = player.GetComponent<ParticleSystem>().GetComponent<ParticleSystemRenderer>();
+        particleRenderer.material = featherMaterial;
+        particleRenderer.sharedMaterial = featherMaterial;
     }
 
     private void FillLevelButtons(int firstLevelToLoadOnPage)

@@ -38,6 +38,7 @@ public class GameStateManager : MonoBehaviour
 
     public static void UpdateLastLevelAndSaveGameState(int level)
     {
+        if (PlayerManager.IsDead) return;
         CurrentGameState.lastLevel = level;
         SaveCurrentGameState();
     }

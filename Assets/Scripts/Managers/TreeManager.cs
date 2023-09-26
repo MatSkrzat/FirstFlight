@@ -30,6 +30,7 @@ public class TreeManager : MonoBehaviour
     public static readonly Vector2 INITIALIZE_POSITION = new Vector2(0F, -8.3F);
     public static readonly Vector2 DESTRUCTION_POSITION = new Vector2(0F, 10F);
     public static readonly Vector2 NEW_TREE_MODULE_INIT_POSITION = new Vector2(0, INITIALIZE_POSITION.y + 2.8F);
+    public static bool isInfinityMode = false;
 
     public void Start()
     {
@@ -67,14 +68,19 @@ public class TreeManager : MonoBehaviour
     {
         UpdateModulesSpeed();
         DestroyOldTreeModules();
-        LoadNextLevel();
+        if (isInfinityMode)
+            LoadNextRandomLevel();
+        else
+            LoadNextLevel();
     }
 
     private static void InitializeNewTreeModules(Vector2 startPosition, LevelModel levelToLoad)
     {
         if (levelToLoad?.ID == default) return;
-        Vector2 positionToInstantiate = startPosition;
-        
+
+        var moduleSizeY = treeModulePrefab.GetComponent<BoxCollider2D>().size.y;
+        Vector2 positionToInstantiate = new Vector2(startPosition.x, startPosition.y + (moduleSizeY * 0.01F));
+
         for(int i = 0; i < levelToLoad.treeModules.Count; i++)
         {
             var newTreeModule = Instantiate(treeModulePrefab, positionToInstantiate, Quaternion.identity);
@@ -108,11 +114,10 @@ public class TreeManager : MonoBehaviour
 
             treeModulesPrefabsPool.Add(newTreeModule);
 
-            var newTreeModuleYSize = newTreeModule.GetComponent<Collider2D>().bounds.size.y;
             positionToInstantiate = new Vector2(
                 startPosition.x,
                 newTreeModule.transform.position.y
-                - newTreeModuleYSize
+                - moduleSizeY
                 + (Time.deltaTime * treeBehaviour.Speed));
         }
 
@@ -177,6 +182,30 @@ public class TreeManager : MonoBehaviour
 
     }
 
+    private static void LoadNextRandomLevel()
+    {
+        bool shouldLoad = treeModulesPrefabsPool.Count < 10;
+        // Load next random level
+        if (shouldLoad)
+        {
+            LevelsManager.LoadNextRandomLevel();
+        }
+
+        bool shouldSwitch = treeModulesPrefabsPool.Count < 7;
+        // Switch to next random level
+        if (shouldSwitch)
+        {
+            LevelsManager.SwitchToNextRandomLevel();
+            var lastModule = treeModulesPrefabsPool.Last();
+            var lastModuleCollider = lastModule.GetComponent<Collider2D>();
+            InitializeNewTreeModules(
+                new Vector2(lastModule.transform.position.x,
+                    lastModule.transform.position.y - lastModuleCollider.bounds.size.y + (Time.deltaTime * LevelsManager.currentLevel.endSpeed)),
+                LevelsManager.currentLevel);
+            var firstPrefab = treeModulesPrefabsPool.First(x => x.GetComponent<TreeBehaviour>().moduleId == 0);
+        }
+    }
+
     private static void LoadNextLevel()
     {
         bool shouldLoad = treeModulesPrefabsPool.Count < 15 && !LevelsManager.isNextLevelReady;
@@ -235,5 +264,6 @@ public class TreeManager : MonoBehaviour
         treeModulesPrefabsPool = new List<GameObject>();
         currentLevelModules = new List<TreeModuleModel>();
         treeModulePrefab = null;
+        isInfinityMode = false;
     }
 }

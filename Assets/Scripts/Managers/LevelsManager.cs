@@ -3,6 +3,7 @@ using UnityEngine;
 public class LevelsManager : MonoBehaviour
 {
     public const int INITIAL_LEVEL = 1;
+    public const int INFINITY_LEVEL = 35;
     public static LevelModel currentLevel = new LevelModel();
     public static LevelModel nextLevel = new LevelModel();
     public static bool isNextLevelReady = false;
@@ -52,6 +53,25 @@ public class LevelsManager : MonoBehaviour
         {
             GameStateManager.UpdateLastLevelAndSaveGameState(currentLevel.ID);
         }
+    }
+
+    public static void SwitchToNextRandomLevel()
+    {
+        currentLevel = nextLevel;
+        nextLevel = new LevelModel();
+        isNextLevelReady = false;
+    }
+
+    public static void LoadRandomLevel()
+    {
+        Debug.Log("**Loading new random level");
+        currentLevel = LevelsGenerator.GenerateRandomLevel(currentLevel);
+    }
+
+    public static void LoadNextRandomLevel()
+    {
+        Debug.Log("**Loading next random level");
+        nextLevel = LevelsGenerator.GenerateRandomLevel(currentLevel);
     }
 
     public static void SetValuesToDefault()

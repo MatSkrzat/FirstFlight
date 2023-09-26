@@ -16,6 +16,12 @@ public enum EndGamePanelChildren
     closeButton
 }
 
+public enum LevelButtonChildren
+{
+    text,
+    star
+}
+
 public enum ShopPanelChildren
 {
     buttonLeft,
@@ -49,6 +55,7 @@ public class UIManager : MonoBehaviour
     public GameObject player;
     public Material featherMaterial;
     public Button[] levelsButtons;
+    public Button infinityModeButton;
 
     private const float HEART_GAMEOBJECT_SEPARATION = 120F;
     private readonly int LAST_LEVEL = Helper.LEVELS_COUNT;
@@ -93,7 +100,7 @@ public class UIManager : MonoBehaviour
         {
             int index = i;
             levelsButtons[index].onClick.RemoveAllListeners();
-            levelsButtons[index].onClick.AddListener(delegate { StartGame(displayedLevels[index]); });
+            levelsButtons[index].onClick.AddListener(delegate { StartGame(false, displayedLevels[index]); });
         }
     }
 
@@ -130,7 +137,7 @@ public class UIManager : MonoBehaviour
 
     public bool IsSecurityPanelClicked() => 
         EventSystem.current.currentSelectedGameObject == jumpSecurityPanel;
-    public void StartGame(int level)
+    public void StartGame(bool isInfinity, int level = 0)
     {
         endGamePanel.SetActive(false);
         mainMenuPanel.SetActive(false);
@@ -138,7 +145,10 @@ public class UIManager : MonoBehaviour
         jumpSecurityPanel.SetActive(true);
         healthStatusPanel.SetActive(true);
         scorePanel.SetActive(true);
-        GameManager.StartGame(level);
+        if (isInfinity)
+            GameManager.StartRandomGame();
+        else
+            GameManager.StartGame(level);
     }
 
     public void UpdateDisplayedHealth(int numberOfLives)
@@ -167,6 +177,7 @@ public class UIManager : MonoBehaviour
         mainMenuPanel.SetActive(false);
         jumpSecurityPanel.SetActive(false);
         levelsPanel.SetActive(true);
+        infinityModeButton.interactable = GameStateManager.CurrentGameState.lastLevel >= LevelsManager.INFINITY_LEVEL;
         FillLevelButtons(FIRST_LEVEL);
     }
 
@@ -306,6 +317,12 @@ public class UIManager : MonoBehaviour
             FillLevelButtons(displayedLevels.First() - LEVELS_PER_SITE);
     }
 
+    public void StartInfinityMode()
+    {
+        TreeManager.isInfinityMode = true;
+        StartGame(true);
+    }
+
     public void SetCharacterTextures(int characterId)
     {
         string characterName = PlayerHelper.CHARACTERS.Find(x => x.ID == characterId).Name;
@@ -342,6 +359,14 @@ public class UIManager : MonoBehaviour
             else
             {
                 levelsButtons[i].GetComponent<Button>().interactable = true;
+            }
+            if (level == LevelsManager.INFINITY_LEVEL)
+            {
+                levelsButtons[i].transform.GetChild((int)LevelButtonChildren.star).gameObject.SetActive(true);
+            }
+            else
+            {
+                levelsButtons[i].transform.GetChild((int)LevelButtonChildren.star).gameObject.SetActive(false);
             }
             displayedLevels[i] = level;
             level++;

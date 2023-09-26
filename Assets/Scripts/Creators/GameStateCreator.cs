@@ -24,7 +24,6 @@ public class GameStateCreator : MonoBehaviour
     {
         return new GameStateModel()
         {
-            finishedLevels = new int[] { 0 },
             unlockedCharacters = new int[] { 0 },
             lastLevel = 1,
             ownedCoins = 0,

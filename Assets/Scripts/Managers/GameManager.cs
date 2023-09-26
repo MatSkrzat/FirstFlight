@@ -48,6 +48,15 @@ public class GameManager : MonoBehaviour
         CoinsManager.SetCoins(GameStateManager.CurrentGameState.ownedCoins);
     }
 
+    public static void StartRandomGame()
+    {
+        LevelsManager.currentLevel = null;
+        LevelsManager.LoadRandomLevel();
+        IsGameStarted = true;
+        TreeManager.StartMovingTree();
+        CoinsManager.SetCoins(GameStateManager.CurrentGameState.ownedCoins);
+    }
+
     public static void SetValuesToDefault() 
     {
         IsGameStarted = false;

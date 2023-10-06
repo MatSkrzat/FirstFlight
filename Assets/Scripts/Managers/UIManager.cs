@@ -36,9 +36,15 @@ public enum ShopPanelChildren
 
 public enum PlayerChildren
 {
-    openedEye,
-    wing,
-    closedEye
+    tom,
+    zoe,
+    philip,
+    arthur,
+    sylvie,
+    jack,
+    pinguin,
+    trailEmmiter,
+    featherEmmiter
 }
 
 public class UIManager : MonoBehaviour
@@ -145,6 +151,7 @@ public class UIManager : MonoBehaviour
         jumpSecurityPanel.SetActive(true);
         healthStatusPanel.SetActive(true);
         scorePanel.SetActive(true);
+        player.transform.GetChild((int)PlayerChildren.trailEmmiter).GetComponent<ParticleSystem>().Play();
         if (isInfinity)
             GameManager.StartRandomGame();
         else
@@ -335,7 +342,8 @@ public class UIManager : MonoBehaviour
         // feather color setup by changing the particle material
         var characterName = PlayerHelper.CHARACTERS.First(x => x.ID == characterId).Name;
         var featherMaterial = Resources.Load<Material>(PathsDictionary.FEATHER_MATERIALS + characterName);
-        var particleRenderer = player.GetComponent<ParticleSystem>().GetComponent<ParticleSystemRenderer>();
+        var particleRenderer = player.transform.GetChild((int)PlayerChildren.featherEmmiter)
+            .GetComponent<ParticleSystem>().GetComponent<ParticleSystemRenderer>();
         particleRenderer.material = featherMaterial;
         particleRenderer.sharedMaterial = featherMaterial;
     }

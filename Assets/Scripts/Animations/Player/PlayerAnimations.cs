@@ -15,7 +15,7 @@ public class PlayerAnimations : MonoBehaviour
         var selectedCharacterId = GameStateManager.CurrentGameState.selectedCharacterId;
         playerRigidbody2D = GetComponent<Rigidbody2D>();
         animationController = new AnimationController(gameObject.transform.GetChild(selectedCharacterId).GetComponent<Animator>());
-        particle = GetComponent<ParticleSystem>();
+        particle = transform.GetChild((int)PlayerChildren.featherEmmiter).GetComponent<ParticleSystem>();
     }
 
     public static void PlayJump()

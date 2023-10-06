@@ -12,8 +12,9 @@ public class PlayerAnimations : MonoBehaviour
 
     private void Start()
     {
+        var selectedCharacterId = GameStateManager.CurrentGameState.selectedCharacterId;
         playerRigidbody2D = GetComponent<Rigidbody2D>();
-        animationController = new AnimationController(GetComponent<Animator>());
+        animationController = new AnimationController(gameObject.transform.GetChild(selectedCharacterId).GetComponent<Animator>());
         particle = GetComponent<ParticleSystem>();
     }
 

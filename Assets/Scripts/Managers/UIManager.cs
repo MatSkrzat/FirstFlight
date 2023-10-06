@@ -75,7 +75,7 @@ public class UIManager : MonoBehaviour
     {
         LoadHearts();
         LoadCoins();
-        SetCharacterTextures(GameStateManager.CurrentGameState.selectedCharacterId);
+        SelectCharacter(GameStateManager.CurrentGameState.selectedCharacterId);
     }
 
     void OnEnable()
@@ -275,7 +275,7 @@ public class UIManager : MonoBehaviour
         if (character.IsOwned)
         {
             GameStateManager.SetSelectedCharacter(currentSelectedCharacterId);
-            SetCharacterTextures(GameStateManager.CurrentGameState.selectedCharacterId);
+            SelectCharacter(GameStateManager.CurrentGameState.selectedCharacterId);
         }
         else
         {
@@ -323,23 +323,17 @@ public class UIManager : MonoBehaviour
         StartGame(true);
     }
 
-    public void SetCharacterTextures(int characterId)
+    public void SelectCharacter(int characterId)
     {
-        string characterName = PlayerHelper.CHARACTERS.Find(x => x.ID == characterId).Name;
-        string characterPath = PathsDictionary.GetPlayerPath(characterName);
-        Debug.Log("CHANGING TEXTURE FOR: " + characterName);
+        for(int i = 0; i < PlayerHelper.CHARACTERS.Count; i++)
+        {
+            player.transform.GetChild(i).gameObject.SetActive(false);
+        }
 
-        // changing the sprites for player gameobject
-        player.GetComponent<SpriteRenderer>().sprite
-            = Resources.Load<Sprite>(characterPath + FilenameDictionary.BODY);
-        player.transform.GetChild((int)PlayerChildren.openedEye).GetComponent<SpriteRenderer>().sprite
-            = Resources.Load<Sprite>(characterPath + FilenameDictionary.OPENED_EYE);
-        player.transform.GetChild((int)PlayerChildren.wing).GetComponent<SpriteRenderer>().sprite
-            = Resources.Load<Sprite>(characterPath + FilenameDictionary.WING);
-        player.transform.GetChild((int)PlayerChildren.closedEye).GetComponent<SpriteRenderer>().sprite
-            = Resources.Load<Sprite>(characterPath + FilenameDictionary.CLOSED_EYE);
+        player.transform.GetChild(characterId).gameObject.SetActive(true);
 
         // feather color setup by changing the particle material
+        var characterName = PlayerHelper.CHARACTERS.First(x => x.ID == characterId).Name;
         var featherMaterial = Resources.Load<Material>(PathsDictionary.FEATHER_MATERIALS + characterName);
         var particleRenderer = player.GetComponent<ParticleSystem>().GetComponent<ParticleSystemRenderer>();
         particleRenderer.material = featherMaterial;

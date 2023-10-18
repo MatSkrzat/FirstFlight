@@ -52,12 +52,13 @@ public class UIManager : MonoBehaviour
     public GameObject jumpSecurityPanel;
     public GameObject mainMenuPanel;
     public GameObject healthStatusPanel;
-    public GameObject scorePanel;
+    public GameObject coinPanel;
     public GameObject coinsAmountText;
     public GameObject levelsPanel;
     public GameObject endGamePanel;
     public GameObject debugText;
     public GameObject shopPanel;
+    public GameObject scorePanel;
     public GameObject player;
     public Material featherMaterial;
     public Button[] levelsButtons;
@@ -67,7 +68,6 @@ public class UIManager : MonoBehaviour
     private readonly int LAST_LEVEL = Helper.LEVELS_COUNT;
     private const int FIRST_LEVEL = 1;
     private const int LEVELS_PER_SITE = 9;
-    private const int DEFAULT_CHARACTER_ID = (int)CharacterIds.tom;
 
     private List<GameObject> heartGameObjects = new List<GameObject>();
     private Sprite grayHeartSprite;
@@ -150,12 +150,18 @@ public class UIManager : MonoBehaviour
         levelsPanel.SetActive(false);
         jumpSecurityPanel.SetActive(true);
         healthStatusPanel.SetActive(true);
-        scorePanel.SetActive(true);
+        coinPanel.SetActive(true);
         player.transform.GetChild((int)PlayerChildren.trailEmmiter).GetComponent<ParticleSystem>().Play();
         if (isInfinity)
+        {
             GameManager.StartRandomGame();
+            scorePanel.SetActive(true);
+        }
         else
+        {
             GameManager.StartGame(level);
+            scorePanel.SetActive(false);
+        }
     }
 
     public void UpdateDisplayedHealth(int numberOfLives)
@@ -180,7 +186,7 @@ public class UIManager : MonoBehaviour
 
     public void LoadLevelsPanel()
     {
-        scorePanel.SetActive(false);
+        coinPanel.SetActive(false);
         mainMenuPanel.SetActive(false);
         jumpSecurityPanel.SetActive(false);
         levelsPanel.SetActive(true);
@@ -205,18 +211,32 @@ public class UIManager : MonoBehaviour
 
     public void LoadEndGamePanel()
     {
+        coinPanel.SetActive(false);
         scorePanel.SetActive(false);
         mainMenuPanel.SetActive(false);
         jumpSecurityPanel.SetActive(false);
         healthStatusPanel.SetActive(false);
-        endGamePanel.transform.GetChild(0).GetChild((int)EndGamePanelChildren.scoreValueLabel).GetComponent<TextMeshProUGUI>().text = "0";
+        ScoreManager.SaveWhenNewHighscore();
+        var scoreText = endGamePanel.transform.GetChild(0).GetChild((int)EndGamePanelChildren.scoreValueLabel);
+        if (ScoreManager.GetCurrentScore() != 0)
+        {
+            endGamePanel.transform.GetChild(0).GetChild((int)EndGamePanelChildren.scoreLabel).gameObject.SetActive(true);
+            scoreText.gameObject.SetActive(true);
+            scoreText.GetComponent<TextMeshProUGUI>().text = ScoreManager.GetCurrentScore().ToString();
+        }
+        else
+        {
+            scoreText.gameObject.SetActive(false);
+            endGamePanel.transform.GetChild(0).GetChild((int)EndGamePanelChildren.scoreLabel).gameObject.SetActive(false);
+        }
         endGamePanel.transform.GetChild(0).GetChild((int)EndGamePanelChildren.coinValueLabel).GetComponent<TextMeshProUGUI>().text = GameStateManager.CurrentGameState.ownedCoins.ToString();
+
         endGamePanel.SetActive(true);
     }
 
     public void LoadShopPanel()
     {
-        scorePanel.SetActive(false);
+        coinPanel.SetActive(false);
         mainMenuPanel.SetActive(false);
         jumpSecurityPanel.SetActive(false);
         healthStatusPanel.SetActive(false);
@@ -346,6 +366,12 @@ public class UIManager : MonoBehaviour
             .GetComponent<ParticleSystem>().GetComponent<ParticleSystemRenderer>();
         particleRenderer.material = featherMaterial;
         particleRenderer.sharedMaterial = featherMaterial;
+    }
+
+    public void UpdateScoreAmount(int amount)
+    {
+        if (scorePanel.GetComponentInChildren<TextMeshProUGUI>() != null)
+            scorePanel.GetComponentInChildren<TextMeshProUGUI>().text = amount.ToString();
     }
 
     private void FillLevelButtons(int firstLevelToLoadOnPage)

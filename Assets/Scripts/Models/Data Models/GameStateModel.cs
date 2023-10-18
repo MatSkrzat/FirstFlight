@@ -9,4 +9,5 @@ public class GameStateModel
     public int ownedCoins;
     public int selectedCharacterId;
     public int infinityUnblockLevel;
+    public int highScore;
 }

@@ -54,6 +54,7 @@ public class GameManager : MonoBehaviour
         LevelsManager.LoadRandomLevel();
         IsGameStarted = true;
         TreeManager.StartMovingTree();
+        ScoreManager.StartCountingScore();
         CoinsManager.SetCoins(GameStateManager.CurrentGameState.ownedCoins);
     }
 
@@ -70,6 +71,7 @@ public class GameManager : MonoBehaviour
         PlayerManager.SetValuesToDefault();
         BackgroundsManager.SetValuesToDefault();
         LevelsManager.SetValuesToDefault();
+        ScoreManager.SetValuesToDefault();
         SetValuesToDefault();
         SceneManager.LoadScene(0);
     }

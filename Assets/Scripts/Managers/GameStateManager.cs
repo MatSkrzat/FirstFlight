@@ -20,6 +20,12 @@ public class GameStateManager : MonoBehaviour
         CurrentGameState.lastLevel = level;
     }
 
+    public static void UpdateAndSaveHighScore(int highscore)
+    {
+        CurrentGameState.highScore = highscore;
+        SaveCurrentGameState();
+    }
+
     public static void AddOwnedCharacter(int characterId)
     {
         var characters = CurrentGameState.unlockedCharacters.ToList();

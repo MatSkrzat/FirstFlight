@@ -65,7 +65,7 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1;
     }
 
-    public void ResetGame()
+    public static void ResetGame()
     {
         TreeManager.SetValuesToDefault();
         PlayerManager.SetValuesToDefault();

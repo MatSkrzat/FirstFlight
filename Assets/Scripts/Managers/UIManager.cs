@@ -194,6 +194,14 @@ public class UIManager : MonoBehaviour
         FillLevelButtons(FIRST_LEVEL);
     }
 
+    public void CloseLevelsPanel()
+    {
+        coinPanel.SetActive(true);
+        mainMenuPanel.SetActive(true);
+        jumpSecurityPanel.SetActive(false);
+        levelsPanel.GetComponent<PanelAnimations>().PlayClose();
+    }
+
     public void UpdateDebugText(string message, string stackTrace, LogType type)
     {
         if (type == LogType.Exception)
@@ -234,9 +242,17 @@ public class UIManager : MonoBehaviour
         endGamePanel.SetActive(true);
     }
 
+    public void CloseEndGamePanel()
+    {
+        // this function will also reset the scene in animation state "exit" attached to EndGamePanel
+        coinPanel.SetActive(false);
+        scorePanel.SetActive(false);
+        endGamePanel.GetComponent<PanelAnimations>().PlayClose();
+    }
+
     public void LoadShopPanel()
     {
-        coinPanel.SetActive(false);
+        coinPanel.SetActive(true);
         mainMenuPanel.SetActive(false);
         jumpSecurityPanel.SetActive(false);
         healthStatusPanel.SetActive(false);
@@ -246,8 +262,19 @@ public class UIManager : MonoBehaviour
         shopPanel.SetActive(true);
     }
 
+    public void CloseShopPanel()
+    {
+        coinPanel.SetActive(false);
+        mainMenuPanel.SetActive(true);
+        jumpSecurityPanel.SetActive(false);
+        healthStatusPanel.SetActive(false);
+        endGamePanel.SetActive(false);
+        shopPanel.GetComponent<PanelAnimations>().PlayClose();
+    }
+
     public void LoadNextCharacter()
     {
+        shopPanel.GetComponent<PanelAnimations>().PlayRefresh();
         if (currentSelectedCharacterId >= PlayerHelper.CHARACTERS.Last().ID)
         {
             currentSelectedCharacterId = PlayerHelper.CHARACTERS.First().ID;
@@ -262,6 +289,7 @@ public class UIManager : MonoBehaviour
 
     public void LoadPreviousCharacter()
     {
+        shopPanel.GetComponent<PanelAnimations>().PlayRefresh();
         if (currentSelectedCharacterId <= PlayerHelper.CHARACTERS.First().ID)
         {
             currentSelectedCharacterId = PlayerHelper.CHARACTERS.Last().ID;
@@ -330,6 +358,7 @@ public class UIManager : MonoBehaviour
 
     public void LoadNextLevelsPage()
     {
+        levelsPanel.GetComponent<PanelAnimations>().PlayRefresh();
         if (displayedLevels.Last() >= LAST_LEVEL)
             FillLevelButtons(FIRST_LEVEL);
         else
@@ -338,6 +367,7 @@ public class UIManager : MonoBehaviour
 
     public void LoadPreviousLevelsPage()
     {
+        levelsPanel.GetComponent<PanelAnimations>().PlayRefresh();
         if (displayedLevels.First() <= FIRST_LEVEL)
             FillLevelButtons(LAST_LEVEL + FIRST_LEVEL - LEVELS_PER_SITE);
         else

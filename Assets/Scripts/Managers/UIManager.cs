@@ -224,17 +224,29 @@ public class UIManager : MonoBehaviour
         mainMenuPanel.SetActive(false);
         jumpSecurityPanel.SetActive(false);
         healthStatusPanel.SetActive(false);
-        ScoreManager.SaveWhenNewHighscore();
-        var scoreText = endGamePanel.transform.GetChild(0).GetChild((int)EndGamePanelChildren.scoreValueLabel);
+
+        var score = endGamePanel.transform.GetChild(0).GetChild((int)EndGamePanelChildren.scoreValueLabel);
+        var scoreLabel = endGamePanel.transform.GetChild(0).GetChild((int)EndGamePanelChildren.scoreLabel);
+
+        // show score panel
         if (ScoreManager.GetCurrentScore() != 0)
         {
-            endGamePanel.transform.GetChild(0).GetChild((int)EndGamePanelChildren.scoreLabel).gameObject.SetActive(true);
-            scoreText.gameObject.SetActive(true);
-            scoreText.GetComponent<TextMeshProUGUI>().text = ScoreManager.GetCurrentScore().ToString();
+            scoreLabel.gameObject.SetActive(true);
+
+            // show highscore notification
+            if (ScoreManager.GetCurrentScore() > GameStateManager.CurrentGameState.highScore)
+            {
+                scoreLabel.GetComponent<TextMeshProUGUI>().text = Helper.HIGHSCORE_LABEL;
+                gameObject.GetComponent<ParticleSystem>().Play();
+            }
+            ScoreManager.SaveWhenNewHighscore();
+            score.gameObject.SetActive(true);
+            score.GetComponent<TextMeshProUGUI>().text = ScoreManager.GetCurrentScore().ToString();
         }
+        // hide score panel when not infinite mode
         else
         {
-            scoreText.gameObject.SetActive(false);
+            score.gameObject.SetActive(false);
             endGamePanel.transform.GetChild(0).GetChild((int)EndGamePanelChildren.scoreLabel).gameObject.SetActive(false);
         }
         endGamePanel.transform.GetChild(0).GetChild((int)EndGamePanelChildren.coinValueLabel).GetComponent<TextMeshProUGUI>().text = GameStateManager.CurrentGameState.ownedCoins.ToString();

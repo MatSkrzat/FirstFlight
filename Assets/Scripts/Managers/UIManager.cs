@@ -357,8 +357,12 @@ public class UIManager : MonoBehaviour
         var character = PlayerHelper.CHARACTERS.Find(x => x.ID == characterId);
         var shopPanelBackground = shopPanel.transform.GetChild(0);
         if (character.IsOwned)
+        {
             shopPanelBackground.GetChild((int)ShopPanelChildren.buySelectButton).GetComponent<Image>().sprite
                 = Resources.Load<Sprite>(PathsDictionary.GetFullPath(PathsDictionary.UI_BUTTONS, FilenameDictionary.CONFIRM_ICON));
+            shopPanelBackground.GetChild((int)ShopPanelChildren.priceLabel).gameObject.SetActive(false);
+            shopPanelBackground.GetChild((int)ShopPanelChildren.coinImage).gameObject.SetActive(false);
+        }
         else
             shopPanelBackground.GetChild((int)ShopPanelChildren.buySelectButton).GetComponent<Image>().sprite
                 = Resources.Load<Sprite>(PathsDictionary.GetFullPath(PathsDictionary.UI_BUTTONS, FilenameDictionary.SHOP_ICON));

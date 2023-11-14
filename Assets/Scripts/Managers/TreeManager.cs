@@ -149,16 +149,19 @@ public class TreeManager : MonoBehaviour
         var branchSpriteRenderer = branchGameObject.GetComponent<SpriteRenderer>();
         if (branchSpriteRenderer == null) return;
 
-        branchGameObject.SetActive(true);
-
         //loading branch sprite
         branchSpriteRenderer.sprite = LoadSprite(
             LevelsManager.currentLevel.branchesPath,
             LevelsManager.currentLevel.treeModules[currentModuleID].branch.spriteName
         );
 
+        if (LevelsManager.currentLevel.treeModules[currentModuleID].branch.side == Helper.SIDE_NONE)
+            branchGameObject.SetActive(false);
+        else
+            branchGameObject.SetActive(true);
+
         //flipping sprite if side is RIGHT
-        if (LevelsManager.currentLevel.treeModules[currentModuleID].branch.side != Helper.SIDE_LEFT)
+        if (LevelsManager.currentLevel.treeModules[currentModuleID].branch.side == Helper.SIDE_RIGHT)
         {
             ChangeObjectSide(branchGameObject);
         }

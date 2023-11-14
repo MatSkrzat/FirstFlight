@@ -24,7 +24,7 @@ public class LevelFileCreator : MonoBehaviour
             int levelId = i + 1;
             float startSpeed = Helper.GAME_SPEED_START + (Helper.GAME_SPEED_END / Helper.LEVELS_COUNT * i);
             float endSpeed = Helper.GAME_SPEED_START + (Helper.GAME_SPEED_END / Helper.LEVELS_COUNT * (i + 1));
-            LevelModel level = LevelsGenerator.GenereteNewLevel(startSpeed, endSpeed, levelId, 50 + i);
+            LevelModel level = LevelsGenerator.GenerateNewLevel(startSpeed, endSpeed, levelId, 50 + i);
             var levelName = FilenameDictionary.LEVEL + levelId;
             SaveLoadFile.SaveAsJSON(level, PathsDictionary.LEVELS, levelName, true);
             Debug.Log($"** Level {levelId} created!");

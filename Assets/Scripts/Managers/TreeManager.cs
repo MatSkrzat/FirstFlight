@@ -181,8 +181,6 @@ public class TreeManager : MonoBehaviour
         oldTreeModules.ToList().ForEach(item => Destroy(item));
         //assign new list without old tree modules
         treeModulesPrefabsPool = treeModulesPrefabsPool.Except(oldTreeModules).ToList();
-
-
     }
 
     private static void LoadNextRandomLevel()

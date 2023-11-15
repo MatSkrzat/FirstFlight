@@ -68,20 +68,20 @@ public class LevelsGenerator : MonoBehaviour
 
     private static string GetRandomTreeModuleName(string previousName)
     {
-        var newTreeModules = new List<string>(FilenameDictionary.DEFAULT_TREE_MODULES_NAMES);
-        newTreeModules.Remove(previousName);
+        var treeModulesPool = new List<string>(FilenameDictionary.DEFAULT_TREE_MODULES_NAMES);
+        treeModulesPool.Remove(previousName);
 
-        if (newTreeModules.Contains(FilenameDictionary.DEFAULT_TREE_MODULES_NAMES[0]))
+        if (treeModulesPool.Contains(FilenameDictionary.DEFAULT_TREE_MODULES_NAMES[0]))
         {
-            var randomNumber = Random.Range(0, 13);
-            if (randomNumber == 0) return newTreeModules[0];
-            else if (randomNumber >= 1 && randomNumber <= 4) return newTreeModules[1];
-            else if (randomNumber >= 5 && randomNumber <= 8) return newTreeModules[2];
-            else if (randomNumber >= 9 && randomNumber <= 12) return newTreeModules[3];
+            var randomNumber = Random.Range(0, 16);
+            if (randomNumber == 0) return treeModulesPool[0];
+            else if (randomNumber >= 1 && randomNumber <= 5) return treeModulesPool[1];
+            else if (randomNumber >= 6 && randomNumber <= 10) return treeModulesPool[2];
+            else if (randomNumber >= 11 && randomNumber <= 15) return treeModulesPool[3];
         }
 
         var random = Random.Range(0, 4);
-        return newTreeModules[random];
+        return treeModulesPool[random];
     }
 
     private static int GetRandomBranchIndex()
@@ -96,19 +96,19 @@ public class LevelsGenerator : MonoBehaviour
             return Random.Range(0, 2) == 0 ? Helper.SIDE_LEFT : Helper.SIDE_RIGHT;
         }
 
-        if (previousSide == Helper.SIDE_LEFT)
+        else if (previousSide == Helper.SIDE_LEFT)
         {
             var random = Random.Range(0, 10);
-            if (random <= 4) return Helper.SIDE_RIGHT;
-            if (random >= 5 && random <= 8) return Helper.SIDE_LEFT;
+            if (random <= 6) return Helper.SIDE_RIGHT;
+            else if (random >= 7 && random <= 8) return Helper.SIDE_LEFT;
             return Helper.SIDE_NONE;
         }
 
-        if (previousSide == Helper.SIDE_RIGHT)
+        else if (previousSide == Helper.SIDE_RIGHT)
         {
             var random = Random.Range(0, 10);
-            if (random <= 4) return Helper.SIDE_LEFT;
-            if (random >= 5 && random <= 8) return Helper.SIDE_RIGHT;
+            if (random <= 6) return Helper.SIDE_LEFT;
+            else if (random >= 7 && random <= 8) return Helper.SIDE_RIGHT;
             return Helper.SIDE_NONE;
         }
 

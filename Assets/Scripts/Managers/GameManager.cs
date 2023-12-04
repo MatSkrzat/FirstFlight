@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -23,16 +24,67 @@ public class GameManager : MonoBehaviour
         UI = gameObject.GetComponent<UIManager>();
         MainCamera = Camera.main;
     }
-    public void StopGame()
+    public static void StopGame()
     {
         IsGamePaused = true;
         Time.timeScale = 0;
     }
-    public void ResumeGame()
+
+    public static void UnpauseGame()
     {
         IsGamePaused = false;
         Time.timeScale = 1;
     }
+
+    public static void ResumeGame()
+    {
+        UI.LoadCountdownPanel();
+        instance.StartCoroutine(Invoke_SubstractCountdownValue(4));
+    }
+
+    private static IEnumerator Invoke_SubstractCountdownValue(int countdownValue)
+    {
+        while (true)
+        {
+            countdownValue -= 1;
+            if (countdownValue < 1)
+            {
+                UnpauseGame();
+                UI.CloseCountdownPanel();
+                break;
+            }
+            UI.UpdateCountdownValue(countdownValue);
+            yield return new WaitForSecondsRealtime(1f);
+        }
+    }
+
+    public static IEnumerator Invoke_StartDelayedGame(int countdownValue, int level = -1)
+    {
+        UI.LoadCountdownPanel();
+        while (true)
+        {
+            countdownValue -= 1;
+            if (countdownValue < 1)
+            {
+                UnpauseGame();
+                UI.CloseCountdownPanel();
+                break;
+            }
+            UI.UpdateCountdownValue(countdownValue);
+            yield return new WaitForSecondsRealtime(1f);
+        }
+
+        if (level >= 0)
+        {
+            StartGame(level);
+        }
+        else
+        {
+            StartRandomGame();
+        }
+
+    }
+
     public static void EndGame()
     {
         GameStateManager.UpdateOwnedCoins(CoinsManager.ownedCoins);
@@ -46,6 +98,7 @@ public class GameManager : MonoBehaviour
         IsGameStarted = true;
         TreeManager.StartMovingTree();
         CoinsManager.SetCoins(GameStateManager.CurrentGameState.ownedCoins);
+        UI.StartPlayTrailEmmiter();
     }
 
     public static void StartRandomGame()
@@ -56,6 +109,7 @@ public class GameManager : MonoBehaviour
         TreeManager.StartMovingTree();
         ScoreManager.StartCountingScore();
         CoinsManager.SetCoins(GameStateManager.CurrentGameState.ownedCoins);
+        UI.StartPlayTrailEmmiter();
     }
 
     public static void SetValuesToDefault() 

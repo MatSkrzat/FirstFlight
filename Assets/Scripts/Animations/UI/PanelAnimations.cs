@@ -10,7 +10,7 @@ public class PanelAnimations : MonoBehaviour
 
     private AnimationController animationController;
 
-    private void Start()
+    private void Awake()
     {
         animationController = new AnimationController(GetComponent<Animator>());
     }

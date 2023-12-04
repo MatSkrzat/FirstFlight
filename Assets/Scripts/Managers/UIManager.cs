@@ -59,6 +59,7 @@ public class UIManager : MonoBehaviour
     public GameObject debugText;
     public GameObject shopPanel;
     public GameObject scorePanel;
+    public GameObject countdownPanel;
     public GameObject player;
     public Material featherMaterial;
     public Button[] levelsButtons;
@@ -151,17 +152,21 @@ public class UIManager : MonoBehaviour
         jumpSecurityPanel.SetActive(true);
         healthStatusPanel.SetActive(true);
         coinPanel.SetActive(true);
-        player.transform.GetChild((int)PlayerChildren.trailEmmiter).GetComponent<ParticleSystem>().Play();
         if (isInfinity)
         {
-            GameManager.StartRandomGame();
+            GameManager.instance.StartCoroutine(GameManager.Invoke_StartDelayedGame(4));
             scorePanel.SetActive(true);
         }
         else
         {
-            GameManager.StartGame(level);
+            GameManager.instance.StartCoroutine(GameManager.Invoke_StartDelayedGame(4, level));
             scorePanel.SetActive(false);
         }
+    }
+
+    public void StartPlayTrailEmmiter()
+    {
+        player.transform.GetChild((int)PlayerChildren.trailEmmiter).GetComponent<ParticleSystem>().Play();
     }
 
     public void UpdateDisplayedHealth(int numberOfLives)
@@ -200,6 +205,27 @@ public class UIManager : MonoBehaviour
         mainMenuPanel.SetActive(true);
         jumpSecurityPanel.SetActive(false);
         levelsPanel.GetComponent<PanelAnimations>().PlayClose();
+    }
+
+    public void LoadCountdownPanel()
+    {
+        countdownPanel.SetActive(true);
+    }
+
+    public void CloseCountdownPanel()
+    {
+        countdownPanel.GetComponent<PanelAnimations>().PlayClose();
+    }
+
+    public void UpdateCountdownValue(int value)
+    {
+        if(value < 0)
+        {
+            CloseCountdownPanel();
+            return;
+        }
+        countdownPanel.GetComponent<PanelAnimations>().PlayRefresh();
+        countdownPanel.GetComponentInChildren<TextMeshProUGUI>().text = value.ToString();
     }
 
     public void UpdateDebugText(string message, string stackTrace, LogType type)

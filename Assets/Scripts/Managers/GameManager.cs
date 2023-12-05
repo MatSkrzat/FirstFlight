@@ -24,7 +24,7 @@ public class GameManager : MonoBehaviour
         UI = gameObject.GetComponent<UIManager>();
         MainCamera = Camera.main;
     }
-    public static void StopGame()
+    public static void PauseGame()
     {
         IsGamePaused = true;
         Time.timeScale = 0;
@@ -39,6 +39,7 @@ public class GameManager : MonoBehaviour
     public static void ResumeGame()
     {
         UI.LoadCountdownPanel();
+        UI.CloseCornerButton();
         instance.StartCoroutine(Invoke_SubstractCountdownValue(4));
     }
 
@@ -46,11 +47,13 @@ public class GameManager : MonoBehaviour
     {
         while (true)
         {
+            if (Time.timeScale != 0) break;
             countdownValue -= 1;
             if (countdownValue < 1)
             {
                 UnpauseGame();
                 UI.CloseCountdownPanel();
+                UI.LoadCornerButton(FilenameDictionary.PAUSE_ICON);
                 break;
             }
             UI.UpdateCountdownValue(countdownValue);
@@ -98,6 +101,7 @@ public class GameManager : MonoBehaviour
         IsGameStarted = true;
         TreeManager.StartMovingTree();
         CoinsManager.SetCoins(GameStateManager.CurrentGameState.ownedCoins);
+        UI.LoadCornerButton(FilenameDictionary.PAUSE_ICON);
         UI.StartPlayTrailEmmiter();
     }
 
@@ -109,6 +113,7 @@ public class GameManager : MonoBehaviour
         TreeManager.StartMovingTree();
         ScoreManager.StartCountingScore();
         CoinsManager.SetCoins(GameStateManager.CurrentGameState.ownedCoins);
+        UI.LoadCornerButton(FilenameDictionary.PAUSE_ICON);
         UI.StartPlayTrailEmmiter();
     }
 

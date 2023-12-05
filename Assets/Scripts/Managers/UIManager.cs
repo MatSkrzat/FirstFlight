@@ -60,6 +60,7 @@ public class UIManager : MonoBehaviour
     public GameObject shopPanel;
     public GameObject scorePanel;
     public GameObject countdownPanel;
+    public GameObject cornerButton;
     public GameObject player;
     public Material featherMaterial;
     public Button[] levelsButtons;
@@ -82,6 +83,7 @@ public class UIManager : MonoBehaviour
     {
         LoadHearts();
         LoadCoins();
+        LoadCornerButton(FilenameDictionary.SOUND_ON_ICON);
         SelectCharacter(GameStateManager.CurrentGameState.selectedCharacterId);
     }
 
@@ -195,6 +197,7 @@ public class UIManager : MonoBehaviour
         mainMenuPanel.SetActive(false);
         jumpSecurityPanel.SetActive(false);
         levelsPanel.SetActive(true);
+        cornerButton.SetActive(false);
         infinityModeButton.interactable = GameStateManager.CurrentGameState.lastLevel >= LevelsManager.INFINITY_LEVEL;
         FillLevelButtons(FIRST_LEVEL);
     }
@@ -204,6 +207,7 @@ public class UIManager : MonoBehaviour
         coinPanel.SetActive(true);
         mainMenuPanel.SetActive(true);
         jumpSecurityPanel.SetActive(false);
+        cornerButton.SetActive(true);
         levelsPanel.GetComponent<PanelAnimations>().PlayClose();
     }
 
@@ -214,7 +218,7 @@ public class UIManager : MonoBehaviour
 
     public void CloseCountdownPanel()
     {
-        countdownPanel.GetComponent<PanelAnimations>().PlayClose();
+        countdownPanel.SetActive(false);
     }
 
     public void UpdateCountdownValue(int value)
@@ -250,6 +254,7 @@ public class UIManager : MonoBehaviour
         mainMenuPanel.SetActive(false);
         jumpSecurityPanel.SetActive(false);
         healthStatusPanel.SetActive(false);
+        cornerButton.SetActive(false);
 
         var score = endGamePanel.transform.GetChild(0).GetChild((int)EndGamePanelChildren.scoreValueLabel);
         var scoreLabel = endGamePanel.transform.GetChild(0).GetChild((int)EndGamePanelChildren.scoreLabel);
@@ -295,6 +300,7 @@ public class UIManager : MonoBehaviour
         jumpSecurityPanel.SetActive(false);
         healthStatusPanel.SetActive(false);
         endGamePanel.SetActive(false);
+        cornerButton.SetActive(false);
         currentSelectedCharacterId = GameStateManager.CurrentGameState.selectedCharacterId;
         DisplayCharacter(currentSelectedCharacterId);
         shopPanel.SetActive(true);
@@ -302,11 +308,11 @@ public class UIManager : MonoBehaviour
 
     public void CloseShopPanel()
     {
-        coinPanel.SetActive(false);
         mainMenuPanel.SetActive(true);
         jumpSecurityPanel.SetActive(false);
         healthStatusPanel.SetActive(false);
         endGamePanel.SetActive(false);
+        cornerButton.SetActive(true);
         shopPanel.GetComponent<PanelAnimations>().PlayClose();
     }
 
@@ -444,6 +450,46 @@ public class UIManager : MonoBehaviour
     {
         if (scorePanel.GetComponentInChildren<TextMeshProUGUI>() != null)
             scorePanel.GetComponentInChildren<TextMeshProUGUI>().text = amount.ToString();
+    }
+
+    public void CloseCornerButton()
+    {
+        cornerButton.SetActive(false);
+    }
+
+    public void LoadCornerButton(string spriteName)
+    {
+        if (spriteName != null)
+        {
+            cornerButton.GetComponent<Image>().sprite
+                = Resources.Load<Sprite>(PathsDictionary.GetFullPath(PathsDictionary.UI_BUTTONS, spriteName));
+        }
+        cornerButton.SetActive(true);
+    }
+
+    public void CornerButtonOnClick()
+    {
+        var cornerButtonAction = cornerButton.GetComponent<Image>().sprite.name;
+
+        if (cornerButtonAction == FilenameDictionary.PAUSE_ICON)
+        {
+            GameManager.PauseGame();
+            LoadCornerButton(FilenameDictionary.PLAY_ICON);
+        }
+        else if (cornerButtonAction == FilenameDictionary.PLAY_ICON)
+        {
+            GameManager.ResumeGame();
+        }
+        else if (cornerButtonAction == FilenameDictionary.SOUND_ON_ICON)
+        {
+            Debug.Log("SOUND OFF");
+            LoadCornerButton(FilenameDictionary.SOUND_OFF_ICON);
+        }
+        else
+        {
+            Debug.Log("SOUND ON");
+            LoadCornerButton(FilenameDictionary.SOUND_ON_ICON);
+        }
     }
 
     private void FillLevelButtons(int firstLevelToLoadOnPage)

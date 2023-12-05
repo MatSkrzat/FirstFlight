@@ -41,6 +41,10 @@ public static class FilenameDictionary
     public static string UI_HEART_PREFAB { get; } = "heart";
     public static string CHARACTER_ICON { get; } = "icon";
     public static string CONFIRM_ICON { get; } = "confirm";
+    public static string SOUND_ON_ICON { get; } = "sound_on";
+    public static string SOUND_OFF_ICON { get; } = "sound_off";
+    public static string PAUSE_ICON { get; } = "pause";
     public static string SHOP_ICON { get; } = "shop";
+    public static string PLAY_ICON { get; } = "button_play";
     #endregion
 }

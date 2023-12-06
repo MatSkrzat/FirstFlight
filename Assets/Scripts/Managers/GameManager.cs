@@ -40,6 +40,7 @@ public class GameManager : MonoBehaviour
     {
         UI.LoadCountdownPanel();
         UI.CloseCornerButton();
+        UI.ClosePausePanel();
         instance.StartCoroutine(Invoke_SubstractCountdownValue(4));
     }
 

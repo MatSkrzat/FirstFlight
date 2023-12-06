@@ -60,6 +60,7 @@ public class UIManager : MonoBehaviour
     public GameObject shopPanel;
     public GameObject scorePanel;
     public GameObject countdownPanel;
+    public GameObject pausePanel;
     public GameObject cornerButton;
     public GameObject player;
     public Material featherMaterial;
@@ -148,12 +149,13 @@ public class UIManager : MonoBehaviour
         EventSystem.current.currentSelectedGameObject == jumpSecurityPanel;
     public void StartGame(bool isInfinity, int level = 0)
     {
+        CloseLevelsPanel();
         endGamePanel.SetActive(false);
         mainMenuPanel.SetActive(false);
-        levelsPanel.SetActive(false);
         jumpSecurityPanel.SetActive(true);
         healthStatusPanel.SetActive(true);
         coinPanel.SetActive(true);
+        cornerButton.SetActive(false);
         if (isInfinity)
         {
             GameManager.instance.StartCoroutine(GameManager.Invoke_StartDelayedGame(4));
@@ -213,12 +215,14 @@ public class UIManager : MonoBehaviour
 
     public void LoadCountdownPanel()
     {
+        jumpSecurityPanel.SetActive(false);
         countdownPanel.SetActive(true);
     }
 
     public void CloseCountdownPanel()
     {
-        countdownPanel.SetActive(false);
+        jumpSecurityPanel.SetActive(true);
+        countdownPanel.GetComponent<PanelAnimations>().PlayClose();
     }
 
     public void UpdateCountdownValue(int value)
@@ -474,7 +478,8 @@ public class UIManager : MonoBehaviour
         if (cornerButtonAction == FilenameDictionary.PAUSE_ICON)
         {
             GameManager.PauseGame();
-            LoadCornerButton(FilenameDictionary.PLAY_ICON);
+            cornerButton.SetActive(false);
+            pausePanel.SetActive(true);
         }
         else if (cornerButtonAction == FilenameDictionary.PLAY_ICON)
         {
@@ -490,6 +495,11 @@ public class UIManager : MonoBehaviour
             Debug.Log("SOUND ON");
             LoadCornerButton(FilenameDictionary.SOUND_ON_ICON);
         }
+    }
+
+    public void ClosePausePanel()
+    {
+        pausePanel.GetComponent<PanelAnimations>().PlayClose();
     }
 
     private void FillLevelButtons(int firstLevelToLoadOnPage)

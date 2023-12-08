@@ -9,13 +9,20 @@ public class PlayerAnimations : MonoBehaviour
     private static Rigidbody2D playerRigidbody2D;
     private static AnimationController animationController;
     private static ParticleSystem particle;
+    private PlayerAnimations instance;
 
     private void Start()
     {
         var selectedCharacterId = GameStateManager.CurrentGameState.selectedCharacterId;
-        playerRigidbody2D = GetComponent<Rigidbody2D>();
-        animationController = new AnimationController(gameObject.transform.GetChild(selectedCharacterId).GetComponent<Animator>());
+        ChangeAnimatorForSelectedCharacter(gameObject.transform.GetChild(selectedCharacterId).gameObject);
+        playerRigidbody2D = GetComponent<Rigidbody2D>(); 
         particle = transform.GetChild((int)PlayerChildren.featherEmmiter).GetComponent<ParticleSystem>();
+    }
+
+    public static void ChangeAnimatorForSelectedCharacter(GameObject playerGameObject)
+    {
+        var selectedCharacterId = GameStateManager.CurrentGameState.selectedCharacterId;
+        animationController = new AnimationController(playerGameObject.GetComponent<Animator>());
     }
 
     public static void PlayJump()

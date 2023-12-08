@@ -402,6 +402,7 @@ public class UIManager : MonoBehaviour
         else
             shopPanelBackground.GetChild((int)ShopPanelChildren.buySelectButton).GetComponent<Image>().sprite
                 = Resources.Load<Sprite>(PathsDictionary.GetFullPath(PathsDictionary.UI_BUTTONS, FilenameDictionary.SHOP_ICON));
+
         if (character.IsSelected)
             shopPanelBackground.GetChild((int)ShopPanelChildren.buySelectButton).GetComponent<Button>().interactable = false;
         else
@@ -438,8 +439,9 @@ public class UIManager : MonoBehaviour
         {
             player.transform.GetChild(i).gameObject.SetActive(false);
         }
-
-        player.transform.GetChild(characterId).gameObject.SetActive(true);
+        var playerGameObject = player.transform.GetChild(characterId).gameObject;
+        playerGameObject.SetActive(true);
+        PlayerAnimations.ChangeAnimatorForSelectedCharacter(playerGameObject);
 
         // feather color setup by changing the particle material
         var characterName = PlayerHelper.CHARACTERS.First(x => x.ID == characterId).Name;

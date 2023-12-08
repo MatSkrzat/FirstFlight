@@ -16,6 +16,23 @@ public class PlayerManager : MonoBehaviour
     public static bool IsDead { get; private set; } = false;
     public static char PositionSide { get; set; } = Helper.SIDE_RIGHT;
     public static bool IsJumping { get; set; } = false;
+    public static GameObject SelectedCharacterGameObject { get; private set; }
+
+    private void Start()
+    {
+        SelectedCharacterGameObject = GameManager.UI.player.transform.GetChild(GameStateManager.CurrentGameState.selectedCharacterId).gameObject;
+    }
+
+    public static void UpdateSelectedCharacter(GameObject characterGameObject = default)
+    {
+        if (characterGameObject == default)
+        {
+            SelectedCharacterGameObject
+                = GameManager.UI.player.transform.GetChild(GameStateManager.CurrentGameState.selectedCharacterId).gameObject;
+            return;
+        }
+        SelectedCharacterGameObject = characterGameObject;
+    }
 
     public static void SubstractLives(int livesToSubstract)
     {
@@ -23,6 +40,14 @@ public class PlayerManager : MonoBehaviour
 
         NumberOfLives -= livesToSubstract;
         GameManager.UI.UpdateDisplayedHealth(NumberOfLives);
+
+        if (NumberOfLives == 1)
+        {
+            var character = PlayerHelper.CHARACTERS.Find(x => x.ID == GameStateManager.CurrentGameState.selectedCharacterId);
+            SelectedCharacterGameObject.GetComponent<SpriteRenderer>().sprite =
+                Resources.Load<Sprite>(PathsDictionary.GetPlayerPath(character.Name) + FilenameDictionary.BODY_DAMAGED);
+        }
+
         if (NumberOfLives <= 0)
         {
             PlayerAnimations.PlayDeath();

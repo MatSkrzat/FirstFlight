@@ -9,7 +9,6 @@ public class PlayerAnimations : MonoBehaviour
     private static Rigidbody2D playerRigidbody2D;
     private static AnimationController animationController;
     private static ParticleSystem particle;
-    private PlayerAnimations instance;
 
     private void Start()
     {

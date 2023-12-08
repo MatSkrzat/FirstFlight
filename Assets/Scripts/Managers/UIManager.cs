@@ -439,9 +439,10 @@ public class UIManager : MonoBehaviour
         {
             player.transform.GetChild(i).gameObject.SetActive(false);
         }
-        var playerGameObject = player.transform.GetChild(characterId).gameObject;
-        playerGameObject.SetActive(true);
-        PlayerAnimations.ChangeAnimatorForSelectedCharacter(playerGameObject);
+        var selectedCharacterGameObject = player.transform.GetChild(characterId).gameObject;
+        selectedCharacterGameObject.SetActive(true);
+        PlayerAnimations.ChangeAnimatorForSelectedCharacter(selectedCharacterGameObject);
+        PlayerManager.UpdateSelectedCharacter(selectedCharacterGameObject);
 
         // feather color setup by changing the particle material
         var characterName = PlayerHelper.CHARACTERS.First(x => x.ID == characterId).Name;

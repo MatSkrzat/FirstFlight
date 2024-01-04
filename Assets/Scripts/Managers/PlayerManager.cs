@@ -1,5 +1,15 @@
 using UnityEngine;
 
+public enum CharacterChildren
+{
+    blackEye,
+    openedEye,
+    wing,
+    closedEye,
+    openedPeak,
+    closedPeak
+}
+
 public class PlayerManager : MonoBehaviour
 {
     #region STATIC
@@ -17,6 +27,7 @@ public class PlayerManager : MonoBehaviour
     public static char PositionSide { get; set; } = Helper.SIDE_RIGHT;
     public static bool IsJumping { get; set; } = false;
     public static GameObject SelectedCharacterGameObject { get; private set; }
+    public RuntimeAnimatorController damagedAnimatorController;
 
     private void Start()
     {
@@ -40,15 +51,25 @@ public class PlayerManager : MonoBehaviour
 
         NumberOfLives -= livesToSubstract;
         GameManager.UI.UpdateDisplayedHealth(NumberOfLives);
-
-        if (NumberOfLives == 1)
+        
+        if (NumberOfLives == 2)
         {
             var character = PlayerHelper.CHARACTERS.Find(x => x.ID == GameStateManager.CurrentGameState.selectedCharacterId);
             SelectedCharacterGameObject.GetComponent<SpriteRenderer>().sprite =
                 Resources.Load<Sprite>(PathsDictionary.GetPlayerPath(character.Name) + FilenameDictionary.BODY_DAMAGED);
         }
 
-        if (NumberOfLives <= 0)
+        else if (NumberOfLives == 1)
+        {
+            if(instance.damagedAnimatorController != null)
+            {
+                PlayerAnimations.ChangeAnimatorForDamagedCharacter(SelectedCharacterGameObject, instance.damagedAnimatorController);
+            }
+            SelectedCharacterGameObject.transform.GetChild((int)CharacterChildren.openedEye).gameObject.SetActive(false);
+            SelectedCharacterGameObject.transform.GetChild((int)CharacterChildren.blackEye).gameObject.SetActive(true);
+        }
+
+        else if (NumberOfLives <= 0)
         {
             PlayerAnimations.PlayDeath();
             IsDead = true;

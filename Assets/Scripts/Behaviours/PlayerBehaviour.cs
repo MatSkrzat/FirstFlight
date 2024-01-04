@@ -102,7 +102,7 @@ public class PlayerBehaviour : MonoBehaviour
     private void HandlePlayerHit()
     {
         PlayerManager.SubstractLives(1);
-        PlayerAnimations.PlayHit();
+        PlayerAnimations.PlayHit(); 
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

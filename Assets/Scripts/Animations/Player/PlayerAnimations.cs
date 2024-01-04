@@ -14,14 +14,18 @@ public class PlayerAnimations : MonoBehaviour
     {
         var selectedCharacterId = GameStateManager.CurrentGameState.selectedCharacterId;
         ChangeAnimatorForSelectedCharacter(gameObject.transform.GetChild(selectedCharacterId).gameObject);
-        playerRigidbody2D = GetComponent<Rigidbody2D>(); 
+        playerRigidbody2D = GetComponent<Rigidbody2D>();
         particle = transform.GetChild((int)PlayerChildren.featherEmmiter).GetComponent<ParticleSystem>();
     }
 
     public static void ChangeAnimatorForSelectedCharacter(GameObject playerGameObject)
     {
-        var selectedCharacterId = GameStateManager.CurrentGameState.selectedCharacterId;
         animationController = new AnimationController(playerGameObject.GetComponent<Animator>());
+    }
+
+    public static void ChangeAnimatorForDamagedCharacter(GameObject playerGameObject, RuntimeAnimatorController damagedAnimatorController)
+    {
+        playerGameObject.GetComponent<Animator>().runtimeAnimatorController = damagedAnimatorController;
     }
 
     public static void PlayJump()

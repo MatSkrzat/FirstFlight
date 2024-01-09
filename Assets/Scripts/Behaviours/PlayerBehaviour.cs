@@ -107,16 +107,41 @@ public class PlayerBehaviour : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag(TagsDictionary.BRANCH))
+        if (PlayerManager.IsDead) return;
+
+        switch (collision.tag)
         {
-            TreeManager.BreakModuleBranch(collision.gameObject);
-            HandlePlayerHit();
-        }
-        if (collision.CompareTag(TagsDictionary.COIN) && !PlayerManager.IsDead)
-        {
-            CoinsManager.AddCoins(1);
-            collision.gameObject.GetComponent<CoinBehaviour>().RemoveCoin();
-            collision.gameObject.GetComponent<CoinAnimations>().PlayCatch();
+            case TagsDictionary.BRANCH:
+                TreeManager.BreakModuleBranch(collision.gameObject);
+                HandlePlayerHit();
+                break;
+            case TagsDictionary.COIN:
+                CoinsManager.AddCoins(1);
+                collision.gameObject.GetComponent<BonusBehaviour>().RemoveBonusGameObject();
+                collision.gameObject.GetComponent<BonusAnimations>().PlayCatch();
+                collision.GetComponentInParent<TreeBehaviour>().ActivateBonusLabel();
+                break;
+            case TagsDictionary.PEANUT:
+                ScoreManager.AddScoreBonus(100);
+                collision.gameObject.GetComponent<BonusBehaviour>().RemoveBonusGameObject();
+                collision.gameObject.GetComponent<BonusAnimations>().PlayCatch();
+                collision.GetComponentInParent<TreeBehaviour>().ActivateBonusLabel();
+                break;
+            case TagsDictionary.CARROT:
+                ScoreManager.AddScoreBonus(50);
+                CoinsManager.AddCoins(20);
+                collision.gameObject.GetComponent<BonusBehaviour>().RemoveBonusGameObject();
+                collision.gameObject.GetComponent<BonusAnimations>().PlayCatch();
+                collision.GetComponentInParent<TreeBehaviour>().ActivateBonusLabel();
+                break;
+            case TagsDictionary.HEART:
+                PlayerManager.AddLives(1);
+                collision.gameObject.GetComponent<BonusBehaviour>().RemoveBonusGameObject();
+                collision.gameObject.GetComponent<BonusAnimations>().PlayCatch();
+                collision.GetComponentInParent<TreeBehaviour>().ActivateBonusLabel();
+                break;
+            default:
+                break;
         }
     }
 }

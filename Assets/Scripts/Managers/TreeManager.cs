@@ -2,13 +2,26 @@ using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public enum TreeModuleChildren
 {
     branch,
     brokenBranch,
     coin,
-    canvas
+    levelCanvas,
+    peanut,
+    carrot,
+    heart,
+    bonusCanvas
+}
+
+public enum BonusPanelChildren
+{
+    bonusLabel,
+    bonusIcon,
+    bonusLabel2,
+    bonusIcon2
 }
 
 public class TreeManager : MonoBehaviour
@@ -31,12 +44,21 @@ public class TreeManager : MonoBehaviour
     public static readonly Vector2 DESTRUCTION_POSITION = new Vector2(0F, 10F);
     public static readonly Vector2 NEW_TREE_MODULE_INIT_POSITION = new Vector2(0, INITIALIZE_POSITION.y + 2.8F);
     public static bool isInfinityMode = false;
+    private static Sprite coinSprite;
+    private static Sprite heartSprite;
+    private static Sprite scoreSprite;
 
     public void Start()
     {
         treeModulePrefab = Resources.Load<GameObject>(
             PathsDictionary.GetFullPath(PathsDictionary.PREFABS, FilenameDictionary.TREE_PREFAB));
         initialTree = GameObject.Find(Helper.GO_NAME_INITIAL_TREE);
+        coinSprite = Resources.Load<Sprite>(
+            PathsDictionary.GetFullPath(PathsDictionary.BONUSES, FilenameDictionary.COIN));
+        heartSprite = Resources.Load<Sprite>(
+            PathsDictionary.GetFullPath(PathsDictionary.UI_HEARTS, FilenameDictionary.UI_HEART_RED));
+        scoreSprite = Resources.Load<Sprite>(
+            PathsDictionary.GetFullPath(PathsDictionary.UI_OTHER, FilenameDictionary.STAR));
     }
 
     public static void StartMovingTree()
@@ -88,7 +110,7 @@ public class TreeManager : MonoBehaviour
 
             if(i == 0)
             {
-                var canvas = newTreeModule.transform.GetChild((int)TreeModuleChildren.canvas).gameObject;
+                var canvas = newTreeModule.transform.GetChild((int)TreeModuleChildren.levelCanvas).gameObject;
                 canvas.SetActive(true);
                 canvas.transform.GetChild(0).gameObject.GetComponent<TextMeshProUGUI>().text = LevelsManager.currentLevel.ID.ToString();
 
@@ -127,18 +149,86 @@ public class TreeManager : MonoBehaviour
     private static void SetupBonusesForTreeModule(GameObject treeModule, List<TreeModuleModel> treeModules, int currentModuleID)
     {
         //-2 is to make it safe and not go out of index
-        if (treeModules.Count - 2 < currentModuleID) return;
+        if (currentModuleID == 0) return;
 
         var currentTreeModule = treeModules[currentModuleID];
-        var nextTreeModule = treeModules[currentModuleID + 1];
+        var previousTreeModule = treeModules[currentModuleID - 1];
 
-        if (currentTreeModule.hasBonus)
+        if (previousTreeModule.hasBonus)
         {
-
+            return;
         }
-        else if (currentTreeModule.branch.side != nextTreeModule.branch.side)
+        
+        if (GameManager.IsGameRandom)
         {
-            treeModule.transform.GetChild((int)TreeModuleChildren.coin).gameObject.SetActive(Random.Range(0, 2) == 0);
+            int randomBonus = Random.Range(0, 110);
+            if (randomBonus > 25) 
+            { 
+                return; 
+            }
+            currentTreeModule.hasBonus = true;
+            if (randomBonus == 0)
+            {
+                treeModule.transform.GetChild((int)TreeModuleChildren.peanut).gameObject.SetActive(true);
+                SetBonusLabelsForTreeModule(treeModule, (int)TreeModuleChildren.peanut);
+            } 
+            else if (randomBonus == 1)
+            {
+                treeModule.transform.GetChild((int)TreeModuleChildren.heart).gameObject.SetActive(true);
+                SetBonusLabelsForTreeModule(treeModule, (int)TreeModuleChildren.heart);
+            }
+            else if (randomBonus >= 2 && randomBonus <= 3)
+            {
+                treeModule.transform.GetChild((int)TreeModuleChildren.carrot).gameObject.SetActive(true);
+                SetBonusLabelsForTreeModule(treeModule, (int)TreeModuleChildren.carrot);
+            }
+            else
+            {
+                treeModule.transform.GetChild((int)TreeModuleChildren.coin).gameObject.SetActive(true);
+                SetBonusLabelsForTreeModule(treeModule, (int)TreeModuleChildren.coin);
+            }
+        }
+
+        else if (currentTreeModule.branch.side != previousTreeModule.branch.side)
+        {
+            if (Random.Range(0, 2) != 0) return;
+            treeModule.transform.GetChild((int)TreeModuleChildren.coin).gameObject.SetActive(true);
+            SetBonusLabelsForTreeModule(treeModule, (int)TreeModuleChildren.coin);
+        }
+    }
+
+    private static void SetBonusLabelsForTreeModule(GameObject treeModule, int bonusChildrenId)
+    {
+        var bonusCanvas = treeModule.transform.GetChild((int)TreeModuleChildren.bonusCanvas);
+        var bonusPanel = bonusCanvas.transform.GetChild(0);
+        switch (bonusChildrenId)
+        {
+            case (int)TreeModuleChildren.heart:
+                bonusPanel.GetChild((int)BonusPanelChildren.bonusIcon).GetComponent<Image>().sprite = heartSprite;
+                bonusPanel.GetChild((int)BonusPanelChildren.bonusLabel).GetComponent<TextMeshProUGUI>().text = "x 1";
+                bonusPanel.GetChild((int)BonusPanelChildren.bonusIcon2).gameObject.SetActive(false);
+                bonusPanel.GetChild((int)BonusPanelChildren.bonusLabel2).gameObject.SetActive(false);
+                break;
+            case (int)TreeModuleChildren.coin:
+                bonusPanel.GetChild((int)BonusPanelChildren.bonusIcon).GetComponent<Image>().sprite = coinSprite;
+                bonusPanel.GetChild((int)BonusPanelChildren.bonusLabel).GetComponent<TextMeshProUGUI>().text = "x 1";
+                bonusPanel.GetChild((int)BonusPanelChildren.bonusIcon2).gameObject.SetActive(false);
+                bonusPanel.GetChild((int)BonusPanelChildren.bonusLabel2).gameObject.SetActive(false);
+                break;
+            case (int)TreeModuleChildren.carrot:
+                bonusPanel.GetChild((int)BonusPanelChildren.bonusIcon).GetComponent<Image>().sprite = coinSprite;
+                bonusPanel.GetChild((int)BonusPanelChildren.bonusLabel).GetComponent<TextMeshProUGUI>().text = "x 20";
+                bonusPanel.GetChild((int)BonusPanelChildren.bonusIcon2).GetComponent<Image>().sprite = scoreSprite;
+                bonusPanel.GetChild((int)BonusPanelChildren.bonusLabel2).GetComponent<TextMeshProUGUI>().text = "x 50";
+                break;
+            case (int)TreeModuleChildren.peanut:
+                bonusPanel.GetChild((int)BonusPanelChildren.bonusIcon).GetComponent<Image>().sprite = scoreSprite;
+                bonusPanel.GetChild((int)BonusPanelChildren.bonusLabel).GetComponent<TextMeshProUGUI>().text = "x 100";
+                bonusPanel.GetChild((int)BonusPanelChildren.bonusIcon2).gameObject.SetActive(false);
+                bonusPanel.GetChild((int)BonusPanelChildren.bonusLabel2).gameObject.SetActive(false);
+                break;
+            default:
+                break;
         }
     }
 

@@ -9,6 +9,7 @@ public enum EndGamePanelChildren
 {
     gameOverLabel,
     scoreLabel,
+    scoreIcon,
     scoreValueLabel,
     coinIcon,
     coinValueLabel,
@@ -74,6 +75,7 @@ public class UIManager : MonoBehaviour
 
     private List<GameObject> heartGameObjects = new List<GameObject>();
     private Sprite grayHeartSprite;
+    private Sprite redHeartSprite;
     private GameObject heartPrefab;
     private int[] displayedLevels = new int[LEVELS_PER_SITE];
     private int currentSelectedCharacterId;
@@ -123,6 +125,8 @@ public class UIManager : MonoBehaviour
     {
         grayHeartSprite = Resources.Load<Sprite>(
             PathsDictionary.GetFullPath(PathsDictionary.UI_HEARTS, FilenameDictionary.UI_HEART_GRAY));
+        redHeartSprite = Resources.Load<Sprite>(
+            PathsDictionary.GetFullPath(PathsDictionary.UI_HEARTS, FilenameDictionary.UI_HEART_RED));
         heartPrefab = Resources.Load<GameObject>(
             PathsDictionary.GetFullPath(PathsDictionary.PREFABS, FilenameDictionary.UI_HEART_PREFAB));
 
@@ -175,15 +179,16 @@ public class UIManager : MonoBehaviour
 
     public void UpdateDisplayedHealth(int numberOfLives)
     {
+        for (int i = 0; i < heartGameObjects.Count; i++)
+        {
+            var heartGameObjectSprite = heartGameObjects[i].GetComponent<Image>();
+            heartGameObjectSprite.gameObject.GetComponent<HeartAnimations>().PlayChange();
+            heartGameObjectSprite.overrideSprite = redHeartSprite;
+        }
         for (int i = heartGameObjects.Count; i > numberOfLives; i--)
         {
             var heartGameObjectSprite = heartGameObjects[i - 1].GetComponent<Image>();
-
-            if (heartGameObjectSprite.overrideSprite != grayHeartSprite)
-            {
-                heartGameObjectSprite.gameObject.GetComponent<HeartAnimations>().PlayChange();
-                heartGameObjectSprite.overrideSprite = grayHeartSprite;
-            }
+            heartGameObjectSprite.overrideSprite = grayHeartSprite;
         }
     }
 

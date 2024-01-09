@@ -8,6 +8,5 @@ public class GameStateModel
     public int lastLevel;
     public int ownedCoins;
     public int selectedCharacterId;
-    public int infinityUnblockLevel;
     public int highScore;
 }

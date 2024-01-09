@@ -25,6 +25,11 @@ public class TreeBehaviour : MonoBehaviour
         speed = newSpeed;
     }
 
+    public void ActivateBonusLabel()
+    {
+        transform.GetChild((int)TreeModuleChildren.bonusCanvas).gameObject.SetActive(true);
+    }
+
     private void FixedUpdate()
     {
         Move();

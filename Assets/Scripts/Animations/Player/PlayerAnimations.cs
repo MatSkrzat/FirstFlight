@@ -23,9 +23,9 @@ public class PlayerAnimations : MonoBehaviour
         animationController = new AnimationController(playerGameObject.GetComponent<Animator>());
     }
 
-    public static void ChangeAnimatorForDamagedCharacter(GameObject playerGameObject, RuntimeAnimatorController damagedAnimatorController)
+    public static void ChangeAnimatorForCharacter(GameObject playerGameObject, RuntimeAnimatorController runtimeAnimatorController)
     {
-        playerGameObject.GetComponent<Animator>().runtimeAnimatorController = damagedAnimatorController;
+        playerGameObject.GetComponent<Animator>().runtimeAnimatorController = runtimeAnimatorController;
     }
 
     public static void PlayJump()

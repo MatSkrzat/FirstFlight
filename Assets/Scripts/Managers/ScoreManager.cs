@@ -18,7 +18,7 @@ public class ScoreManager : MonoBehaviour
 
     public static void StartCountingScore()
     {
-        instance.InvokeRepeating("AddScore", 0F, 0.4F);
+        instance.InvokeRepeating("AddOneScorePoint", 0F, 0.4F);
     }
 
     public static void ResetScore()
@@ -31,10 +31,17 @@ public class ScoreManager : MonoBehaviour
         return currentScore;
     }
 
-    public void AddScore()
+    public void AddOneScorePoint()
     {
         currentScore += 1;
         GameManager.UI.UpdateScoreAmount(currentScore);
+    }
+
+    public static void AddScoreBonus(int scoreBonus)
+    {
+        currentScore += scoreBonus;
+        GameManager.UI.UpdateScoreAmount(currentScore);
+        GameManager.UI.scorePanel.GetComponent<PanelAnimations>().PlayRefresh();
     }
 
     public static bool SaveWhenNewHighscore()

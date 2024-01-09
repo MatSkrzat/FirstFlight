@@ -3,7 +3,7 @@ using UnityEngine;
 public class LevelsManager : MonoBehaviour
 {
     public const int INITIAL_LEVEL = 1;
-    public const int INFINITY_LEVEL = 35;
+    public const int INFINITY_LEVEL = 27;
     public static LevelModel currentLevel = new LevelModel();
     public static LevelModel nextLevel = new LevelModel();
     public static bool isNextLevelReady = false;

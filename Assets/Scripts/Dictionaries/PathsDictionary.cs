@@ -10,6 +10,8 @@ public static class PathsDictionary
     public static string TREE_MODULES_BRANCHES { get; } = "Textures/TreeModules/Default/Branches/";
     public static string UI_HEARTS { get; } = "Textures/UI/Hearts/";
     public static string UI_BUTTONS { get; } = "Textures/UI/Buttons/";
+    public static string UI_OTHER { get; } = "Textures/UI/Other/";
+    public static string BONUSES { get; } = "Textures/Bonuses/";
     #endregion
     #region PRIVATE
     private static string PLAYER { get; } = "Textures/Player/{name}/";

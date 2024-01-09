@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour
     #endregion
     public static bool IsGamePaused { get; private set; } = true;
     public static bool IsGameStarted { get; private set; } = false;
+    public static bool IsGameRandom { get; private set; } = false;
     public static UIManager UI { get; private set; }
     public static Camera MainCamera { get; private set; }
 
@@ -109,6 +110,7 @@ public class GameManager : MonoBehaviour
     public static void StartRandomGame()
     {
         LevelsManager.currentLevel = null;
+        IsGameRandom = true;
         LevelsManager.LoadRandomLevel();
         IsGameStarted = true;
         TreeManager.StartMovingTree();
@@ -121,7 +123,8 @@ public class GameManager : MonoBehaviour
     public static void SetValuesToDefault() 
     {
         IsGameStarted = false;
-        IsGamePaused = true;        
+        IsGamePaused = true;
+        IsGameRandom = false;
         Time.timeScale = 1;
     }
 

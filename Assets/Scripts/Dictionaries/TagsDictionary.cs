@@ -1,6 +1,9 @@
 public static class TagsDictionary
 {
-    public static string BRANCH { get; } = "Branch";
-    public static string PLAYER { get; } = "Player";
-    public static string COIN { get; } = "Coin";
+    public const string BRANCH = "Branch";
+    public const string PLAYER = "Player";
+    public const string COIN = "Coin";
+    public const string PEANUT = "Peanut";
+    public const string CARROT = "Carrot";
+    public const string HEART = "Heart";
 }

@@ -1,8 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class CoinAnimations : MonoBehaviour
+public class BonusAnimations : MonoBehaviour
 {
     const string CATCH_ANIM = "catch";
 

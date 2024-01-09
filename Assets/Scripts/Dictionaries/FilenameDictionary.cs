@@ -46,5 +46,11 @@ public static class FilenameDictionary
     public static string PAUSE_ICON { get; } = "pause";
     public static string SHOP_ICON { get; } = "shop";
     public static string PLAY_ICON { get; } = "button_play";
+    public static string STAR { get; } = "star";
+    #endregion
+    #region bonuses
+    public static string CARROT { get; } = "carrot";
+    public static string COIN { get; } = "coin";
+    public static string PEANUT { get; } = "peanut";
     #endregion
 }

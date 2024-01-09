@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CoinBehaviour : MonoBehaviour
+public class BonusBehaviour : MonoBehaviour
 {
-    public void RemoveCoin()
+    public void RemoveBonusGameObject()
     {
         GetComponent<Collider2D>().enabled = false;
     }

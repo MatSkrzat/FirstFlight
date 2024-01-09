@@ -6,6 +6,9 @@ TagManager:
   tags:
   - Branch
   - Coin
+  - Peanut
+  - Carrot
+  - Heart
   layers:
   - Default
   - TransparentFX

@@ -113,6 +113,7 @@ public class PlayerBehaviour : MonoBehaviour
         {
             case TagsDictionary.BRANCH:
                 TreeManager.BreakModuleBranch(collision.gameObject);
+                CameraShake.Instance.ShakeCamera(4f, .5f, .07f);
                 HandlePlayerHit();
                 break;
             case TagsDictionary.COIN:

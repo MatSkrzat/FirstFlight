@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
+using Cinemachine;
 
-[RequireComponent(typeof(Camera))]
 public class CameraSizeFitter : MonoBehaviour
 {
     #region fields
@@ -39,7 +39,7 @@ public class CameraSizeFitter : MonoBehaviour
             defaultAspectRatio = defaultHeight / defaultWidth;
             screenAspectRatio = (float)Screen.width / Screen.height;
         }
-        gameObject.GetComponent<Camera>().orthographicSize = defaultCameraSize * (screenAspectRatio / defaultAspectRatio);
+        gameObject.GetComponent<CinemachineVirtualCamera>().m_Lens.OrthographicSize = defaultCameraSize * (screenAspectRatio / defaultAspectRatio);
     }
     #endregion
 }

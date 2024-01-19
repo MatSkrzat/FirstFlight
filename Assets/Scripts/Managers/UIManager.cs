@@ -288,6 +288,7 @@ public class UIManager : MonoBehaviour
         {
             score.gameObject.SetActive(false);
             endGamePanel.transform.GetChild(0).GetChild((int)EndGamePanelChildren.scoreLabel).gameObject.SetActive(false);
+            endGamePanel.transform.GetChild(0).GetChild((int)EndGamePanelChildren.scoreIcon).gameObject.SetActive(false);
         }
         endGamePanel.transform.GetChild(0).GetChild((int)EndGamePanelChildren.coinValueLabel).GetComponent<TextMeshProUGUI>().text = GameStateManager.CurrentGameState.ownedCoins.ToString();
 

@@ -66,6 +66,12 @@ public class PlayerManager : MonoBehaviour
         SetCharacterValuesForNumberOfLives();
     }
 
+    public static float CalculateTrailEmmitterSpeed()
+    {
+        var trailEmmitterSpeed = 5f + ((float)(LevelsManager.currentLevel.ID + 1) / Helper.LEVELS_COUNT * 3f);
+        return trailEmmitterSpeed > 8f ? 8f : trailEmmitterSpeed;
+    }
+
     private static void SetCharacterValuesForNumberOfLives()
     {
         if (NumberOfLives == 2)

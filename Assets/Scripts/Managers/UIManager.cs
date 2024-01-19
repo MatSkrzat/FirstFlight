@@ -77,6 +77,7 @@ public class UIManager : MonoBehaviour
     private Sprite grayHeartSprite;
     private Sprite redHeartSprite;
     private GameObject heartPrefab;
+    private ParticleSystem playerTrailEmmitterParticleSystem;
     private int[] displayedLevels = new int[LEVELS_PER_SITE];
     private int currentSelectedCharacterId;
 
@@ -88,6 +89,7 @@ public class UIManager : MonoBehaviour
         LoadCoins();
         LoadCornerButton(FilenameDictionary.SOUND_ON_ICON);
         SelectCharacter(GameStateManager.CurrentGameState.selectedCharacterId);
+        playerTrailEmmitterParticleSystem = player.transform.GetChild((int)PlayerChildren.trailEmmiter).GetComponent<ParticleSystem>();
     }
 
     void OnEnable()
@@ -174,7 +176,13 @@ public class UIManager : MonoBehaviour
 
     public void StartPlayTrailEmmiter()
     {
-        player.transform.GetChild((int)PlayerChildren.trailEmmiter).GetComponent<ParticleSystem>().Play();
+        playerTrailEmmitterParticleSystem.Play();
+    }
+
+    public void SetPlayerTrailEmmiterSpeed(float particleSpeed)
+    {
+        var mainStartSpeed = playerTrailEmmitterParticleSystem.main.startSpeed;
+        mainStartSpeed.constant = particleSpeed;
     }
 
     public void UpdateDisplayedHealth(int numberOfLives)

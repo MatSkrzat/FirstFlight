@@ -99,6 +99,7 @@ public class TreeManager : MonoBehaviour
     private static void InitializeNewTreeModules(Vector2 startPosition, LevelModel levelToLoad)
     {
         if (levelToLoad?.ID == default) return;
+        GameManager.UI.SetPlayerTrailEmmiterSpeed(PlayerManager.CalculateTrailEmmitterSpeed());
 
         var moduleSizeY = treeModulePrefab.GetComponent<BoxCollider2D>().size.y;
         Vector2 positionToInstantiate = new Vector2(startPosition.x, startPosition.y + (moduleSizeY * 0.01F));

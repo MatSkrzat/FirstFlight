@@ -36,6 +36,11 @@ public class LevelsManager : MonoBehaviour
 
     public static LevelModel LoadNextLevel()
     {
+        if(currentLevel.ID >= Helper.LEVELS_COUNT)
+        {
+            LoadEndGameLevel();
+            return nextLevel;
+        }
         Debug.Log("**Loading new level " + (currentLevel.ID + 1));
         nextLevel = LoadLevel(currentLevel.ID + 1);
         isNextLevelReady = true;
@@ -72,6 +77,11 @@ public class LevelsManager : MonoBehaviour
     {
         Debug.Log("**Loading next random level");
         nextLevel = LevelsGenerator.GenerateRandomLevel(currentLevel);
+    }
+
+    private static void LoadEndGameLevel()
+    {
+        nextLevel = LevelsGenerator.GenerateEndGameLevel();
     }
 
     public static void SetValuesToDefault()

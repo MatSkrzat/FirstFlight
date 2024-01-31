@@ -38,9 +38,18 @@ public class BackgroundsManager : MonoBehaviour
 
         var backgroundBehaviour = newBackground.GetComponent<BackgroundBehaviour>();
         backgroundBehaviour.shouldMove = true;
-        backgroundBehaviour.SetSpeed(LevelsManager.currentLevel.endSpeed * BACKGROUND_SPEED_MULTIPLIER);
 
         backgroundPrefabsPool.Add(newBackground);
+
+        SetAllBackgroundsSpeedToLevelSpeed();
+    }
+
+    public static void SetAllBackgroundsSpeedToLevelSpeed()
+    {
+        foreach (var background in backgroundPrefabsPool)
+        {
+            background.GetComponent<BackgroundBehaviour>().SetSpeed(LevelsManager.currentLevel.endSpeed * BACKGROUND_SPEED_MULTIPLIER);
+        }
     }
 
     private static Sprite LoadSprite(string backgroundsPath) => Resources.Load<Sprite>(

@@ -102,6 +102,7 @@ public class GameManager : MonoBehaviour
         LevelsManager.LoadAndSetLevel(level);
         IsGameStarted = true;
         TreeManager.StartMovingTree();
+        BackgroundsManager.SetAllBackgroundsSpeedToLevelSpeed();
         CoinsManager.SetCoins(GameStateManager.CurrentGameState.ownedCoins);
         UI.LoadCornerButton(FilenameDictionary.PAUSE_ICON);
         UI.StartPlayTrailEmmiter();
@@ -114,6 +115,7 @@ public class GameManager : MonoBehaviour
         LevelsManager.LoadRandomLevel();
         IsGameStarted = true;
         TreeManager.StartMovingTree();
+        BackgroundsManager.SetAllBackgroundsSpeedToLevelSpeed();
         ScoreManager.StartCountingScore();
         CoinsManager.SetCoins(GameStateManager.CurrentGameState.ownedCoins);
         UI.LoadCornerButton(FilenameDictionary.PAUSE_ICON);

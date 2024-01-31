@@ -109,12 +109,11 @@ public class TreeManager : MonoBehaviour
             var newTreeModule = Instantiate(treeModulePrefab, positionToInstantiate, Quaternion.identity);
             var treeModuleSpriteRenderer = newTreeModule.GetComponent<SpriteRenderer>();
 
-            if(i == 0)
+            if(i == 0 && LevelsManager.currentLevel.ID <= Helper.LEVELS_COUNT)
             {
                 var canvas = newTreeModule.transform.GetChild((int)TreeModuleChildren.levelCanvas).gameObject;
                 canvas.SetActive(true);
                 canvas.transform.GetChild(0).gameObject.GetComponent<TextMeshProUGUI>().text = LevelsManager.currentLevel.ID.ToString();
-
             }
 
             treeModuleSpriteRenderer.sprite = LoadSprite(
@@ -294,7 +293,6 @@ public class TreeManager : MonoBehaviour
                 new Vector2(lastModule.transform.position.x,
                     lastModule.transform.position.y - lastModuleCollider.bounds.size.y + (Time.deltaTime * LevelsManager.currentLevel.endSpeed)),
                 LevelsManager.currentLevel);
-            var firstPrefab = treeModulesPrefabsPool.First(x => x.GetComponent<TreeBehaviour>().moduleId == 0);
         }
     }
 
@@ -318,7 +316,6 @@ public class TreeManager : MonoBehaviour
                 new Vector2(lastModule.transform.position.x,
                     lastModule.transform.position.y - lastModuleCollider.bounds.size.y + (Time.deltaTime * LevelsManager.currentLevel.endSpeed)),
                 LevelsManager.currentLevel);
-            var firstPrefab = treeModulesPrefabsPool.First(x => x.GetComponent<TreeBehaviour>().moduleId == 0);
         }
     }
 
@@ -331,6 +328,16 @@ public class TreeManager : MonoBehaviour
         var brokenBranch = parent.transform.GetChild((int)TreeModuleChildren.brokenBranch).gameObject;
         if (branch.transform.position.x > 0)
             ChangeObjectSide(brokenBranch);
+
+        if (LevelsManager.currentLevel.treeModules.Count < parentBehaviour.moduleId)
+        {
+            brokenBranch.GetComponent<SpriteRenderer>().sprite = LoadSprite(
+            LevelsManager.currentLevel.branchesPath,
+            FilenameDictionary.DEFAULT_BRANCH_NAMES[0].BrokenBranchName);
+            brokenBranch.SetActive(true);
+            return;
+        }
+
         brokenBranch.GetComponent<SpriteRenderer>().sprite = LoadSprite(
             LevelsManager.currentLevel.branchesPath, 
             LevelsManager.currentLevel.treeModules[parentBehaviour.moduleId].branch.brokenBranchSpriteName);

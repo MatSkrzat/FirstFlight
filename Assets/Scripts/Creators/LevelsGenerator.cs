@@ -36,12 +36,33 @@ public class LevelsGenerator : MonoBehaviour
         startSpeed = startSpeed
     };
 
+    public static LevelModel GenerateEndGameLevel() => new LevelModel()
+    {
+        ID = Helper.LEVELS_COUNT + 1,
+        treeModules = GenerateEndGameTreeModules(15),
+        backgroundsPath = PathsDictionary.BACKGROUND_DEFAULT,
+        treeModulesPath = PathsDictionary.TREE_MODULES,
+        branchesPath = PathsDictionary.TREE_MODULES_BRANCHES,
+        endSpeed = LevelsManager.currentLevel.endSpeed,
+        startSpeed = LevelsManager.currentLevel.endSpeed
+    };
+
     public static List<TreeModuleModel> GenerateRandomTreeModules(int modulesToCreate)
     {
         var treeModules = new List<TreeModuleModel>();
         for (int i = 0; i < modulesToCreate; i++)
         {
             treeModules.Add(GenerateNewTreeModule(i, treeModules.Count > 0 ? treeModules[i == 0 ? 0 : i - 1] : null));
+        }
+        return treeModules;
+    }
+
+    public static List<TreeModuleModel> GenerateEndGameTreeModules(int modulesToCreate)
+    {
+        var treeModules = new List<TreeModuleModel>();
+        for (int i = 0; i < modulesToCreate; i++)
+        {
+            treeModules.Add(GenerateEmptyTreeModule(i, treeModules.Count > 0 ? treeModules[i == 0 ? 0 : i - 1] : null));
         }
         return treeModules;
     }
@@ -59,9 +80,25 @@ public class LevelsGenerator : MonoBehaviour
             hasBonus = Random.Range(0, 10) == 0,
             branch = new BranchModel
             {
-                spriteName = FilenameDictionary.DEFAULT_BRANCH_NAMES[randomTreeBranchIndex].BranchName,
+                spriteName = FilenameDictionary.DEFAULT_BRANCH_NAMES[Helper.SIDE_NONE].BranchName,
                 brokenBranchSpriteName = FilenameDictionary.DEFAULT_BRANCH_NAMES[randomTreeBranchIndex].BrokenBranchName,
                 side = randomBranchSide
+            }
+        };
+    }
+
+    private static TreeModuleModel GenerateEmptyTreeModule(int moduleId, TreeModuleModel previousTreeModule)
+    {
+        return new TreeModuleModel
+        {
+            spriteName = GetRandomTreeModuleName(previousTreeModule?.spriteName),
+            moduleID = moduleId,
+            hasBonus = false,
+            branch = new BranchModel
+            {
+                spriteName = FilenameDictionary.DEFAULT_BRANCH_NAMES[0].BranchName,
+                brokenBranchSpriteName = FilenameDictionary.DEFAULT_BRANCH_NAMES[0].BrokenBranchName,
+                side = Helper.SIDE_NONE
             }
         };
     }

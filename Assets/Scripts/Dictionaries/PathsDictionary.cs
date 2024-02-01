@@ -12,6 +12,7 @@ public static class PathsDictionary
     public static string UI_BUTTONS { get; } = "Textures/UI/Buttons/";
     public static string UI_OTHER { get; } = "Textures/UI/Other/";
     public static string BONUSES { get; } = "Textures/Bonuses/";
+    public static string COMICSES { get; } = "Textures/EndGameComicses/";
     #endregion
     #region PRIVATE
     private static string PLAYER { get; } = "Textures/Player/{name}/";

@@ -64,6 +64,7 @@ public class UIManager : MonoBehaviour
     public GameObject pausePanel;
     public GameObject cornerButton;
     public GameObject player;
+    public GameObject finishComicPanel;
     public Material featherMaterial;
     public Button[] levelsButtons;
     public Button infinityModeButton;
@@ -309,6 +310,31 @@ public class UIManager : MonoBehaviour
         coinPanel.SetActive(false);
         scorePanel.SetActive(false);
         endGamePanel.GetComponent<PanelAnimations>().PlayClose();
+    }
+
+    public void LoadFinishComicPanel()
+    {
+        coinPanel.SetActive(false);
+        scorePanel.SetActive(false);
+        mainMenuPanel.SetActive(false);
+        jumpSecurityPanel.SetActive(false);
+        healthStatusPanel.SetActive(false);
+        cornerButton.SetActive(false);
+
+        var characterName = PlayerHelper.CHARACTERS.Find(x => x.ID == currentSelectedCharacterId).Name.ToLower();
+
+        finishComicPanel.GetComponent<Image>().sprite
+            = Resources.Load<Sprite>(PathsDictionary.COMICSES + characterName);
+
+        finishComicPanel.SetActive(true);
+    }
+
+    public void CloseFinishComicPanel()
+    {
+        // this function will also reset the scene in animation state "exit" attached to EndGamePanel
+        coinPanel.SetActive(false);
+        scorePanel.SetActive(false);
+        finishComicPanel.GetComponent<PanelAnimations>().PlayClose();
     }
 
     public void LoadShopPanel()

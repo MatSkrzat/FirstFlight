@@ -38,8 +38,8 @@ public class LevelsGenerator : MonoBehaviour
 
     public static LevelModel GenerateEndGameLevel() => new LevelModel()
     {
-        ID = Helper.LEVELS_COUNT + 1,
-        treeModules = GenerateEndGameTreeModules(15),
+        ID = LevelsManager.currentLevel.ID + 1,
+        treeModules = GenerateEndGameTreeModules(10),
         backgroundsPath = PathsDictionary.BACKGROUND_DEFAULT,
         treeModulesPath = PathsDictionary.TREE_MODULES,
         branchesPath = PathsDictionary.TREE_MODULES_BRANCHES,

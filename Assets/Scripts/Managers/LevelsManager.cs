@@ -58,6 +58,11 @@ public class LevelsManager : MonoBehaviour
         {
             GameStateManager.UpdateLastLevelAndSaveGameState(currentLevel.ID);
         }
+        Debug.Log(currentLevel.ID.ToString() + "     " + Helper.LEVELS_COUNT);
+        if (currentLevel.ID > Helper.LEVELS_COUNT + 1)
+        {
+            GameManager.UI.LoadFinishComicPanel();
+        }
     }
 
     public static void SwitchToNextRandomLevel()

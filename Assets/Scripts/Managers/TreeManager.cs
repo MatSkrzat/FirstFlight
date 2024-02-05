@@ -108,8 +108,7 @@ public class TreeManager : MonoBehaviour
         {
             var newTreeModule = Instantiate(treeModulePrefab, positionToInstantiate, Quaternion.identity);
             var treeModuleSpriteRenderer = newTreeModule.GetComponent<SpriteRenderer>();
-
-            if(i == 0 && LevelsManager.currentLevel.ID <= Helper.LEVELS_COUNT)
+            if (i == 0 && (GameManager.IsGameRandom || LevelsManager.currentLevel.ID <= Helper.LEVELS_COUNT))
             {
                 var canvas = newTreeModule.transform.GetChild((int)TreeModuleChildren.levelCanvas).gameObject;
                 canvas.SetActive(true);

@@ -80,7 +80,7 @@ public class LevelsGenerator : MonoBehaviour
             hasBonus = Random.Range(0, 10) == 0,
             branch = new BranchModel
             {
-                spriteName = FilenameDictionary.DEFAULT_BRANCH_NAMES[Helper.SIDE_NONE].BranchName,
+                spriteName = FilenameDictionary.DEFAULT_BRANCH_NAMES[randomTreeBranchIndex].BranchName,
                 brokenBranchSpriteName = FilenameDictionary.DEFAULT_BRANCH_NAMES[randomTreeBranchIndex].BrokenBranchName,
                 side = randomBranchSide
             }

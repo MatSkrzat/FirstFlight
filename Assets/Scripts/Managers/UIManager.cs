@@ -91,6 +91,7 @@ public class UIManager : MonoBehaviour
         LoadCornerButton(FilenameDictionary.SOUND_ON_ICON);
         SelectCharacter(GameStateManager.CurrentGameState.selectedCharacterId);
         playerTrailEmmitterParticleSystem = player.transform.GetChild((int)PlayerChildren.trailEmmiter).GetComponent<ParticleSystem>();
+        currentSelectedCharacterId = GameStateManager.CurrentGameState.selectedCharacterId;
     }
 
     void OnEnable()

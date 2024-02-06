@@ -65,6 +65,7 @@ public class UIManager : MonoBehaviour
     public GameObject cornerButton;
     public GameObject player;
     public GameObject finishComicPanel;
+    public GameObject initialComicPanel;
     public Material featherMaterial;
     public Button[] levelsButtons;
     public Button infinityModeButton;
@@ -92,6 +93,13 @@ public class UIManager : MonoBehaviour
         SelectCharacter(GameStateManager.CurrentGameState.selectedCharacterId);
         playerTrailEmmitterParticleSystem = player.transform.GetChild((int)PlayerChildren.trailEmmiter).GetComponent<ParticleSystem>();
         currentSelectedCharacterId = GameStateManager.CurrentGameState.selectedCharacterId;
+
+        // play initial comic if it was not played before
+        if (!GameStateManager.CurrentGameState.wasInitialComicPlayed)
+        {
+            initialComicPanel.SetActive(true);
+            GameStateManager.SetWasInitialComicPlayerAndSave(true);
+        }
     }
 
     void OnEnable()

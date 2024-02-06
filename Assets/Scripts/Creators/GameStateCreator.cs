@@ -27,7 +27,9 @@ public class GameStateCreator : MonoBehaviour
             unlockedCharacters = new int[] { 0 },
             lastLevel = 1,
             ownedCoins = 0,
-            selectedCharacterId = (int)CharacterIds.tom
+            selectedCharacterId = (int)CharacterIds.tom,
+            highScore = 0,
+            wasInitialComicPlayed = false
         };
     }
 

@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 
 public enum CharacterChildren
@@ -8,6 +9,21 @@ public enum CharacterChildren
     closedEye,
     openedPeak,
     closedPeak
+}
+
+public enum PlayerChildren
+{
+    tom,
+    zoe,
+    philip,
+    arthur,
+    sylvie,
+    jack,
+    pinguin,
+    trailEmitter,
+    leafEmitter,
+    featherEmitter,
+    shield
 }
 
 public class PlayerManager : MonoBehaviour
@@ -26,9 +42,11 @@ public class PlayerManager : MonoBehaviour
     public static bool IsDead { get; private set; } = false;
     public static char PositionSide { get; set; } = Helper.SIDE_RIGHT;
     public static bool IsJumping { get; set; } = false;
+    public static bool IsShieldUp { get; private set; } = false;
     public static GameObject SelectedCharacterGameObject { get; private set; }
     public RuntimeAnimatorController damagedAnimatorController;
     public RuntimeAnimatorController normalAnimatorController;
+    private static int shieldTimer = 10;
 
     private void Start()
     {
@@ -115,6 +133,26 @@ public class PlayerManager : MonoBehaviour
             var character = PlayerHelper.CHARACTERS.Find(x => x.ID == GameStateManager.CurrentGameState.selectedCharacterId);
             SelectedCharacterGameObject.GetComponent<SpriteRenderer>().sprite =
                 Resources.Load<Sprite>(PathsDictionary.GetPlayerPath(character.Name) + FilenameDictionary.BODY);
+        }
+    }
+
+    public static void TurnShieldOn()
+    {
+        SelectedCharacterGameObject.transform.parent.GetChild((int)PlayerChildren.shield).gameObject.SetActive(true);
+        IsShieldUp = true;
+        shieldTimer = 10;
+        instance.InvokeRepeating("UpdateShield", 0f, 1f);
+    }
+
+    public void UpdateShield()
+    {
+        shieldTimer--;
+        SelectedCharacterGameObject.transform.parent.GetChild((int)PlayerChildren.shield).GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = shieldTimer.ToString();
+        if (shieldTimer <= 0)
+        {
+            IsShieldUp = false;
+            SelectedCharacterGameObject.transform.parent.GetChild((int)PlayerChildren.shield).GetComponent<ShieldAnimations>().PlayUnload();
+            instance.CancelInvoke("UpdateShield");
         }
     }
 

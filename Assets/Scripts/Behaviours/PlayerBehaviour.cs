@@ -47,10 +47,12 @@ public class PlayerBehaviour : MonoBehaviour
         if (side == Helper.SIDE_LEFT)
         {
             gameObject.transform.rotation = Quaternion.Euler(0F, -180F, PlayerHelper.PLAYER_Z_ROTATION);
+            transform.GetChild((int)PlayerChildren.shield).transform.rotation = Quaternion.Euler(0F, 0F, -25F);
         }
         else
         {
             gameObject.transform.rotation = Quaternion.Euler(0F, 0F, PlayerHelper.PLAYER_Z_ROTATION);
+            transform.GetChild((int)PlayerChildren.shield).transform.rotation = Quaternion.Euler(0F, 0F, -25F);
         }
     }
 
@@ -112,9 +114,12 @@ public class PlayerBehaviour : MonoBehaviour
         switch (collision.tag)
         {
             case TagsDictionary.BRANCH:
-                TreeManager.BreakModuleBranch(collision.gameObject);
-                CameraShake.Instance.ShakeCamera(4f, .5f, .07f);
-                HandlePlayerHit();
+                if (!PlayerManager.IsShieldUp)
+                {
+                    TreeManager.BreakModuleBranch(collision.gameObject);
+                    CameraShake.Instance.ShakeCamera(4f, .5f, .07f);
+                    HandlePlayerHit();
+                }
                 break;
             case TagsDictionary.COIN:
                 CoinsManager.AddCoins(1);
@@ -126,6 +131,7 @@ public class PlayerBehaviour : MonoBehaviour
                 ScoreManager.AddScoreBonus(100);
                 collision.gameObject.GetComponent<BonusBehaviour>().RemoveBonusGameObject();
                 collision.gameObject.GetComponent<BonusAnimations>().PlayCatch();
+                PlayerManager.TurnShieldOn();
                 collision.GetComponentInParent<TreeBehaviour>().ActivateBonusLabel();
                 break;
             case TagsDictionary.CARROT:

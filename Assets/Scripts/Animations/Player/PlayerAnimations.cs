@@ -15,7 +15,7 @@ public class PlayerAnimations : MonoBehaviour
         var selectedCharacterId = GameStateManager.CurrentGameState.selectedCharacterId;
         ChangeAnimatorForSelectedCharacter(gameObject.transform.GetChild(selectedCharacterId).gameObject);
         playerRigidbody2D = GetComponent<Rigidbody2D>();
-        particle = transform.GetChild((int)PlayerChildren.featherEmmiter).GetComponent<ParticleSystem>();
+        particle = transform.GetChild((int)PlayerChildren.featherEmitter).GetComponent<ParticleSystem>();
     }
 
     public static void ChangeAnimatorForSelectedCharacter(GameObject playerGameObject)

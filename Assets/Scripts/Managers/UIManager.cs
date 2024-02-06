@@ -35,19 +35,6 @@ public enum ShopPanelChildren
     icon
 }
 
-public enum PlayerChildren
-{
-    tom,
-    zoe,
-    philip,
-    arthur,
-    sylvie,
-    jack,
-    pinguin,
-    trailEmmiter,
-    featherEmmiter
-}
-
 public class UIManager : MonoBehaviour
 {
     public GameObject jumpSecurityPanel;
@@ -91,7 +78,7 @@ public class UIManager : MonoBehaviour
         LoadCoins();
         LoadCornerButton(FilenameDictionary.SOUND_ON_ICON);
         SelectCharacter(GameStateManager.CurrentGameState.selectedCharacterId);
-        playerTrailEmmitterParticleSystem = player.transform.GetChild((int)PlayerChildren.trailEmmiter).GetComponent<ParticleSystem>();
+        playerTrailEmmitterParticleSystem = player.transform.GetChild((int)PlayerChildren.trailEmitter).GetComponent<ParticleSystem>();
         currentSelectedCharacterId = GameStateManager.CurrentGameState.selectedCharacterId;
 
         // play initial comic if it was not played before
@@ -496,7 +483,7 @@ public class UIManager : MonoBehaviour
         // feather color setup by changing the particle material
         var characterName = PlayerHelper.CHARACTERS.First(x => x.ID == characterId).Name;
         var featherMaterial = Resources.Load<Material>(PathsDictionary.FEATHER_MATERIALS + characterName);
-        var particleRenderer = player.transform.GetChild((int)PlayerChildren.featherEmmiter)
+        var particleRenderer = player.transform.GetChild((int)PlayerChildren.featherEmitter)
             .GetComponent<ParticleSystem>().GetComponent<ParticleSystemRenderer>();
         particleRenderer.material = featherMaterial;
         particleRenderer.sharedMaterial = featherMaterial;

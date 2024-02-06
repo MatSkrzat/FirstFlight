@@ -103,6 +103,7 @@ public class PlayerBehaviour : MonoBehaviour
 
     private void HandlePlayerHit()
     {
+        Debug.Log("HandlePlayerHIt");
         PlayerManager.SubstractLives(1);
         PlayerAnimations.PlayHit(); 
     }
@@ -140,6 +141,8 @@ public class PlayerBehaviour : MonoBehaviour
                 collision.gameObject.GetComponent<BonusBehaviour>().RemoveBonusGameObject();
                 collision.gameObject.GetComponent<BonusAnimations>().PlayCatch();
                 collision.GetComponentInParent<TreeBehaviour>().ActivateBonusLabel();
+                PlayerManager.LoadExplosion();
+
                 break;
             case TagsDictionary.HEART:
                 PlayerManager.AddLives(1);

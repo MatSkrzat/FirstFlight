@@ -23,7 +23,8 @@ public enum PlayerChildren
     trailEmitter,
     leafEmitter,
     featherEmitter,
-    shield
+    shield,
+    explosion
 }
 
 public class PlayerManager : MonoBehaviour
@@ -46,7 +47,8 @@ public class PlayerManager : MonoBehaviour
     public static GameObject SelectedCharacterGameObject { get; private set; }
     public RuntimeAnimatorController damagedAnimatorController;
     public RuntimeAnimatorController normalAnimatorController;
-    private static int shieldTimer = 10;
+    private static int shieldTimer = 0;
+    public GameObject Explosion;
 
     private void Start()
     {
@@ -139,9 +141,18 @@ public class PlayerManager : MonoBehaviour
     public static void TurnShieldOn()
     {
         SelectedCharacterGameObject.transform.parent.GetChild((int)PlayerChildren.shield).gameObject.SetActive(true);
-        IsShieldUp = true;
         shieldTimer = 10;
-        instance.InvokeRepeating("UpdateShield", 0f, 1f);
+        SelectedCharacterGameObject.transform.parent.GetChild((int)PlayerChildren.shield).GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = shieldTimer.ToString();
+        if (!IsShieldUp)
+        {
+            instance.InvokeRepeating("UpdateShield", 0f, 1f);
+        }
+        IsShieldUp = true;
+    }
+
+    public static void LoadExplosion()
+    {
+        instance.Explosion.GetComponent<ExplosionBehaviour>().ExplodeAtPosition(SelectedCharacterGameObject.transform.parent.transform.position);
     }
 
     public void UpdateShield()
@@ -151,6 +162,7 @@ public class PlayerManager : MonoBehaviour
         if (shieldTimer <= 0)
         {
             IsShieldUp = false;
+            shieldTimer = 0;
             SelectedCharacterGameObject.transform.parent.GetChild((int)PlayerChildren.shield).GetComponent<ShieldAnimations>().PlayUnload();
             instance.CancelInvoke("UpdateShield");
         }

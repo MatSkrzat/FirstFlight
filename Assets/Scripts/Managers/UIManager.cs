@@ -52,7 +52,6 @@ public class UIManager : MonoBehaviour
     public GameObject cornerButton;
     public GameObject player;
     public GameObject finishComicPanel;
-    public GameObject initialComicPanel;
     public Material featherMaterial;
     public Button[] levelsButtons;
     public Button infinityModeButton;
@@ -80,13 +79,6 @@ public class UIManager : MonoBehaviour
         SelectCharacter(GameStateManager.CurrentGameState.selectedCharacterId);
         playerTrailEmmitterParticleSystem = player.transform.GetChild((int)PlayerChildren.trailEmitter).GetComponent<ParticleSystem>();
         currentSelectedCharacterId = GameStateManager.CurrentGameState.selectedCharacterId;
-
-        // play initial comic if it was not played before
-        if (!GameStateManager.CurrentGameState.wasInitialComicPlayed)
-        {
-            initialComicPanel.SetActive(true);
-            GameStateManager.SetWasInitialComicPlayerAndSave(true);
-        }
     }
 
     void OnEnable()
@@ -152,6 +144,7 @@ public class UIManager : MonoBehaviour
         EventSystem.current.currentSelectedGameObject == jumpSecurityPanel;
     public void StartGame(bool isInfinity, int level = 0)
     {
+        GameManager.SM.PlaySingleSound(GameManager.SM.Button);
         CloseLevelsPanel();
         endGamePanel.SetActive(false);
         mainMenuPanel.SetActive(false);
@@ -283,6 +276,7 @@ public class UIManager : MonoBehaviour
             {
                 scoreLabel.GetComponent<TextMeshProUGUI>().text = Helper.HIGHSCORE_LABEL;
                 gameObject.GetComponent<ParticleSystem>().Play();
+                GameManager.SM.PlaySingleSound(GameManager.SM.Highscore);
             }
             ScoreManager.SaveWhenNewHighscore();
             score.gameObject.SetActive(true);
@@ -526,12 +520,12 @@ public class UIManager : MonoBehaviour
         }
         else if (cornerButtonAction == FilenameDictionary.SOUND_ON_ICON)
         {
-            Debug.Log("SOUND OFF");
+            AudioListener.volume = 0;
             LoadCornerButton(FilenameDictionary.SOUND_OFF_ICON);
         }
         else
         {
-            Debug.Log("SOUND ON");
+            AudioListener.volume = 1;
             LoadCornerButton(FilenameDictionary.SOUND_ON_ICON);
         }
     }

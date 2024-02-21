@@ -311,6 +311,7 @@ public class TreeManager : MonoBehaviour
             LevelsManager.SwitchToNextLevel();
             var lastModule = treeModulesPrefabsPool.Last();
             var lastModuleCollider = lastModule.GetComponent<Collider2D>();
+            GameManager.SM.PlaySingleSoundAfterDelay(GameManager.SM.LevelUp, 4f);
             InitializeNewTreeModules(
                 new Vector2(lastModule.transform.position.x,
                     lastModule.transform.position.y - lastModuleCollider.bounds.size.y + (Time.deltaTime * LevelsManager.currentLevel.endSpeed)),

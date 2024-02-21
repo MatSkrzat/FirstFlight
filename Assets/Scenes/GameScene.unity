@@ -920,7 +920,6 @@ RectTransform:
   - {fileID: 712388854}
   - {fileID: 280786632}
   - {fileID: 853900901}
-  - {fileID: 1542478295}
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -943,7 +942,7 @@ GameObject:
   - component: {fileID: 193268869}
   m_Layer: 5
   m_Name: 0
-  m_TagString: Untagged
+  m_TagString: Button
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1381,7 +1380,7 @@ GameObject:
   - component: {fileID: 249039084}
   m_Layer: 5
   m_Name: 2
-  m_TagString: Untagged
+  m_TagString: Button
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2928,7 +2927,7 @@ GameObject:
   - component: {fileID: 455410870}
   m_Layer: 5
   m_Name: ResetGameButton
-  m_TagString: Untagged
+  m_TagString: Button
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -8133,7 +8132,7 @@ GameObject:
   - component: {fileID: 461351271}
   m_Layer: 5
   m_Name: ButtonRight
-  m_TagString: Untagged
+  m_TagString: Button
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -13597,7 +13596,7 @@ GameObject:
   - component: {fileID: 570196347}
   m_Layer: 5
   m_Name: 1
-  m_TagString: Untagged
+  m_TagString: Button
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -14151,7 +14150,7 @@ GameObject:
   - component: {fileID: 686834665}
   m_Layer: 5
   m_Name: CloseButton
-  m_TagString: Untagged
+  m_TagString: Button
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -14282,8 +14281,8 @@ GameObject:
   - component: {fileID: 712388856}
   - component: {fileID: 712388855}
   m_Layer: 5
-  m_Name: CornerButton
-  m_TagString: Untagged
+  m_Name: TopButton
+  m_TagString: Button
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -14415,7 +14414,7 @@ GameObject:
   - component: {fileID: 719000357}
   m_Layer: 5
   m_Name: 6
-  m_TagString: Untagged
+  m_TagString: Button
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -14671,7 +14670,7 @@ GameObject:
   - component: {fileID: 733639828}
   m_Layer: 5
   m_Name: ResumeButton
-  m_TagString: Untagged
+  m_TagString: Button
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -14803,7 +14802,7 @@ GameObject:
   - component: {fileID: 748353015}
   m_Layer: 5
   m_Name: ShopButton
-  m_TagString: Untagged
+  m_TagString: Button
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -15260,7 +15259,7 @@ GameObject:
   - component: {fileID: 776431244}
   m_Layer: 5
   m_Name: ReloadButton
-  m_TagString: Untagged
+  m_TagString: Button
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -16054,6 +16053,7 @@ GameObject:
   - component: {fileID: 858175238}
   - component: {fileID: 858175240}
   - component: {fileID: 858175239}
+  - component: {fileID: 858175241}
   m_Layer: 5
   m_Name: Managers
   m_TagString: Untagged
@@ -16177,7 +16177,7 @@ MonoBehaviour:
   cornerButton: {fileID: 712388853}
   player: {fileID: 317989298}
   finishComicPanel: {fileID: 853900900}
-  initialComicPanel: {fileID: 1542478294}
+  initialComicPanel: {fileID: 0}
   featherMaterial: {fileID: 2100000, guid: 300d2c50efd9c454e95b78a737ab4bb2, type: 2}
   levelsButtons:
   - {fileID: 193268869}
@@ -20998,6 +20998,30 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     vectorLabel1_3: W
+--- !u!114 &858175241
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 858175227}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 747061072bd06e949bb89c2e0658c140, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BranchBreak: {fileID: 8300000, guid: c6cb52d2a851bde46bf67d052833b9c7, type: 3}
+  Button: {fileID: 8300000, guid: 733e490389bedb140a9f88dca98bfffe, type: 3}
+  Coin: {fileID: 8300000, guid: b894b584581173d4797f542603e6c6b3, type: 3}
+  Explosion: {fileID: 8300000, guid: bf67d07fd10201741a5ef29b61384ed1, type: 3}
+  Heart: {fileID: 8300000, guid: 83e56a15e7340914989efb8badbc6443, type: 3}
+  Highscore: {fileID: 8300000, guid: 9d0939ff93747bd429e678f6ff6bd5c3, type: 3}
+  Jump: {fileID: 8300000, guid: c514eaf0fc4b6654386a00259df8e670, type: 3}
+  LevelUp: {fileID: 8300000, guid: 1eaaa3fa817350b47a6fa5282ab497f4, type: 3}
+  PlayerDeath: {fileID: 8300000, guid: 7726f9af738106a43a0c1fa451881fa8, type: 3}
+  ShieldDamage: {fileID: 8300000, guid: 2ec8257f2c8b5dc4f8fbc1b4ef7c7125, type: 3}
+  ShieldUp: {fileID: 8300000, guid: 047ee358edcda5345b0affde5194bfd5, type: 3}
+  Wind: {fileID: 8300000, guid: 2238a53a52e26e443bdce11d5ae3382a, type: 3}
 --- !u!1 &891920982
 GameObject:
   m_ObjectHideFlags: 0
@@ -21169,7 +21193,7 @@ GameObject:
   - component: {fileID: 903553584}
   m_Layer: 5
   m_Name: ButtonPlay
-  m_TagString: Untagged
+  m_TagString: Button
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -21622,7 +21646,7 @@ GameObject:
   - component: {fileID: 949502041}
   m_Layer: 5
   m_Name: 7
-  m_TagString: Untagged
+  m_TagString: Button
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -22480,138 +22504,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!1 &1029955615
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1029955616}
-  - component: {fileID: 1029955617}
-  m_Layer: 5
-  m_Name: Audio Source
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &1029955616
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1029955615}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1542478295}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!82 &1029955617
-AudioSource:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1029955615}
-  m_Enabled: 1
-  serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: e21c129aa5db96249846a5c93c4eb58b, type: 3}
-  m_PlayOnAwake: 1
-  m_Volume: 1
-  m_Pitch: 1
-  Loop: 0
-  Mute: 0
-  Spatialize: 0
-  SpatializePostEffects: 0
-  Priority: 128
-  DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 500
-  Pan2D: 0
-  rolloffMode: 0
-  BypassEffects: 0
-  BypassListenerEffects: 0
-  BypassReverbZones: 0
-  rolloffCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  panLevelCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  spreadCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  reverbZoneMixCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
 --- !u!1 &1048410401
 GameObject:
   m_ObjectHideFlags: 0
@@ -22842,7 +22734,7 @@ GameObject:
   - component: {fileID: 1079244286}
   m_Layer: 5
   m_Name: 5
-  m_TagString: Untagged
+  m_TagString: Button
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -23630,7 +23522,7 @@ GameObject:
   - component: {fileID: 1182751868}
   m_Layer: 5
   m_Name: 4
-  m_TagString: Untagged
+  m_TagString: Button
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -23827,7 +23719,7 @@ GameObject:
   - component: {fileID: 1191089510}
   m_Layer: 5
   m_Name: ButtonInfinity
-  m_TagString: Untagged
+  m_TagString: Button
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -24227,7 +24119,7 @@ GameObject:
   - component: {fileID: 1243140265}
   m_Layer: 5
   m_Name: ButtonRight
-  m_TagString: Untagged
+  m_TagString: Button
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -24441,7 +24333,7 @@ GameObject:
   - component: {fileID: 1266287010}
   m_Layer: 5
   m_Name: 8
-  m_TagString: Untagged
+  m_TagString: Button
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -29612,7 +29504,7 @@ GameObject:
   - component: {fileID: 1275159896}
   m_Layer: 5
   m_Name: ButtonReset
-  m_TagString: Untagged
+  m_TagString: Button
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -29988,7 +29880,7 @@ GameObject:
   - component: {fileID: 1304947096}
   m_Layer: 5
   m_Name: 3
-  m_TagString: Untagged
+  m_TagString: Button
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -30110,7 +30002,7 @@ GameObject:
   - component: {fileID: 1322780183}
   m_Layer: 5
   m_Name: CloseButton
-  m_TagString: Untagged
+  m_TagString: Button
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -31090,103 +30982,6 @@ Animator:
   m_Enabled: 1
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: fb0e9e6c960c1f241af76035397ae229, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
---- !u!1 &1542478294
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1542478295}
-  - component: {fileID: 1542478297}
-  - component: {fileID: 1542478296}
-  - component: {fileID: 1542478298}
-  m_Layer: 5
-  m_Name: InitialComicPanel
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &1542478295
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1542478294}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 1029955616}
-  m_Father: {fileID: 122718814}
-  m_RootOrder: 14
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -2256.086}
-  m_SizeDelta: {x: 0, y: 4512.173}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1542478296
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1542478294}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 0cf7a098c7f1af04ca75e79d2c72079b, type: 3}
-  m_Type: 0
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
---- !u!222 &1542478297
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1542478294}
-  m_CullTransparentMesh: 1
---- !u!95 &1542478298
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1542478294}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 6e48e7de449f0924db33fa3a0418f245, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -32800,7 +32595,7 @@ GameObject:
   - component: {fileID: 1854706640}
   m_Layer: 5
   m_Name: ButtonLeft
-  m_TagString: Untagged
+  m_TagString: Button
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -33260,7 +33055,7 @@ GameObject:
   - component: {fileID: 1935564717}
   m_Layer: 5
   m_Name: BuySelectButton
-  m_TagString: Untagged
+  m_TagString: Button
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -33783,7 +33578,7 @@ GameObject:
   - component: {fileID: 2065388738}
   m_Layer: 5
   m_Name: ButtonLeft
-  m_TagString: Untagged
+  m_TagString: Button
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -33997,7 +33792,7 @@ GameObject:
   - component: {fileID: 2096801382}
   m_Layer: 5
   m_Name: ReloadButton
-  m_TagString: Untagged
+  m_TagString: Button
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

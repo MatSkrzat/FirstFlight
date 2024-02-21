@@ -18,12 +18,15 @@ public class GameManager : MonoBehaviour
     public static bool IsGameStarted { get; private set; } = false;
     public static bool IsGameRandom { get; private set; } = false;
     public static UIManager UI { get; private set; }
+    public static SoundManager SM { get; private set; }
     public static Camera MainCamera { get; private set; }
 
     private void Start()
     {
         UI = gameObject.GetComponent<UIManager>();
+        SM = gameObject.GetComponent<SoundManager>();
         MainCamera = Camera.main;
+        SM.PlayLoopedSound(SM.Wind);
     }
     public static void PauseGame()
     {
@@ -138,6 +141,6 @@ public class GameManager : MonoBehaviour
         LevelsManager.SetValuesToDefault();
         ScoreManager.SetValuesToDefault();
         SetValuesToDefault();
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene("GameScene");
     }
 }

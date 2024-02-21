@@ -89,6 +89,7 @@ public class PlayerBehaviour : MonoBehaviour
         playerRigidbody.bodyType = RigidbodyType2D.Dynamic;
         playerRigidbody.gravityScale = PlayerHelper.GRAVITY_SCALE_JUMP;
         PlayerAnimations.PlayJump();
+        GameManager.SM.PlaySingleSound(GameManager.SM.Jump);
         if (side == Helper.SIDE_RIGHT)
         {
             playerRigidbody.AddForce(new Vector2(-PlayerHelper.JUMP_FORCE.x, PlayerHelper.JUMP_FORCE.y));
@@ -103,7 +104,6 @@ public class PlayerBehaviour : MonoBehaviour
 
     private void HandlePlayerHit()
     {
-        Debug.Log("HandlePlayerHIt");
         PlayerManager.SubstractLives(1);
         PlayerAnimations.PlayHit(); 
     }
@@ -120,6 +120,7 @@ public class PlayerBehaviour : MonoBehaviour
                     TreeManager.BreakModuleBranch(collision.gameObject);
                     CameraShake.Instance.ShakeCamera(4f, .5f, .07f);
                     HandlePlayerHit();
+                    GameManager.SM.PlaySingleSound(GameManager.SM.BranchBreak);
                 }
                 break;
             case TagsDictionary.COIN:
@@ -127,6 +128,7 @@ public class PlayerBehaviour : MonoBehaviour
                 collision.gameObject.GetComponent<BonusBehaviour>().RemoveBonusGameObject();
                 collision.gameObject.GetComponent<BonusAnimations>().PlayCatch();
                 collision.GetComponentInParent<TreeBehaviour>().ActivateBonusLabel();
+                GameManager.SM.PlaySingleSound(GameManager.SM.Coin);
                 break;
             case TagsDictionary.PEANUT:
                 ScoreManager.AddScoreBonus(100);
@@ -134,6 +136,7 @@ public class PlayerBehaviour : MonoBehaviour
                 collision.gameObject.GetComponent<BonusAnimations>().PlayCatch();
                 PlayerManager.TurnShieldOn();
                 collision.GetComponentInParent<TreeBehaviour>().ActivateBonusLabel();
+                GameManager.SM.PlaySingleSound(GameManager.SM.ShieldUp);
                 break;
             case TagsDictionary.CARROT:
                 ScoreManager.AddScoreBonus(50);
@@ -141,6 +144,7 @@ public class PlayerBehaviour : MonoBehaviour
                 collision.gameObject.GetComponent<BonusBehaviour>().RemoveBonusGameObject();
                 collision.gameObject.GetComponent<BonusAnimations>().PlayCatch();
                 collision.GetComponentInParent<TreeBehaviour>().ActivateBonusLabel();
+                GameManager.SM.PlaySingleSound(GameManager.SM.Explosion);
                 PlayerManager.LoadExplosion();
 
                 break;
@@ -149,6 +153,7 @@ public class PlayerBehaviour : MonoBehaviour
                 collision.gameObject.GetComponent<BonusBehaviour>().RemoveBonusGameObject();
                 collision.gameObject.GetComponent<BonusAnimations>().PlayCatch();
                 collision.GetComponentInParent<TreeBehaviour>().ActivateBonusLabel();
+                GameManager.SM.PlaySingleSound(GameManager.SM.Heart);
                 break;
             default:
                 break;

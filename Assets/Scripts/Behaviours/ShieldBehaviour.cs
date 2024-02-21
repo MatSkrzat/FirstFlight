@@ -18,6 +18,7 @@ public class ShieldBehaviour : MonoBehaviour
             case TagsDictionary.BRANCH:
                 shieldAnimations.PlayHit();
                 TreeManager.BreakModuleBranch(collision.gameObject);
+                GameManager.SM.PlaySingleSound(GameManager.SM.ShieldDamage);
                 break;
         }
     }

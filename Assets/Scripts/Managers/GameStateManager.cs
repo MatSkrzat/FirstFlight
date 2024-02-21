@@ -60,12 +60,6 @@ public class GameStateManager : MonoBehaviour
         SaveCurrentGameState();
     }
 
-    public static void SetWasInitialComicPlayerAndSave(bool value)
-    {
-        CurrentGameState.wasInitialComicPlayed = value;
-        SaveCurrentGameState();
-    }
-
     public static void LoadGameState()
     {
         try

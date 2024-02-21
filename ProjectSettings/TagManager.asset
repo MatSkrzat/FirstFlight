@@ -9,6 +9,7 @@ TagManager:
   - Peanut
   - Carrot
   - Heart
+  - Button
   layers:
   - Default
   - TransparentFX

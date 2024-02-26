@@ -317,6 +317,7 @@ public class UIManager : MonoBehaviour
             = Resources.Load<Sprite>(PathsDictionary.COMICSES + characterName);
 
         finishComicPanel.SetActive(true);
+        GameManager.SM.PlaySingleSound(GameManager.SM.Highscore);
     }
 
     public void CloseFinishComicPanel()

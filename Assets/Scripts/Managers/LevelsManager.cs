@@ -58,7 +58,7 @@ public class LevelsManager : MonoBehaviour
         {
             GameStateManager.UpdateLastLevelAndSaveGameState(currentLevel.ID);
         }
-        if (currentLevel.ID > Helper.LEVELS_COUNT + 1)
+        if (currentLevel.ID > Helper.LEVELS_COUNT + 1 && !PlayerManager.IsDead)
         {
             GameManager.UI.LoadFinishComicPanel();
         }

@@ -265,15 +265,15 @@ public class UIManager : MonoBehaviour
 
         var score = endGamePanel.transform.GetChild(0).GetChild((int)EndGamePanelChildren.scoreValueLabel);
         var scoreLabel = endGamePanel.transform.GetChild(0).GetChild((int)EndGamePanelChildren.scoreLabel);
+        scoreLabel.gameObject.SetActive(false);
 
         // show score panel
         if (ScoreManager.GetCurrentScore() != 0)
         {
-            scoreLabel.gameObject.SetActive(true);
-
             // show highscore notification
             if (ScoreManager.GetCurrentScore() > GameStateManager.CurrentGameState.highScore)
             {
+                scoreLabel.gameObject.SetActive(true);
                 scoreLabel.GetComponent<TextMeshProUGUI>().text = Helper.HIGHSCORE_LABEL;
                 gameObject.GetComponent<ParticleSystem>().Play();
                 GameManager.SM.PlaySingleSound(GameManager.SM.Highscore);

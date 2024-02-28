@@ -7,4 +7,6 @@ public static class TagsDictionary
     public const string CARROT = "Carrot";
     public const string HEART = "Heart";
     public const string BUTTON = "Button";
+    public const string BOTTOM_COLLIDER = "BottomCollider";
+    public const string TREE_MODULE = "TreeModule";
 }

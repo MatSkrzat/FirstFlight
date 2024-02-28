@@ -22,6 +22,7 @@ public class GameManager : MonoBehaviour
     public static UIManager UI { get; private set; }
     public static SoundManager SM { get; private set; }
     public static Camera MainCamera { get; private set; }
+    public static int FirstSelectedLevel { get; private set; } = 1;
 
     private void Start()
     {
@@ -104,6 +105,7 @@ public class GameManager : MonoBehaviour
 
     public static void StartGame(int level)
     {
+        FirstSelectedLevel = level;
         LevelsManager.LoadAndSetLevel(level);
         IsGameStarted = true;
         TreeManager.StartMovingTree();
@@ -111,6 +113,7 @@ public class GameManager : MonoBehaviour
         CoinsManager.SetCoins(GameStateManager.CurrentGameState.ownedCoins);
         UI.LoadCornerButton(FilenameDictionary.PAUSE_ICON);
         UI.StartPlayTrailEmmiter();
+        UI.LoadTapPanel();
     }
 
     public static void StartRandomGame()

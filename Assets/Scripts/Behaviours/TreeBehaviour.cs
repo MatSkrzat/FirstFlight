@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 public class TreeBehaviour : MonoBehaviour
 {
@@ -44,7 +44,6 @@ public class TreeBehaviour : MonoBehaviour
     {
         if (shouldMove)
         {
-            // rigidbody2d.position += speed * Time.fixedDeltaTime * Vector2.up;
             rigidbody2d.MovePosition((Vector2)transform.position + speed * Time.fixedDeltaTime * Vector2.up);
         }
     }
@@ -56,6 +55,18 @@ public class TreeBehaviour : MonoBehaviour
         {
             TreeManager.ManageTreeModules();
             createdNewTree = true;
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.tag == TagsDictionary.BOTTOM_COLLIDER && !PlayerManager.IsDead && LevelsManager.currentLevel.ID != GameManager.FirstSelectedLevel)
+        {
+            if (transform.GetChild((int)TreeModuleChildren.levelCanvas).gameObject.activeSelf == true)
+            {
+                GameManager.SM.PlaySingleSound(GameManager.SM.LevelUp);
+                GameManager.UI.PlayConfettiParticles();
+            }
         }
     }
 }

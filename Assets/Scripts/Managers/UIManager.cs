@@ -49,6 +49,7 @@ public class UIManager : MonoBehaviour
     public GameObject scorePanel;
     public GameObject countdownPanel;
     public GameObject pausePanel;
+    public GameObject tapPanel;
     public GameObject cornerButton;
     public GameObject player;
     public GameObject finishComicPanel;
@@ -70,6 +71,7 @@ public class UIManager : MonoBehaviour
     private int currentSelectedCharacterId;
 
     private int logCounter = 0;
+    private List<string> logsList = new List<string>();
 
     private void Start()
     {
@@ -249,9 +251,16 @@ public class UIManager : MonoBehaviour
         {
             debugText.GetComponent<Text>().color = Color.white;
         }
-        debugText.GetComponent<Text>().text += $"\n{logCounter}: {message}";
-        logCounter++;
-
+        logsList.Add(message);
+        if (logsList.Count > 5)
+        {
+            logsList.RemoveAt(0);
+        }
+        debugText.GetComponent<Text>().text = "";
+        foreach (var log in logsList)
+        {
+            debugText.GetComponent<Text>().text += $"\n#: {log}";
+        }
     }
 
     public void LoadEndGamePanel()
@@ -275,7 +284,7 @@ public class UIManager : MonoBehaviour
             {
                 scoreLabel.gameObject.SetActive(true);
                 scoreLabel.GetComponent<TextMeshProUGUI>().text = Helper.HIGHSCORE_LABEL;
-                gameObject.GetComponent<ParticleSystem>().Play();
+                PlayConfettiParticles();
                 GameManager.SM.PlaySingleSound(GameManager.SM.Highscore);
             }
             ScoreManager.SaveWhenNewHighscore();
@@ -349,6 +358,11 @@ public class UIManager : MonoBehaviour
         endGamePanel.SetActive(false);
         cornerButton.SetActive(true);
         shopPanel.GetComponent<PanelAnimations>().PlayClose();
+    }
+
+    public void LoadTapPanel()
+    {
+        tapPanel.SetActive(true);
     }
 
     public void LoadNextCharacter()
@@ -534,6 +548,11 @@ public class UIManager : MonoBehaviour
     public void ClosePausePanel()
     {
         pausePanel.GetComponent<PanelAnimations>().PlayClose();
+    }
+
+    public void PlayConfettiParticles()
+    {
+        gameObject.GetComponent<ParticleSystem>().Play();
     }
 
     private void FillLevelButtons(int firstLevelToLoadOnPage)

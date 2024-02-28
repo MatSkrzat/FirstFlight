@@ -45,6 +45,7 @@ public class SoundManager : MonoBehaviour
             var source = singleSoundGameObject.AddComponent<AudioSource>();
             audioSourcesPool.Add(source);
         }
+        AudioListener.volume = 0.1F;
     }
 
     public void PlaySingleSound(AudioClip sound)

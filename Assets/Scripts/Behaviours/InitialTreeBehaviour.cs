@@ -14,6 +14,11 @@ public class InitialTreeBehaviour : MonoBehaviour
     void FixedUpdate()
     {
         Move(LevelsManager.currentLevel.endSpeed);
+        
+    }
+
+    private void Update()
+    {
         DestroyIfOutOfCamera();
     }
 
@@ -25,7 +30,7 @@ public class InitialTreeBehaviour : MonoBehaviour
     private void Move(float speed)
     {
         if(shouldMove)
-            rigidbody2d.position += speed * Time.fixedDeltaTime * Vector2.up;
+            rigidbody2d.MovePosition((Vector2)transform.position + speed * Time.fixedDeltaTime * Vector2.up);
     }
 
     private void DestroyIfOutOfCamera() 

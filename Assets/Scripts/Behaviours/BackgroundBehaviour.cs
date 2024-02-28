@@ -20,6 +20,10 @@ public class BackgroundBehaviour : MonoBehaviour
     private void FixedUpdate()
     {
         Move();
+    }
+
+    private void Update()
+    {
         ManageBackgrounds();
     }
 
@@ -27,7 +31,7 @@ public class BackgroundBehaviour : MonoBehaviour
     {
         if (shouldMove)
         {
-            rigidbody2d.position += speed * Time.fixedDeltaTime * Vector2.up;
+            rigidbody2d.MovePosition((Vector2)transform.position + speed * Time.fixedDeltaTime * Vector2.up);
         }
     }
 

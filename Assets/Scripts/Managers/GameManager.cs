@@ -12,6 +12,8 @@ public class GameManager : MonoBehaviour
         {
             instance = this;
         }
+        QualitySettings.vSyncCount = 1;
+        Application.targetFrameRate = 60;
     }
     #endregion
     public static bool IsGamePaused { get; private set; } = true;

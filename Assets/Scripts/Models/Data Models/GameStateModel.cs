@@ -9,4 +9,5 @@ public class GameStateModel
     public int ownedCoins;
     public int selectedCharacterId;
     public int highScore;
+    public bool isFirstUse;
 }

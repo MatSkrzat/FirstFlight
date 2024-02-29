@@ -42,6 +42,12 @@ public class GameStateManager : MonoBehaviour
         SaveCurrentGameState();
     }
 
+    public static void SetIsFirstUseAndSave(bool isFirstUse)
+    {
+        CurrentGameState.isFirstUse = isFirstUse;
+        SaveCurrentGameState();
+    }
+
     public static void UpdateLastLevelAndSaveGameState(int level)
     {
         if (PlayerManager.IsDead) return;

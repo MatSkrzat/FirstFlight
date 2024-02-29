@@ -28,7 +28,8 @@ public class GameStateCreator : MonoBehaviour
             lastLevel = 1,
             ownedCoins = 0,
             selectedCharacterId = (int)CharacterIds.tom,
-            highScore = 0
+            highScore = 0,
+            isFirstUse = true,
         };
     }
 

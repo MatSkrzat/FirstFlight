@@ -49,6 +49,7 @@ public class UIManager : MonoBehaviour
     public GameObject scorePanel;
     public GameObject countdownPanel;
     public GameObject pausePanel;
+    public GameObject hidingPanel;
     public GameObject tapPanel;
     public GameObject cornerButton;
     public GameObject player;
@@ -70,7 +71,6 @@ public class UIManager : MonoBehaviour
     private int[] displayedLevels = new int[LEVELS_PER_SITE];
     private int currentSelectedCharacterId;
 
-    private int logCounter = 0;
     private List<string> logsList = new List<string>();
 
     private void Start()
@@ -207,6 +207,16 @@ public class UIManager : MonoBehaviour
         cornerButton.SetActive(false);
         infinityModeButton.interactable = GameStateManager.CurrentGameState.lastLevel >= LevelsManager.INFINITY_LEVEL;
         FillLevelButtons(FIRST_LEVEL);
+    }
+
+    public void LoadHidingPanelAndResetGame()
+    {
+        hidingPanel.GetComponent<HidingPanelAnimations>().PlayClose();
+    }
+
+    public void CloseHidingPanel()
+    {
+        hidingPanel.GetComponent<HidingPanelAnimations>().PlayOpen();
     }
 
     public void CloseLevelsPanel()

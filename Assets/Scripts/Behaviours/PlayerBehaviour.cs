@@ -131,7 +131,11 @@ public class PlayerBehaviour : MonoBehaviour
                 GameManager.SM.PlaySingleSound(GameManager.SM.Coin);
                 break;
             case TagsDictionary.PEANUT:
-                ScoreManager.AddScoreBonus(100);
+                if (GameManager.IsGameRandom) 
+                { 
+                    ScoreManager.AddScoreBonus(100); 
+                }
+                
                 collision.gameObject.GetComponent<BonusBehaviour>().RemoveBonusGameObject();
                 collision.gameObject.GetComponent<BonusAnimations>().PlayCatch();
                 PlayerManager.TurnShieldOn();
@@ -139,7 +143,10 @@ public class PlayerBehaviour : MonoBehaviour
                 GameManager.SM.PlaySingleSound(GameManager.SM.ShieldUp);
                 break;
             case TagsDictionary.CARROT:
-                ScoreManager.AddScoreBonus(50);
+                if (GameManager.IsGameRandom)
+                {
+                    ScoreManager.AddScoreBonus(50);
+                }
                 CoinsManager.AddCoins(20);
                 collision.gameObject.GetComponent<BonusBehaviour>().RemoveBonusGameObject();
                 collision.gameObject.GetComponent<BonusAnimations>().PlayCatch();

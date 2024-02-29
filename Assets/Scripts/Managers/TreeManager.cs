@@ -158,39 +158,29 @@ public class TreeManager : MonoBehaviour
             return;
         }
         
-        if (GameManager.IsGameRandom)
-        {
-            int randomBonus = Random.Range(0, 110);
-            if (randomBonus > 25) 
-            { 
-                return; 
-            }
-            currentTreeModule.hasBonus = true;
-            if (randomBonus == 0)
-            {
-                treeModule.transform.GetChild((int)TreeModuleChildren.peanut).gameObject.SetActive(true);
-                SetBonusLabelsForTreeModule(treeModule, (int)TreeModuleChildren.peanut);
-            } 
-            else if (randomBonus == 1)
-            {
-                treeModule.transform.GetChild((int)TreeModuleChildren.heart).gameObject.SetActive(true);
-                SetBonusLabelsForTreeModule(treeModule, (int)TreeModuleChildren.heart);
-            }
-            else if (randomBonus >= 2 && randomBonus <= 3)
-            {
-                treeModule.transform.GetChild((int)TreeModuleChildren.carrot).gameObject.SetActive(true);
-                SetBonusLabelsForTreeModule(treeModule, (int)TreeModuleChildren.carrot);
-            }
-            else
-            {
-                treeModule.transform.GetChild((int)TreeModuleChildren.coin).gameObject.SetActive(true);
-                SetBonusLabelsForTreeModule(treeModule, (int)TreeModuleChildren.coin);
-            }
+        int randomBonus = Random.Range(0, 110);
+        if (randomBonus > 25) 
+        { 
+            return; 
         }
-
-        else if (currentTreeModule.branch.side != previousTreeModule.branch.side)
+        currentTreeModule.hasBonus = true;
+        if (randomBonus == 0)
         {
-            if (Random.Range(0, 2) != 0) return;
+            treeModule.transform.GetChild((int)TreeModuleChildren.peanut).gameObject.SetActive(true);
+            SetBonusLabelsForTreeModule(treeModule, (int)TreeModuleChildren.peanut);
+        } 
+        else if (randomBonus == 1)
+        {
+            treeModule.transform.GetChild((int)TreeModuleChildren.heart).gameObject.SetActive(true);
+            SetBonusLabelsForTreeModule(treeModule, (int)TreeModuleChildren.heart);
+        }
+        else if (randomBonus >= 2 && randomBonus <= 3)
+        {
+            treeModule.transform.GetChild((int)TreeModuleChildren.carrot).gameObject.SetActive(true);
+            SetBonusLabelsForTreeModule(treeModule, (int)TreeModuleChildren.carrot);
+        }
+        else
+        {
             treeModule.transform.GetChild((int)TreeModuleChildren.coin).gameObject.SetActive(true);
             SetBonusLabelsForTreeModule(treeModule, (int)TreeModuleChildren.coin);
         }
@@ -217,12 +207,28 @@ public class TreeManager : MonoBehaviour
             case (int)TreeModuleChildren.carrot:
                 bonusPanel.GetChild((int)BonusPanelChildren.bonusIcon).GetComponent<Image>().sprite = coinSprite;
                 bonusPanel.GetChild((int)BonusPanelChildren.bonusLabel).GetComponent<TextMeshProUGUI>().text = "x 20";
-                bonusPanel.GetChild((int)BonusPanelChildren.bonusIcon2).GetComponent<Image>().sprite = scoreSprite;
-                bonusPanel.GetChild((int)BonusPanelChildren.bonusLabel2).GetComponent<TextMeshProUGUI>().text = "x 50";
+                if (GameManager.IsGameRandom)
+                {
+                    bonusPanel.GetChild((int)BonusPanelChildren.bonusIcon2).GetComponent<Image>().sprite = scoreSprite;
+                    bonusPanel.GetChild((int)BonusPanelChildren.bonusLabel2).GetComponent<TextMeshProUGUI>().text = "x 50";
+                }
+                else
+                {
+                    bonusPanel.GetChild((int)BonusPanelChildren.bonusIcon2).gameObject.SetActive(false);
+                    bonusPanel.GetChild((int)BonusPanelChildren.bonusLabel2).gameObject.SetActive(false);
+                }
                 break;
             case (int)TreeModuleChildren.peanut:
-                bonusPanel.GetChild((int)BonusPanelChildren.bonusIcon).GetComponent<Image>().sprite = scoreSprite;
-                bonusPanel.GetChild((int)BonusPanelChildren.bonusLabel).GetComponent<TextMeshProUGUI>().text = "x 100";
+                if (GameManager.IsGameRandom)
+                {
+                    bonusPanel.GetChild((int)BonusPanelChildren.bonusIcon).GetComponent<Image>().sprite = scoreSprite;
+                    bonusPanel.GetChild((int)BonusPanelChildren.bonusLabel).GetComponent<TextMeshProUGUI>().text = "x 100";
+                }
+                else
+                {
+                    bonusPanel.GetChild((int)BonusPanelChildren.bonusIcon).gameObject.SetActive(false);
+                    bonusPanel.GetChild((int)BonusPanelChildren.bonusLabel).gameObject.SetActive(false);
+                }
                 bonusPanel.GetChild((int)BonusPanelChildren.bonusIcon2).gameObject.SetActive(false);
                 bonusPanel.GetChild((int)BonusPanelChildren.bonusLabel2).gameObject.SetActive(false);
                 break;

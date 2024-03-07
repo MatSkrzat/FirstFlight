@@ -16786,6 +16786,7 @@ GameObject:
   - component: {fileID: 858175240}
   - component: {fileID: 858175239}
   - component: {fileID: 858175241}
+  - component: {fileID: 858175242}
   m_Layer: 5
   m_Name: Managers
   m_TagString: Untagged
@@ -21781,6 +21782,20 @@ MonoBehaviour:
   ShieldDamage: {fileID: 8300000, guid: 2ec8257f2c8b5dc4f8fbc1b4ef7c7125, type: 3}
   ShieldUp: {fileID: 8300000, guid: 047ee358edcda5345b0affde5194bfd5, type: 3}
   Wind: {fileID: 8300000, guid: 2238a53a52e26e443bdce11d5ae3382a, type: 3}
+--- !u!114 &858175242
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 858175227}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d40e2370c7cd23a40a1a8d04675143d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isDebugEnabled: 1
+  isLogExceptionOnlyEnabled: 0
 --- !u!1 &875974979
 GameObject:
   m_ObjectHideFlags: 0

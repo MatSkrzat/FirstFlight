@@ -6,6 +6,7 @@ public static class PathsDictionary
     public static string LEVELS { get; } = "Levels/";
     public static string PREFABS { get; } = "Prefabs/";
     public static string GAME_STATE { get; } = "GameState/";
+    public static string LOGS { get; } = "Logs/";
     public static string TREE_MODULES { get; } = "Textures/TreeModules/Default/Roots/";
     public static string TREE_MODULES_BRANCHES { get; } = "Textures/TreeModules/Default/Branches/";
     public static string UI_HEARTS { get; } = "Textures/UI/Hearts/";

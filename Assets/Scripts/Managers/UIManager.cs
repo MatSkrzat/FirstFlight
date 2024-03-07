@@ -83,22 +83,6 @@ public class UIManager : MonoBehaviour
         currentSelectedCharacterId = GameStateManager.CurrentGameState.selectedCharacterId;
     }
 
-    void OnEnable()
-    {
-        Application.logMessageReceived += LogCallback;
-    }
-
-    //Called when there is an exception
-    void LogCallback(string condition, string stackTrace, LogType type)
-    {
-        UpdateDebugText(condition, stackTrace, type);
-    }
-
-    void OnDisable()
-    {
-        Application.logMessageReceived -= LogCallback;
-    }
-
     private void AddListenersTolevelsButtons()
     {
         for(int i = 0; i < displayedLevels.Length; i++)

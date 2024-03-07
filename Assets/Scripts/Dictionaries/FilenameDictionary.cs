@@ -34,6 +34,7 @@ public static class FilenameDictionary
     #endregion
     #region game_states
     public static string GAME_STATE { get; } = "gameState";
+    public static string LOGS { get; } = "logs";
     #endregion
     #region ui
     public static string UI_HEART_RED { get; } = "heart_red";

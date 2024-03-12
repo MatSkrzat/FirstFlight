@@ -14,5 +14,5 @@ public static class Helper
     public static readonly string SCORE_LABEL = "Score";
     public static readonly int LEVELS_COUNT = 45;
     public static readonly float GAME_SPEED_START = 5F;
-    public static readonly float GAME_SPEED_END = 7F;
+    public static readonly float GAME_SPEED_END = 6.4F;
 }

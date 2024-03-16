@@ -74,7 +74,6 @@ public class TreeManager : MonoBehaviour
                 initialTreeBehaviour.StartMoving();
             }
         }
-
     }
 
     public static void UpdateModulesSpeed()
@@ -98,7 +97,8 @@ public class TreeManager : MonoBehaviour
 
     private static void InitializeNewTreeModules(Vector2 startPosition, LevelModel levelToLoad)
     {
-        if (levelToLoad?.ID == default) return;
+        if (levelToLoad == null || levelToLoad.ID == default) return;
+
         GameManager.UI.SetPlayerTrailEmmiterSpeed(PlayerManager.CalculateTrailEmmitterSpeed());
 
         var moduleSizeY = treeModulePrefab.GetComponent<BoxCollider2D>().size.y;
@@ -280,14 +280,14 @@ public class TreeManager : MonoBehaviour
 
     private static void LoadNextRandomLevel()
     {
-        bool shouldLoad = treeModulesPrefabsPool.Count < 10;
+        bool shouldLoad = treeModulesPrefabsPool.Count < 15 && !LevelsManager.isNextLevelReady;
         // Load next random level
         if (shouldLoad)
         {
             LevelsManager.LoadNextRandomLevel();
         }
 
-        bool shouldSwitch = treeModulesPrefabsPool.Count < 7;
+        bool shouldSwitch = treeModulesPrefabsPool.Count < 10 && LevelsManager.isNextLevelReady;
         // Switch to next random level
         if (shouldSwitch)
         {
@@ -310,7 +310,7 @@ public class TreeManager : MonoBehaviour
             LevelsManager.LoadNextLevel();
         }
 
-        bool shouldSwitch = treeModulesPrefabsPool.Count < 10;
+        bool shouldSwitch = treeModulesPrefabsPool.Count < 10 && LevelsManager.isNextLevelReady;
         // Switch to next level
         if (shouldSwitch)
         {

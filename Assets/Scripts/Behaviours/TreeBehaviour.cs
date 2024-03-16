@@ -60,15 +60,25 @@ public class TreeBehaviour : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.tag == TagsDictionary.BOTTOM_COLLIDER 
-            && !PlayerManager.IsDead 
-            && LevelsManager.currentLevel.ID != GameManager.FirstSelectedLevel
-            && !GameManager.IsGameRandom)
+        if (collision.tag == TagsDictionary.BOTTOM_COLLIDER)
         {
-            if (transform.GetChild((int)TreeModuleChildren.levelCanvas).gameObject.activeSelf == true)
+            if (PlayerManager.IsDead)
             {
-                GameManager.SM.PlaySingleSound(GameManager.SM.LevelUp);
-                GameManager.UI.PlayConfettiParticles();
+                return;
+            }
+            if (LevelsManager.currentLevel.ID != GameManager.FirstSelectedLevel
+                && !GameManager.IsGameRandom)
+            {
+                if (transform.GetChild((int)TreeModuleChildren.levelCanvas).gameObject.activeSelf == true)
+                {
+                    GameManager.SM.PlaySingleSound(GameManager.SM.LevelUp);
+                    GameManager.UI.PlayConfettiParticles();
+                }
+            }
+
+            if (GameManager.IsGameRandom)
+            {
+                ScoreManager.AddOneScorePoint();
             }
         }
     }

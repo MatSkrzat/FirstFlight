@@ -16,11 +16,6 @@ public class ScoreManager : MonoBehaviour
     #endregion
     private static int currentScore = 0;
 
-    public static void StartCountingScore()
-    {
-        instance.InvokeRepeating("AddOneScorePoint", 0F, 0.4F);
-    }
-
     public static void ResetScore()
     {
         currentScore = 0;
@@ -31,7 +26,7 @@ public class ScoreManager : MonoBehaviour
         return currentScore;
     }
 
-    public void AddOneScorePoint()
+    public static void AddOneScorePoint()
     {
         currentScore += 1;
         GameManager.UI.UpdateScoreAmount(currentScore);

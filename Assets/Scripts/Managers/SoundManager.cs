@@ -51,6 +51,10 @@ public class SoundManager : MonoBehaviour
     public void PlaySingleSound(AudioClip sound)
     {
         AudioSource audioSource = audioSourcesPool[GetPoolIndex()];
+        if(audioSource == null || sound == null)
+        {
+            return;
+        }
         audioSource.PlayOneShot(sound);
     }
 

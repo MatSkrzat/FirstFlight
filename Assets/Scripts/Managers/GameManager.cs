@@ -124,7 +124,6 @@ public class GameManager : MonoBehaviour
         IsGameStarted = true;
         TreeManager.StartMovingTree();
         BackgroundsManager.SetAllBackgroundsSpeedToLevelSpeed();
-        ScoreManager.StartCountingScore();
         CoinsManager.SetCoins(GameStateManager.CurrentGameState.ownedCoins);
         UI.LoadCornerButton(FilenameDictionary.PAUSE_ICON);
         UI.StartPlayTrailEmmiter();

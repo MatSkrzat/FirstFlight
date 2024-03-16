@@ -14,15 +14,17 @@ public class LevelsGenerator : MonoBehaviour
         }
     }
     #endregion
-    public static LevelModel GenerateRandomLevel(LevelModel previousLevel, float speedJump = 0.5F)
+    public static LevelModel GenerateRandomLevel(LevelModel previousLevel, float speedGap = 0.5F)
     {
         const int LEVELS_JUMP = 25;
-        const int INITIAL_LEVEL = 0;
+        const int INITIAL_RANDOM_LEVEL = 1;
+
+        // if this is the first random level to generate (no previous levels)
         if (previousLevel == default)
         {
-            return GenerateNewLevel(Helper.GAME_SPEED_START, Helper.GAME_SPEED_END, INITIAL_LEVEL, LEVELS_JUMP);
+            return GenerateNewLevel(Helper.GAME_SPEED_START, Helper.GAME_SPEED_END, INITIAL_RANDOM_LEVEL, LEVELS_JUMP);
         }
-        return GenerateNewLevel(previousLevel.endSpeed, previousLevel.endSpeed + speedJump, previousLevel.ID + LEVELS_JUMP, LEVELS_JUMP);
+        return GenerateNewLevel(previousLevel.endSpeed, previousLevel.endSpeed + speedGap, previousLevel.ID + LEVELS_JUMP, LEVELS_JUMP);
     }
 
     public static LevelModel GenerateNewLevel(float startSpeed, float endSpeed, int id = 0, int treeModulesCount = 50) => new LevelModel()

@@ -3175,7 +3175,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   createLevel: 0
-  createLevels: 1
+  createLevels: 0
 --- !u!114 &444741551
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -21794,7 +21794,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d40e2370c7cd23a40a1a8d04675143d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isDebugEnabled: 1
+  isDebugEnabled: 0
   isLogExceptionOnlyEnabled: 0
 --- !u!1 &875974979
 GameObject:
@@ -23049,7 +23049,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1001913347
 RectTransform:
   m_ObjectHideFlags: 0

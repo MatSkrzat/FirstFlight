@@ -4,7 +4,6 @@ public class PlayerBehaviour : MonoBehaviour
 {
     private Rigidbody2D playerRigidbody;
 
-
     public void Start()
     {
         playerRigidbody = gameObject.GetComponent<Rigidbody2D>();

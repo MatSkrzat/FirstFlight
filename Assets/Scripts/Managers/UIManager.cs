@@ -111,6 +111,7 @@ public class UIManager : MonoBehaviour
         {
             var heartGameObject = Instantiate(heartPrefab);
             heartGameObject.transform.SetParent(healthStatusPanel.transform);
+            heartGameObject.transform.localScale = Vector3.one;
 
             if (heartGameObjects.Count > 0)
                 heartGameObject.transform.localPosition = new Vector3(heartGameObjects.Last().transform.localPosition.x + HEART_GAMEOBJECT_SEPARATION,

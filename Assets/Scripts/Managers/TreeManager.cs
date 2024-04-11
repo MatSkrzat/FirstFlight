@@ -280,14 +280,14 @@ public class TreeManager : MonoBehaviour
 
     private static void LoadNextRandomLevel()
     {
-        bool shouldLoad = treeModulesPrefabsPool.Count < 15 && !LevelsManager.isNextLevelReady;
+        bool shouldLoad = treeModulesPrefabsPool.Count < 20 && !LevelsManager.isNextLevelReady;
         // Load next random level
         if (shouldLoad)
         {
             LevelsManager.LoadNextRandomLevel();
         }
 
-        bool shouldSwitch = treeModulesPrefabsPool.Count < 10 && LevelsManager.isNextLevelReady;
+        bool shouldSwitch = treeModulesPrefabsPool.Count < 8 && LevelsManager.isNextLevelReady;
         // Switch to next random level
         if (shouldSwitch)
         {

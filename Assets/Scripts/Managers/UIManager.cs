@@ -282,6 +282,10 @@ public class UIManager : MonoBehaviour
                 PlayConfettiParticles();
                 GameManager.SM.PlaySingleSound(GameManager.SM.Highscore);
             }
+            else
+            {
+                GameManager.SM.PlaySingleSound(GameManager.SM.PlayerDeath);
+            }
             ScoreManager.SaveWhenNewHighscore();
             score.gameObject.SetActive(true);
             score.GetComponent<TextMeshProUGUI>().text = ScoreManager.GetCurrentScore().ToString();
@@ -292,6 +296,7 @@ public class UIManager : MonoBehaviour
             score.gameObject.SetActive(false);
             endGamePanel.transform.GetChild(0).GetChild((int)EndGamePanelChildren.scoreLabel).gameObject.SetActive(false);
             endGamePanel.transform.GetChild(0).GetChild((int)EndGamePanelChildren.scoreIcon).gameObject.SetActive(false);
+            GameManager.SM.PlaySingleSound(GameManager.SM.PlayerDeath);
         }
         endGamePanel.transform.GetChild(0).GetChild((int)EndGamePanelChildren.coinValueLabel).GetComponent<TextMeshProUGUI>().text = GameStateManager.CurrentGameState.ownedCoins.ToString();
 
@@ -530,12 +535,12 @@ public class UIManager : MonoBehaviour
         }
         else if (cornerButtonAction == FilenameDictionary.SOUND_ON_ICON)
         {
-            AudioListener.volume = 0;
+            GameManager.SM.Mute();
             LoadCornerButton(FilenameDictionary.SOUND_OFF_ICON);
         }
         else
         {
-            AudioListener.volume = 1;
+            GameManager.SM.Unmute();
             LoadCornerButton(FilenameDictionary.SOUND_ON_ICON);
         }
     }

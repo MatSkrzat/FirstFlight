@@ -15,4 +15,5 @@ public static class Helper
     public static readonly int LEVELS_COUNT = 45;
     public static readonly float GAME_SPEED_START = 5F;
     public static readonly float GAME_SPEED_END = 6.4F;
+    public static readonly float GAME_DEFAULT_VOLUME = 0.15F;
 }

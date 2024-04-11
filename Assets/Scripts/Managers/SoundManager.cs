@@ -45,7 +45,7 @@ public class SoundManager : MonoBehaviour
             var source = singleSoundGameObject.AddComponent<AudioSource>();
             audioSourcesPool.Add(source);
         }
-        AudioListener.volume = 0.1F;
+        Unmute();
     }
 
     public void PlaySingleSound(AudioClip sound)
@@ -56,6 +56,16 @@ public class SoundManager : MonoBehaviour
             return;
         }
         audioSource.PlayOneShot(sound);
+    }
+
+    public void Mute()
+    {
+        AudioListener.volume = 0;
+    }
+
+    public void Unmute()
+    {
+        AudioListener.volume = Helper.GAME_DEFAULT_VOLUME;
     }
 
     public void PlaySingleSoundAfterDelay(AudioClip sound, float delayInSecs)

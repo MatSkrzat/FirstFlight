@@ -113,7 +113,6 @@ public class GameManager : MonoBehaviour
         CoinsManager.SetCoins(GameStateManager.CurrentGameState.ownedCoins);
         UI.LoadCornerButton(FilenameDictionary.PAUSE_ICON);
         UI.StartPlayTrailEmmiter();
-        UI.LoadTapPanel();
     }
 
     public static void StartRandomGame()

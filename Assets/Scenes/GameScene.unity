@@ -16840,6 +16840,7 @@ MonoBehaviour:
   - {fileID: 949502041}
   - {fileID: 1266287010}
   infinityModeButton: {fileID: 1191089510}
+  automaticChangeCharacter: 1
 --- !u!114 &858175236
 MonoBehaviour:
   m_ObjectHideFlags: 0

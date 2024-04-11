@@ -57,6 +57,7 @@ public class UIManager : MonoBehaviour
     public Material featherMaterial;
     public Button[] levelsButtons;
     public Button infinityModeButton;
+    public bool automaticChangeCharacter = false;
 
     private const float HEART_GAMEOBJECT_SEPARATION = 120F;
     private readonly int LAST_LEVEL = Helper.LEVELS_COUNT;
@@ -70,6 +71,7 @@ public class UIManager : MonoBehaviour
     private ParticleSystem playerTrailEmmitterParticleSystem;
     private int[] displayedLevels = new int[LEVELS_PER_SITE];
     private int currentSelectedCharacterId;
+    private int lastSelectedCharacterId = PlayerHelper.CHARACTERS.FirstOrDefault().ID;
 
     private List<string> logsList = new List<string>();
 
@@ -148,6 +150,10 @@ public class UIManager : MonoBehaviour
         {
             GameManager.instance.StartCoroutine(GameManager.Invoke_StartDelayedGame(4, level));
             scorePanel.SetActive(false);
+        }
+        if (automaticChangeCharacter)
+        {
+            InvokeRepeating(nameof(AutomaticChangeToDifferentCharacter), 5F, 0.6F);
         }
     }
 
@@ -476,6 +482,15 @@ public class UIManager : MonoBehaviour
     {
         TreeManager.isInfinityMode = true;
         StartGame(true);
+    }
+
+    public void AutomaticChangeToDifferentCharacter()
+    {
+        lastSelectedCharacterId = 
+            lastSelectedCharacterId == PlayerHelper.CHARACTERS.Last().ID
+            ? PlayerHelper.CHARACTERS.First().ID
+            : lastSelectedCharacterId + 1;
+        SelectCharacter(lastSelectedCharacterId);
     }
 
     public void SelectCharacter(int characterId)

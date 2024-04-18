@@ -35,26 +35,11 @@ public class TreeBehaviour : MonoBehaviour
         Move();
     }
 
-    private void Update()
-    {
-        ManageTrees();
-    }
-
     private void Move()
     {
         if (shouldMove)
         {
             rigidbody2d.MovePosition((Vector2)transform.position + speed * Time.fixedDeltaTime * Vector2.up);
-        }
-    }
-
-    private void ManageTrees()
-    {
-        if (transform.position.y >= TreeManager.NEW_TREE_MODULE_INIT_POSITION.y
-            && !createdNewTree)
-        {
-            TreeManager.ManageTreeModules();
-            createdNewTree = true;
         }
     }
 

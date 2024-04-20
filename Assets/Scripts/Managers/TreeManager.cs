@@ -36,8 +36,9 @@ public class TreeManager : MonoBehaviour
         }
     }
     #endregion
-    public static List<GameObject> treeModulesPool = new List<GameObject>(15);
-    public static List<TreeBehaviour> treeModulesBehaviourPool = new List<TreeBehaviour>(15);
+    public static List<GameObject> treeModulesPool;
+    public static List<TreeBehaviour> treeBehavioresPool;
+    public static List<SpriteRenderer> treeSpritesPool;
     public static GameObject treeModulePrefab;
     public static GameObject initialTree;
     public static readonly Vector2 INITIALIZE_POSITION = new Vector2(0F, -8.3F);
@@ -47,8 +48,9 @@ public class TreeManager : MonoBehaviour
     private static Sprite coinSprite;
     private static Sprite heartSprite;
     private static Sprite scoreSprite;
-    private static int treeModulesPoolIndex = 0;
+    private static int treeModulesPoolIndex;
     private static TreeBehaviour lastTreeModuleBehaviour;
+    private static int moduleToLoadId;
 
 
     public void Start()
@@ -62,11 +64,18 @@ public class TreeManager : MonoBehaviour
             PathsDictionary.GetFullPath(PathsDictionary.UI_HEARTS, FilenameDictionary.UI_HEART_RED));
         scoreSprite = Resources.Load<Sprite>(
             PathsDictionary.GetFullPath(PathsDictionary.UI_OTHER, FilenameDictionary.STAR));
+        treeModulesPool = new List<GameObject>(15);
+        treeBehavioresPool = new List<TreeBehaviour>(15);
+        treeSpritesPool = new List<SpriteRenderer>(15);
+        treeModulesPoolIndex = 0;
+        moduleToLoadId = 0;
         for(int i = 0; i < treeModulesPool.Capacity; i++)
         {
-            var module = Instantiate(treeModulePrefab, NEW_TREE_MODULE_INIT_POSITION, Quaternion.identity);
+            var module = Instantiate(treeModulePrefab, INITIALIZE_POSITION, Quaternion.identity);
+            module.SetActive(false);
             treeModulesPool.Add(module);
-            treeModulesBehaviourPool.Add(module.GetComponent<TreeBehaviour>());
+            treeBehavioresPool.Add(module.GetComponent<TreeBehaviour>());
+            treeSpritesPool.Add(module.GetComponent<SpriteRenderer>());
         }
     }
 
@@ -85,10 +94,10 @@ public class TreeManager : MonoBehaviour
             return;
         }
 
-        if (LevelsManager.currentLevel.treeModules.Count < lastTreeModuleBehaviour.moduleId + 1) return;
+        if (LevelsManager.currentLevel.treeModules.Count < moduleToLoadId) return;
         if (lastTreeModuleBehaviour.gameObject.transform.position.y <= NEW_TREE_MODULE_INIT_POSITION.y) return;
 
-        InstantiateNewTreeModule(LevelsManager.currentLevel.treeModules[lastTreeModuleBehaviour.moduleId + 1], new Vector2(0, lastTreeModuleBehaviour.transform.position.y - 2.8F));
+        InstantiateNewTreeModule(LevelsManager.currentLevel.treeModules[moduleToLoadId], new Vector2(0, lastTreeModuleBehaviour.transform.position.y - 2.8F));
     }
 
     public static void StartMovingTree()
@@ -115,9 +124,13 @@ public class TreeManager : MonoBehaviour
 
     private static void InstantiateNewTreeModule(TreeModuleModel treeModuleModel, Vector2 positionToInstantiate)
     {
-        var newTreeModule = treeModulesPool[treeModulesPoolIndex];
-        var treeBehaviour = treeModulesBehaviourPool[treeModulesPoolIndex];
-        newTreeModule.transform.position = positionToInstantiate;
+        var treeModule = treeModulesPool[treeModulesPoolIndex];
+        var treeBehaviour = treeBehavioresPool[treeModulesPoolIndex];
+        var treeSprite = treeSpritesPool[treeModulesPoolIndex];
+        CleanModuleToUseAgain(treeModule);
+        treeBehaviour.CleanBehaviour();
+        treeModule.transform.position = positionToInstantiate;
+        treeModule.SetActive(true);
         if (GameManager.IsGameStarted)
         {
             treeBehaviour.StartMoving();
@@ -126,28 +139,27 @@ public class TreeManager : MonoBehaviour
         treeBehaviour.ChangeSpeed(LevelsManager.currentLevel.endSpeed);
 
         //adding level number to the first module
-        if (treeModuleModel.moduleID == 0 && (GameManager.IsGameRandom || LevelsManager.currentLevel.ID <= Helper.LEVELS_COUNT))
+        if (treeModuleModel.moduleID == 0
+            && (GameManager.IsGameRandom || LevelsManager.currentLevel.ID <= Helper.LEVELS_COUNT))
         {
-            var canvas = newTreeModule.transform.GetChild((int)TreeModuleChildren.levelCanvas).gameObject;
+            var canvas = treeModule.transform.GetChild((int)TreeModuleChildren.levelCanvas).gameObject;
             canvas.SetActive(true);
-            canvas.transform.GetChild(0).gameObject.GetComponent<TextMeshProUGUI>().text = LevelsManager.currentLevel.ID.ToString();
+            canvas.transform.GetChild(0).gameObject.GetComponent<TextMeshProUGUI>().text
+                = LevelsManager.currentLevel.ID.ToString();
         }
 
         //loading tree module sprite
-        var treeModuleSpriteRenderer = newTreeModule.GetComponent<SpriteRenderer>();
-        treeModuleSpriteRenderer.sprite = LoadSprite(
+        treeSprite.sprite = LoadSprite(
             LevelsManager.currentLevel.treeModulesPath,
             LevelsManager.currentLevel.treeModules[treeModuleModel.moduleID].spriteName
         );
-        treeModuleSpriteRenderer.flipX = LevelsManager.currentLevel.treeModules[treeModuleModel.moduleID].flipX;
+        treeSprite.flipX = LevelsManager.currentLevel.treeModules[treeModuleModel.moduleID].flipX;
 
         treeBehaviour.moduleId = treeModuleModel.moduleID;
 
-        SetupBonusesForTreeModule(newTreeModule, LevelsManager.currentLevel.treeModules, treeModuleModel.moduleID);
-        SetupBranchForTreeModule(newTreeModule, treeModuleModel.moduleID);
-        treeModulesPool[treeModulesPoolIndex] = newTreeModule;
-        Debug.Log(treeModulesPool.Capacity);
-        Debug.Log(treeModulesPoolIndex);
+        SetupBonusesForTreeModule(treeModule, LevelsManager.currentLevel.treeModules, treeModuleModel.moduleID);
+        SetupBranchForTreeModule(treeModule, treeModuleModel.moduleID);
+        treeModulesPool[treeModulesPoolIndex] = treeModule;
         if (treeModulesPoolIndex < treeModulesPool.Capacity - 1)
         {
             treeModulesPoolIndex++;
@@ -156,9 +168,27 @@ public class TreeManager : MonoBehaviour
         {
             treeModulesPoolIndex = 0;
         }
-
+        moduleToLoadId++;
         lastTreeModuleBehaviour = treeBehaviour;
-    } 
+    }
+
+    private static void CleanModuleToUseAgain(GameObject treeModule)
+    {
+        var branch = treeModule.transform.GetChild((int)TreeModuleChildren.branch).gameObject;
+        var brokenBranch = treeModule.transform.GetChild((int)TreeModuleChildren.brokenBranch).gameObject;
+        branch.SetActive(false);
+        branch.GetComponent<SpriteRenderer>().flipX = false;
+        branch.transform.localPosition = new Vector2(-1.72F, 0);
+        brokenBranch.SetActive(false);
+        brokenBranch.GetComponent<SpriteRenderer>().flipX = false;
+        brokenBranch.transform.localPosition = new Vector2(-1.115F, -0.6F);
+        treeModule.transform.GetChild((int)TreeModuleChildren.coin).gameObject.SetActive(false);
+        treeModule.transform.GetChild((int)TreeModuleChildren.peanut).gameObject.SetActive(false);
+        treeModule.transform.GetChild((int)TreeModuleChildren.carrot).gameObject.SetActive(false);
+        treeModule.transform.GetChild((int)TreeModuleChildren.heart).gameObject.SetActive(false);
+        treeModule.transform.GetChild((int)TreeModuleChildren.levelCanvas).gameObject.SetActive(false);
+        treeModule.transform.GetChild((int)TreeModuleChildren.bonusCanvas).gameObject.SetActive(false);
+    }
 
     private static void SetupBonusesForTreeModule(GameObject treeModule, List<TreeModuleModel> treeModules, int currentModuleID)
     {
@@ -319,11 +349,12 @@ public class TreeManager : MonoBehaviour
             LevelsManager.LoadNextLevel();
         }
 
-        bool shouldSwitch = LevelsManager.currentLevel.treeModules.Last().moduleID - lastTreeModuleBehaviour.moduleId < 10
+        bool shouldSwitch = LevelsManager.currentLevel.treeModules.Last().moduleID - lastTreeModuleBehaviour.moduleId < 1
             && LevelsManager.isNextLevelReady;
         // Switch to next level
         if (shouldSwitch)
         {
+            moduleToLoadId = 0;
             LevelsManager.SwitchToNextLevel();
             UpdateModulesSpeed();
         }
@@ -370,7 +401,11 @@ public class TreeManager : MonoBehaviour
 
     public static void SetValuesToDefault()
     {
-        treeModulesPool = new List<GameObject>();
+        treeModulesPool = new List<GameObject>(15);
+        treeBehavioresPool = new List<TreeBehaviour>(15);
+        treeSpritesPool = new List<SpriteRenderer>(15);
+        treeModulesPoolIndex = 0;
+        moduleToLoadId = 0;
         treeModulePrefab = null;
         isInfinityMode = false;
     }

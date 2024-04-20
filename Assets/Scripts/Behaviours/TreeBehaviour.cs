@@ -4,7 +4,6 @@ public class TreeBehaviour : MonoBehaviour
 {
     public int moduleId = 0;
     private float speed;
-    private bool createdNewTree = false;
     public bool shouldMove = false;
     private Rigidbody2D rigidbody2d;
 
@@ -41,6 +40,14 @@ public class TreeBehaviour : MonoBehaviour
         {
             rigidbody2d.MovePosition((Vector2)transform.position + speed * Time.fixedDeltaTime * Vector2.up);
         }
+    }
+
+    public void CleanBehaviour()
+    {
+        shouldMove = false;
+        transform.GetChild((int)TreeModuleChildren.bonusCanvas).gameObject.SetActive(false);
+        moduleId = 0;
+        speed = 0;
     }
 
     private void OnTriggerExit2D(Collider2D collision)

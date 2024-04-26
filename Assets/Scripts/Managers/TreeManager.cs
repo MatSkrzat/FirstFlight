@@ -44,6 +44,8 @@ public class TreeManager : MonoBehaviour
     public static readonly Vector2 INITIALIZE_POSITION = new Vector2(0F, -8.3F);
     public static readonly Vector2 DESTRUCTION_POSITION = new Vector2(0F, 10F);
     public static readonly Vector2 NEW_TREE_MODULE_INIT_POSITION = new Vector2(0, INITIALIZE_POSITION.y + 2.8F);
+    public static readonly Vector2 BRANCH_DEFAULT_POSITION = new Vector2(-1.72F, 0);
+    public static readonly Vector2 BROKEN_BRANCH_DEFAULT_POSITION = new Vector2(-1.115F, -0.6F);
     public static bool isInfinityMode = false;
     private static Sprite coinSprite;
     private static Sprite heartSprite;
@@ -176,12 +178,15 @@ public class TreeManager : MonoBehaviour
     {
         var branch = treeModule.transform.GetChild((int)TreeModuleChildren.branch).gameObject;
         var brokenBranch = treeModule.transform.GetChild((int)TreeModuleChildren.brokenBranch).gameObject;
+
         branch.SetActive(false);
         branch.GetComponent<SpriteRenderer>().flipX = false;
-        branch.transform.localPosition = new Vector2(-1.72F, 0);
+        branch.transform.localPosition = BRANCH_DEFAULT_POSITION;
+
         brokenBranch.SetActive(false);
         brokenBranch.GetComponent<SpriteRenderer>().flipX = false;
-        brokenBranch.transform.localPosition = new Vector2(-1.115F, -0.6F);
+        brokenBranch.transform.localPosition = BROKEN_BRANCH_DEFAULT_POSITION;
+
         treeModule.transform.GetChild((int)TreeModuleChildren.coin).gameObject.SetActive(false);
         treeModule.transform.GetChild((int)TreeModuleChildren.peanut).gameObject.SetActive(false);
         treeModule.transform.GetChild((int)TreeModuleChildren.carrot).gameObject.SetActive(false);
